@@ -4,7 +4,7 @@ Projeto da Aula 04 com Spring Boot, Spring Data JPA, PostgreSQL e Flyway.
 
 ## Requisitos
 
-- Java 21 ou superior
+- Java 25 ou superior
 - Docker Desktop
 
 ## Executar
