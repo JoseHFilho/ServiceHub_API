@@ -18,6 +18,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -67,7 +69,7 @@ class UserControllerIntegrationTests {
         mockMvc.perform(put("/api/users/{id}", savedUser.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"fullName":"Maria Souza Silva","email":"maria@servicehub.com"}
+                                {"fullName":"Maria Souza Silva","email":"maria@servicehub.com","password":"nova-senha123"}
                                 """))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.fullName").value("Maria Souza Silva"));
@@ -119,6 +121,62 @@ class UserControllerIntegrationTests {
     void returnsTheHelloMessageWithCorrectEncoding() throws Exception {
         mockMvc.perform(get("/api/hello"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").value("ServiceHub API está no ar! 🚀"));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value("ServiceHub API está no ar! 🚀"))
+                .andExpect(jsonPath("$.status").value("OK"));
+    }
+
+    @Test
+    void preservesOmittedFieldsOnPatchAndRejectsIncompletePut() throws Exception {
+        mockMvc.perform(post("/api/users").contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {"fullName":"Ana Silva","email":"ana.patch@example.com","password":"senha123"}
+                        """))
+                .andExpect(status().isCreated());
+        User user = userRepository.findByEmail("ana.patch@example.com").orElseThrow();
+        String originalHash = user.getPasswordHash();
+        mockMvc.perform(patch("/api/users/{id}", user.getId()).contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {"fullName":"Ana Souza"}
+                        """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.fullName").value("Ana Souza"))
+                .andExpect(jsonPath("$.email").value("ana.patch@example.com"));
+        assertThat(userRepository.findById(user.getId()).orElseThrow().getPasswordHash()).isEqualTo(originalHash);
+
+        mockMvc.perform(put("/api/users/{id}", user.getId()).contentType(MediaType.APPLICATION_JSON)
+                .content("{\"fullName\":\"Ana\"}"))
+                .andExpect(status().isBadRequest());
+        mockMvc.perform(patch("/api/users/{id}", user.getId()).contentType(MediaType.APPLICATION_JSON).content("{}"))
+                .andExpect(status().isBadRequest());
+        mockMvc.perform(patch("/api/users/{id}", user.getId()).contentType(MediaType.APPLICATION_JSON)
+                .content("{\"fullName\":\" \"}"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void returnsNotFoundForAllItemOperations() throws Exception {
+        long absent = Long.MAX_VALUE;
+        mockMvc.perform(get("/api/users/{id}", absent)).andExpect(status().isNotFound());
+        mockMvc.perform(delete("/api/users/{id}", absent)).andExpect(status().isNotFound());
+        mockMvc.perform(put("/api/users/{id}", absent).contentType(MediaType.APPLICATION_JSON)
+                .content("{\"fullName\":\"Nome\",\"email\":\"nome@example.com\",\"password\":\"senha123\"}"))
+                .andExpect(status().isNotFound());
+        mockMvc.perform(patch("/api/users/{id}", absent).contentType(MediaType.APPLICATION_JSON)
+                .content("{\"fullName\":\"Nome\"}"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void rejectsMissingRequiredFieldsAndUnsupportedContentType() throws Exception {
+        for (String body : new String[]{"{}", "{\"fullName\":\"Maria\"}",
+                "{\"fullName\":\"Maria\",\"email\":\"maria@example.com\"}"}) {
+            mockMvc.perform(post("/api/users").contentType(MediaType.APPLICATION_JSON).content(body))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.status").value(400))
+                    .andExpect(jsonPath("$.path").value("/api/users"));
+        }
+        mockMvc.perform(post("/api/users").contentType(MediaType.TEXT_PLAIN).content("invalid"))
+                .andExpect(status().isUnsupportedMediaType());
     }
 }

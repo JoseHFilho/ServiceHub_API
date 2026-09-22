@@ -1,0 +1,176 @@
+{
+  "timestamp": "2026-09-22T17:14:10.7757858-03:00",
+  "baseUrl": "http://localhost:8080",
+  "total": 24,
+  "passed": 24,
+  "checks": [
+    {
+      "test": "Saúde com banco",
+      "method": "GET",
+      "path": "/actuator/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "test": "Mensagem em JSON",
+      "method": "GET",
+      "path": "/api/hello",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "test": "Status da aplicação",
+      "method": "GET",
+      "path": "/api/status",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "test": "Swagger UI com redirecionamento",
+      "method": "GET",
+      "path": "/swagger-ui.html",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "test": "Documento OpenAPI",
+      "method": "GET",
+      "path": "/v3/api-docs",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "test": "Criar usuário",
+      "method": "POST",
+      "path": "/api/users",
+      "status": 201,
+      "passed": true
+    },
+    {
+      "test": "E-mail duplicado",
+      "method": "POST",
+      "path": "/api/users",
+      "status": 409,
+      "passed": true
+    },
+    {
+      "test": "Consultar usuário persistido",
+      "method": "GET",
+      "path": "/api/users/3",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "test": "Listar usuários",
+      "method": "GET",
+      "path": "/api/users",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "test": "Substituição completa",
+      "method": "PUT",
+      "path": "/api/users/3",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "test": "Atualização parcial",
+      "method": "PATCH",
+      "path": "/api/users/3",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "test": "PUT incompleto",
+      "method": "PUT",
+      "path": "/api/users/3",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "test": "PATCH vazio",
+      "method": "PATCH",
+      "path": "/api/users/3",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "test": "PATCH com nome em branco",
+      "method": "PATCH",
+      "path": "/api/users/3",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "test": "Campos obrigatórios ausentes",
+      "method": "POST",
+      "path": "/api/users",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "test": "E-mail inválido",
+      "method": "POST",
+      "path": "/api/users",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "test": "JSON malformado",
+      "method": "POST",
+      "path": "/api/users",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "test": "Identificador inválido",
+      "method": "GET",
+      "path": "/api/users/abc",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "test": "Tipo de conteúdo inválido",
+      "method": "POST",
+      "path": "/api/users",
+      "status": 415,
+      "passed": true
+    },
+    {
+      "test": "Excluir usuário",
+      "method": "DELETE",
+      "path": "/api/users/3",
+      "status": 204,
+      "passed": true
+    },
+    {
+      "test": "Consultar ID removido",
+      "method": "GET",
+      "path": "/api/users/3",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "test": "Excluir ID inexistente",
+      "method": "DELETE",
+      "path": "/api/users/3",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "test": "PUT em ID inexistente",
+      "method": "PUT",
+      "path": "/api/users/3",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "test": "PATCH em ID inexistente",
+      "method": "PATCH",
+      "path": "/api/users/3",
+      "status": 404,
+      "passed": true
+    }
+  ]
+}
