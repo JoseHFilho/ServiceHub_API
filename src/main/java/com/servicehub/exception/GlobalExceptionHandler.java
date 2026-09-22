@@ -1,6 +1,7 @@
 package com.servicehub.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -38,6 +39,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> handleUnsupportedMediaType(HttpServletRequest request) {
         return buildError(HttpStatus.UNSUPPORTED_MEDIA_TYPE,
                 "O tipo de conteúdo enviado não é suportado.", request.getRequestURI());
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiError> handleIntegrityConflict(HttpServletRequest request) {
+        return buildError(HttpStatus.CONFLICT,
+                "A operação conflita com um registro existente ou com dados vinculados.", request.getRequestURI());
     }
 
     private ResponseEntity<ApiError> buildError(HttpStatus status, String message, String path) {

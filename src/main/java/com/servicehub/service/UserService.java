@@ -4,6 +4,7 @@ import com.servicehub.exception.EmailAlreadyExistsException;
 import com.servicehub.exception.ResourceNotFoundException;
 import com.servicehub.model.User;
 import com.servicehub.model.dto.UserDTO;
+import com.servicehub.model.dto.UserPatchDTO;
 import com.servicehub.repository.UserRepository;
 import com.servicehub.security.PasswordHashService;
 import org.springframework.stereotype.Service;
@@ -56,22 +57,38 @@ public class UserService {
     public User updateUser(Long id, UserDTO dto) {
         requireDto(dto);
         User user = findById(id);
+        requireText(dto.getFullName(), "O nome completo é obrigatório.");
+        requireText(dto.getEmail(), "O e-mail é obrigatório.");
+        requireText(dto.getPassword(), "A senha é obrigatória.");
+        return applyChanges(user, dto.getFullName(), dto.getEmail(), dto.getPassword());
+    }
 
-        if (dto.getFullName() != null && !dto.getFullName().isBlank()) {
-            String fullName = dto.getFullName().trim();
+    public User patchUser(Long id, UserPatchDTO dto) {
+        User user = findById(id);
+        if (dto == null || (dto.fullName() == null && dto.email() == null && dto.password() == null)) {
+            throw new IllegalArgumentException("Informe ao menos um campo para atualizar.");
+        }
+        return applyChanges(user, dto.fullName(), dto.email(), dto.password());
+    }
+
+    private User applyChanges(User user, String nameInput, String emailInput, String passwordInput) {
+        if (nameInput != null) {
+            requireText(nameInput, "O nome completo é obrigatório.");
+            String fullName = nameInput.trim();
             validateFullName(fullName);
             user.setFullName(fullName);
         }
-        if (dto.getEmail() != null && !dto.getEmail().isBlank()) {
-            String email = normalizeEmail(dto.getEmail());
+        if (emailInput != null) {
+            requireText(emailInput, "O e-mail é obrigatório.");
+            String email = normalizeEmail(emailInput);
             validateEmail(email);
             if (!email.equals(user.getEmail()) && userRepository.existsByEmail(email)) {
                 throw new EmailAlreadyExistsException("E-mail já cadastrado.");
             }
             user.setEmail(email);
         }
-        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
-            user.setPasswordHash(passwordHashService.hash(dto.getPassword()));
+        if (passwordInput != null) {
+            user.setPasswordHash(passwordHashService.hash(passwordInput));
         }
 
         return userRepository.save(user);

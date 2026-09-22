@@ -1,0 +1,58 @@
+[
+  {
+    "suite": "com.servicehub.controller.HelloControllerTest",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "suite": "com.servicehub.MigrationIntegrationTests",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "suite": "com.servicehub.OpenApiIntegrationTests",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "suite": "com.servicehub.RepositoryIntegrationTests",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "suite": "com.servicehub.security.PasswordHashServiceTest",
+    "tests": 3,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "suite": "com.servicehub.service.UserServiceTest",
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "suite": "com.servicehub.ServicehubApiApplicationTests",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "suite": "com.servicehub.UserControllerIntegrationTests",
+    "tests": 7,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+]

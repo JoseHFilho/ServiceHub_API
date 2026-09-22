@@ -105,7 +105,7 @@ class UserServiceTest {
     }
 
     @Test
-    void updatesOnlyProvidedFields() {
+    void replacesAllEditableFields() {
         User user = new User();
         user.setFullName("Nome antigo");
         user.setEmail("old@example.com");
@@ -127,7 +127,7 @@ class UserServiceTest {
     void rejectsEmailConflictDuringUpdate() {
         User user = new User();
         user.setEmail("old@example.com");
-        UserDTO dto = dto(null, "new@example.com", null);
+        UserDTO dto = dto("Nome completo", "new@example.com", "senha123");
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(userRepository.existsByEmail("new@example.com")).thenReturn(true);
 

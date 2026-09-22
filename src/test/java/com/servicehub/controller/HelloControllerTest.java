@@ -9,11 +9,12 @@ class HelloControllerTest {
 
     @Test
     void returnsHelloMessage() {
-        assertThat(controller.hello()).isEqualTo("ServiceHub API está no ar! 🚀");
+        assertThat(controller.hello().message()).isEqualTo("ServiceHub API está no ar! 🚀");
     }
 
     @Test
     void returnsApiStatus() {
-        assertThat(controller.status()).isEqualTo("OK - v1.0");
+        assertThat(controller.status().status()).isEqualTo("OK");
+        assertThat(controller.status().version()).isEqualTo("1.0.0");
     }
 }
