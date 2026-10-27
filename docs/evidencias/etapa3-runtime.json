@@ -1,0 +1,14 @@
+{
+  "profile": "prod",
+  "database": "PostgreSQL 15.19",
+  "packagedJar": true,
+  "health": "UP",
+  "httpChecks": 25,
+  "httpPassed": 25,
+  "fixtureLogicallyDeactivated": true,
+  "tokenRejectedAfterDeactivation": 401,
+  "authentication": "Bearer JWT",
+  "cookiesUsedForAuthentication": false,
+  "container": "servicehub-v5-test-e540acf28994457cbe9f577c48137e80",
+  "originalDatabaseAccessed": false
+}

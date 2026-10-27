@@ -1,0 +1,20 @@
+{
+  "originalContainers": 8,
+  "missingOriginalContainers": 0,
+  "volumesBefore": 6,
+  "volumesAfter": 6,
+  "volumeNameChanges": 0,
+  "originalServiceHubContainer": "exited",
+  "newTestContainers": [
+    {
+      "name": "servicehub-v5-test-e540acf28994457cbe9f577c48137e80",
+      "database": "PostgreSQL 15.19",
+      "mounts": "tmpfs:/var/lib/postgresql/data"
+    },
+    {
+      "name": "servicehub-v5-test-b914fa4e02ec400299a27c37cc5d8bbe",
+      "database": "PostgreSQL 16.14",
+      "mounts": "tmpfs:/var/lib/postgresql/data"
+    }
+  ]
+}

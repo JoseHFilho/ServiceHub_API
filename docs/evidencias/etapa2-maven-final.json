@@ -1,0 +1,152 @@
+{
+  "stage": 2,
+  "database": "H2 2.4.240",
+  "command": ".\\mvnw.cmd -o clean verify",
+  "result": "BUILD SUCCESS",
+  "finishedAt": "2026-10-27T10:34:25-03:00",
+  "javaRuntime": "26.0.2.1",
+  "javaRelease": 25,
+  "springBoot": "4.1.1",
+  "springSecurity": "7.1.1",
+  "tests": 92,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "originalChecksPreserved": 44,
+  "newChecks": 48,
+  "postgresExecutedThisStage": false,
+  "jarGenerated": true,
+  "migrations": [
+    {
+      "name": "V1__Create_users_table.sql",
+      "sha256": "C023C398460689C5C60FADF9F69684588E7243078891F88C1AE1F93536508F99"
+    },
+    {
+      "name": "V2__Create_services_table.sql",
+      "sha256": "6660775A1B9D6972205C15A1E45AA3E1305F707EB182CCCF6AA8541F733670D6"
+    },
+    {
+      "name": "V3__Create_service_requests_table.sql",
+      "sha256": "F44A304B7C35ED609C6ABEF30E6A26715F5F1A1C7DED13DE1D03BF40234B3731"
+    },
+    {
+      "name": "V4__Create_reviews_table.sql",
+      "sha256": "64C140B4B38143D6C648B8581DDB0F0B3FC2A11018ABDB0893AF8C04444F0C70"
+    }
+  ],
+  "v5Sha256": "CFD5197524AEFF45101F541536BFC791103B9945B93E13C5146336167CF97F79",
+  "suites": [
+    {
+      "name": "com.servicehub.controller.HelloControllerTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.251
+    },
+    {
+      "name": "com.servicehub.DeactivationIntegrationTests",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 13.625
+    },
+    {
+      "name": "com.servicehub.MigrationIntegrationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.029
+    },
+    {
+      "name": "com.servicehub.OpenApiIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.857
+    },
+    {
+      "name": "com.servicehub.RepositoryIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.115
+    },
+    {
+      "name": "com.servicehub.SchemaUpgradeTests",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.203
+    },
+    {
+      "name": "com.servicehub.security.CsrfAndSessionIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 3.533
+    },
+    {
+      "name": "com.servicehub.security.DatabaseUserDetailsServiceTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.353
+    },
+    {
+      "name": "com.servicehub.security.PasswordHashServiceTest",
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.517
+    },
+    {
+      "name": "com.servicehub.security.ProductionSecurityIntegrationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.599
+    },
+    {
+      "name": "com.servicehub.security.SecurityIntegrationTests",
+      "tests": 32,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 8.736
+    },
+    {
+      "name": "com.servicehub.service.UserServiceTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.51
+    },
+    {
+      "name": "com.servicehub.ServicehubApiApplicationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.025
+    },
+    {
+      "name": "com.servicehub.UserControllerIntegrationTests",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.308
+    }
+  ]
+}

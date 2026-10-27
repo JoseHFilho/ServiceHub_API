@@ -12,6 +12,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.security.test.context.support.WithMockUser;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -26,7 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ActiveProfiles("test")
 @Transactional
-class UserControllerIntegrationTests {
+@WithMockUser(roles = "ADMIN")
+class UserControllerIntegrationTests extends com.servicehub.JwtTestSupport {
 
     @Autowired
     private WebApplicationContext context;
@@ -38,7 +41,8 @@ class UserControllerIntegrationTests {
 
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity())
+                .defaultRequest(get("/")).build();
     }
 
     @Test
@@ -56,7 +60,7 @@ class UserControllerIntegrationTests {
                 .andExpect(jsonPath("$.passwordHash").doesNotExist());
 
         User savedUser = userRepository.findByEmail("maria@servicehub.com").orElseThrow();
-        assertThat(savedUser.getPasswordHash()).startsWith("pbkdf2$").doesNotContain("senha123");
+        assertThat(savedUser.getPasswordHash()).startsWith("$2a$12$").doesNotContain("senha123");
 
         mockMvc.perform(get("/api/users/{id}", savedUser.getId()))
                 .andExpect(status().isOk())

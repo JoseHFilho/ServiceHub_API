@@ -20,7 +20,11 @@ import com.servicehub.exception.ResourceNotFoundException;
 import com.servicehub.model.User;
 import com.servicehub.model.dto.UserDTO;
 import com.servicehub.repository.UserRepository;
+import com.servicehub.repository.ServiceOfferingRepository;
+import com.servicehub.repository.ServiceRequestRepository;
+import com.servicehub.model.UserRole;
 import com.servicehub.security.PasswordHashService;
+import com.servicehub.security.AccessPolicy;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -31,12 +35,22 @@ class UserServiceTest {
     @Mock
     private PasswordHashService passwordHashService;
 
+    @Mock
+    private ServiceOfferingRepository serviceOfferingRepository;
+
+    @Mock
+    private ServiceRequestRepository serviceRequestRepository;
+
+    @Mock
+    private AccessPolicy access;
+
     private UserService userService;
 
     @BeforeEach
     @SuppressWarnings("unused")
     void setUp() {
-        userService = new UserService(userRepository, passwordHashService);
+        userService = new UserService(userRepository, passwordHashService,
+                serviceOfferingRepository, serviceRequestRepository, access);
     }
 
     @Test
@@ -51,6 +65,8 @@ class UserServiceTest {
         assertThat(result.getFullName()).isEqualTo("Ana Prestadora");
         assertThat(result.getEmail()).isEqualTo("ana@servicehub.com");
         assertThat(result.getPasswordHash()).isEqualTo("hashed-password");
+        assertThat(result.getRole()).isEqualTo(UserRole.CLIENT);
+        assertThat(result.isActive()).isTrue();
         verify(userRepository).save(result);
     }
 
@@ -93,7 +109,7 @@ class UserServiceTest {
     void findsUsersAndThrowsWhenIdDoesNotExist() {
         User user = new User();
         when(userRepository.findById(7L)).thenReturn(Optional.of(user));
-        when(userRepository.findAll()).thenReturn(List.of(user));
+        when(userRepository.findAllByActiveTrue()).thenReturn(List.of(user));
 
         assertThat(userService.findById(7L)).isSameAs(user);
         assertThat(userService.findAll()).containsExactly(user);
@@ -111,7 +127,7 @@ class UserServiceTest {
         user.setEmail("old@example.com");
         user.setPasswordHash("old-hash");
         UserDTO dto = dto(" Novo Nome ", " NEW@EXAMPLE.COM ", "nova-senha");
-        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        when(userRepository.findLockedById(1L)).thenReturn(Optional.of(user));
         when(userRepository.existsByEmail("new@example.com")).thenReturn(false);
         when(passwordHashService.hash("nova-senha")).thenReturn("new-hash");
         when(userRepository.save(user)).thenReturn(user);
@@ -128,7 +144,7 @@ class UserServiceTest {
         User user = new User();
         user.setEmail("old@example.com");
         UserDTO dto = dto("Nome completo", "new@example.com", "senha123");
-        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        when(userRepository.findLockedById(1L)).thenReturn(Optional.of(user));
         when(userRepository.existsByEmail("new@example.com")).thenReturn(true);
 
         assertThatThrownBy(() -> userService.updateUser(1L, dto))
@@ -137,13 +153,15 @@ class UserServiceTest {
     }
 
     @Test
-    void deletesExistingUser() {
+    void deactivatesExistingUserWithoutDeletingTheRecord() {
         User user = new User();
-        when(userRepository.findById(3L)).thenReturn(Optional.of(user));
+        when(userRepository.findLockedById(3L)).thenReturn(Optional.of(user));
 
         userService.deleteUser(3L);
 
-        verify(userRepository).delete(user);
+        assertThat(user.isActive()).isFalse();
+        verify(userRepository).save(user);
+        verify(userRepository, never()).delete(any(User.class));
     }
 
     private UserDTO dto(String fullName, String email, String password) {

@@ -1,6 +1,9 @@
 package com.servicehub.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.responses.ApiResponse;
@@ -18,9 +21,24 @@ public class OpenApiConfig {
                 .info(new Info()
                 .title("ServiceHub API")
                 .version("1.0.0")
-                .description("API acadêmica de gerenciamento de usuários. CRUD com PostgreSQL, validações e respostas de erro padronizadas. Esta etapa não implementa autenticação.")
+                .description("ServiceHub, Etapa 3. Use POST /api/auth/login para obter JWT e o botão Authorize para enviar Authorization: Bearer. Autenticação stateless, sem Basic ou cookies de login. Usuários acessam seus próprios dados; ADMIN pode administrar usuários. Papéis e ativação são conferidos no banco a cada requisição.")
                 .contact(new Contact().name("Projeto ServiceHub")
-                        .url("https://github.com/JoseHFilho/ServiceHub_API")));
+                        .url("https://github.com/JoseHFilho/ServiceHub_API")))
+                .components(new Components().addSecuritySchemes("bearerAuth", new SecurityScheme()
+                        .type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")
+                        .description("JWT assinado retornado por POST /api/auth/login.")));
+    }
+
+    @Bean
+    public OpenApiCustomizer documentSecurity() {
+        return api -> {
+            if (api.getPaths() == null) return;
+            api.getPaths().forEach((path, item) -> item.readOperationsMap().forEach((method, operation) -> {
+                if (path.startsWith("/api/users") && !(path.equals("/api/users") && method.name().equals("POST"))) {
+                    operation.addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
+                }
+            }));
+        };
     }
 
     @Bean

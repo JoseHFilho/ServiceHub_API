@@ -1,0 +1,133 @@
+{
+  "server_version": "16.14 (Debian 16.14-1.pgdg13+1)",
+  "flyway_v5_success": true,
+  "foreign_keys": [
+    {
+      "name": "fk_requests_client",
+      "delete_action": "r",
+      "definition": "FOREIGN KEY (client_id) REFERENCES users(id) ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_requests_service",
+      "delete_action": "r",
+      "definition": "FOREIGN KEY (service_id) REFERENCES services(id) ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_reviews_request",
+      "delete_action": "r",
+      "definition": "FOREIGN KEY (request_id) REFERENCES service_requests(id) ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_reviews_reviewer",
+      "delete_action": "r",
+      "definition": "FOREIGN KEY (reviewer_id) REFERENCES users(id) ON DELETE RESTRICT"
+    },
+    {
+      "name": "fk_services_provider",
+      "delete_action": "r",
+      "definition": "FOREIGN KEY (provider_id) REFERENCES users(id) ON DELETE RESTRICT"
+    }
+  ],
+  "checks": [
+    {
+      "name": "chk_requests_price",
+      "definition": "CHECK ((total_price > (0)::numeric))"
+    },
+    {
+      "name": "chk_service_requests_status",
+      "definition": "CHECK (((status)::text = ANY ((ARRAY['PENDING'::character varying, 'ACCEPTED'::character varying, 'IN_PROGRESS'::character varying, 'COMPLETED'::character varying, 'CANCELLED'::character varying])::text[])))"
+    },
+    {
+      "name": "chk_services_category",
+      "definition": "CHECK (((category)::text = ANY ((ARRAY['LIMPEZA'::character varying, 'DIARISTA'::character varying, 'ENCANAMENTO'::character varying, 'ELETRICA'::character varying, 'JARDINAGEM'::character varying, 'PINTURA'::character varying, 'MARCENARIA'::character varying, 'PEDREIRO'::character varying, 'DEDETIZACAO'::character varying, 'AR_CONDICIONADO'::character varying, 'CHAVEIRO'::character varying, 'MONTAGEM_MOVEIS'::character varying, 'MUDANCA'::character varying, 'SUPORTE_TECNICO'::character varying, 'MANUTENCAO_COMPUTADORES'::character varying, 'DESENVOLVIMENTO_SOFTWARE'::character varying, 'REDES_E_INFRAESTRUTURA'::character varying, 'SEGURANCA_DIGITAL'::character varying, 'RECUPERACAO_DE_DADOS'::character varying, 'CONSULTORIA_TI'::character varying, 'OUTROS'::character varying])::text[])))"
+    },
+    {
+      "name": "chk_services_price",
+      "definition": "CHECK ((price > (0)::numeric))"
+    },
+    {
+      "name": "chk_users_email_low",
+      "definition": "CHECK (((email)::text = lower((email)::text)))"
+    },
+    {
+      "name": "chk_users_role",
+      "definition": "CHECK (((role)::text = ANY ((ARRAY['ADMIN'::character varying, 'PROVIDER'::character varying, 'CLIENT'::character varying])::text[])))"
+    },
+    {
+      "name": "reviews_rating_check",
+      "definition": "CHECK (((rating >= 1) AND (rating <= 5)))"
+    }
+  ],
+  "indexes": [
+    {
+      "table": "flyway_schema_history",
+      "name": "flyway_schema_history_pk",
+      "definition": "CREATE UNIQUE INDEX flyway_schema_history_pk ON public.flyway_schema_history USING btree (installed_rank)"
+    },
+    {
+      "table": "flyway_schema_history",
+      "name": "flyway_schema_history_s_idx",
+      "definition": "CREATE INDEX flyway_schema_history_s_idx ON public.flyway_schema_history USING btree (success)"
+    },
+    {
+      "table": "service_requests",
+      "name": "idx_requests_client",
+      "definition": "CREATE INDEX idx_requests_client ON public.service_requests USING btree (client_id)"
+    },
+    {
+      "table": "service_requests",
+      "name": "idx_requests_service",
+      "definition": "CREATE INDEX idx_requests_service ON public.service_requests USING btree (service_id)"
+    },
+    {
+      "table": "service_requests",
+      "name": "idx_requests_status",
+      "definition": "CREATE INDEX idx_requests_status ON public.service_requests USING btree (status)"
+    },
+    {
+      "table": "reviews",
+      "name": "idx_reviews_reviewer",
+      "definition": "CREATE INDEX idx_reviews_reviewer ON public.reviews USING btree (reviewer_id)"
+    },
+    {
+      "table": "services",
+      "name": "idx_services_category",
+      "definition": "CREATE INDEX idx_services_category ON public.services USING btree (category) WHERE is_active"
+    },
+    {
+      "table": "services",
+      "name": "idx_services_provider",
+      "definition": "CREATE INDEX idx_services_provider ON public.services USING btree (provider_id)"
+    },
+    {
+      "table": "reviews",
+      "name": "reviews_pkey",
+      "definition": "CREATE UNIQUE INDEX reviews_pkey ON public.reviews USING btree (id)"
+    },
+    {
+      "table": "reviews",
+      "name": "reviews_request_id_key",
+      "definition": "CREATE UNIQUE INDEX reviews_request_id_key ON public.reviews USING btree (request_id)"
+    },
+    {
+      "table": "service_requests",
+      "name": "service_requests_pkey",
+      "definition": "CREATE UNIQUE INDEX service_requests_pkey ON public.service_requests USING btree (id)"
+    },
+    {
+      "table": "services",
+      "name": "services_pkey",
+      "definition": "CREATE UNIQUE INDEX services_pkey ON public.services USING btree (id)"
+    },
+    {
+      "table": "users",
+      "name": "users_email_key",
+      "definition": "CREATE UNIQUE INDEX users_email_key ON public.users USING btree (email)"
+    },
+    {
+      "table": "users",
+      "name": "users_pkey",
+      "definition": "CREATE UNIQUE INDEX users_pkey ON public.users USING btree (id)"
+    }
+  ]
+}

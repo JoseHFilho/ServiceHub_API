@@ -1,35 +1,54 @@
 package com.servicehub.service;
 
 import com.servicehub.exception.EmailAlreadyExistsException;
+import com.servicehub.exception.BusinessConflictException;
 import com.servicehub.exception.ResourceNotFoundException;
+import com.servicehub.model.ServiceRequestStatus;
 import com.servicehub.model.User;
 import com.servicehub.model.dto.UserDTO;
 import com.servicehub.model.dto.UserPatchDTO;
 import com.servicehub.repository.UserRepository;
+import com.servicehub.repository.ServiceOfferingRepository;
+import com.servicehub.repository.ServiceRequestRepository;
 import com.servicehub.security.PasswordHashService;
+import com.servicehub.security.AccessPolicy;
+import com.servicehub.validation.InputNormalizer;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Locale;
 
 @Service
 @Transactional
+@Validated
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordHashService passwordHashService;
+    private final ServiceOfferingRepository serviceOfferingRepository;
+    private final ServiceRequestRepository serviceRequestRepository;
+    private final AccessPolicy access;
 
-    public UserService(UserRepository userRepository, PasswordHashService passwordHashService) {
+    public UserService(UserRepository userRepository, PasswordHashService passwordHashService,
+            ServiceOfferingRepository serviceOfferingRepository, ServiceRequestRepository serviceRequestRepository,
+            AccessPolicy access) {
         this.userRepository = userRepository;
         this.passwordHashService = passwordHashService;
+        this.serviceOfferingRepository = serviceOfferingRepository;
+        this.serviceRequestRepository = serviceRequestRepository;
+        this.access = access;
     }
 
-    public User createUser(UserDTO dto) {
+    @PreAuthorize("permitAll()")
+    public User createUser(@Valid @NotNull UserDTO dto) {
         requireDto(dto);
         requireText(dto.getFullName(), "O nome completo é obrigatório.");
         requireText(dto.getEmail(), "O e-mail é obrigatório.");
 
-        String fullName = dto.getFullName().trim();
+        String fullName = InputNormalizer.name(dto.getFullName());
         String email = normalizeEmail(dto.getEmail());
         validateUserFields(fullName, email);
         if (userRepository.existsByEmail(email)) {
@@ -44,27 +63,36 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    @PreAuthorize("@access.canAccessUser(#id)")
     public User findById(Long id) {
+        access.requireUser(id);
         return userRepository.findById(id)
+                .filter(User::isActive)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado: " + id));
     }
 
     @Transactional(readOnly = true)
+    @PreAuthorize("hasRole('ADMIN')")
     public List<User> findAll() {
-        return userRepository.findAll();
+        access.requireAdmin();
+        return userRepository.findAllByActiveTrue();
     }
 
-    public User updateUser(Long id, UserDTO dto) {
+    @PreAuthorize("@access.canAccessUser(#id)")
+    public User updateUser(Long id, @Valid @NotNull UserDTO dto) {
+        access.requireUser(id);
         requireDto(dto);
-        User user = findById(id);
+        User user = findForUpdate(id);
         requireText(dto.getFullName(), "O nome completo é obrigatório.");
         requireText(dto.getEmail(), "O e-mail é obrigatório.");
         requireText(dto.getPassword(), "A senha é obrigatória.");
         return applyChanges(user, dto.getFullName(), dto.getEmail(), dto.getPassword());
     }
 
-    public User patchUser(Long id, UserPatchDTO dto) {
-        User user = findById(id);
+    @PreAuthorize("@access.canAccessUser(#id)")
+    public User patchUser(Long id, @Valid @NotNull UserPatchDTO dto) {
+        access.requireUser(id);
+        User user = findForUpdate(id);
         if (dto == null || (dto.fullName() == null && dto.email() == null && dto.password() == null)) {
             throw new IllegalArgumentException("Informe ao menos um campo para atualizar.");
         }
@@ -74,7 +102,7 @@ public class UserService {
     private User applyChanges(User user, String nameInput, String emailInput, String passwordInput) {
         if (nameInput != null) {
             requireText(nameInput, "O nome completo é obrigatório.");
-            String fullName = nameInput.trim();
+            String fullName = InputNormalizer.name(nameInput);
             validateFullName(fullName);
             user.setFullName(fullName);
         }
@@ -94,12 +122,27 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    @PreAuthorize("@access.canAccessUser(#id)")
     public void deleteUser(Long id) {
-        userRepository.delete(findById(id));
+        access.requireUser(id);
+        User user = findForUpdate(id);
+        if (serviceRequestRepository.hasOpenRequestsForUser(id, ServiceRequestStatus.openStatuses())) {
+            throw new BusinessConflictException("Usuário possui solicitações em andamento.");
+        }
+        var offerings = serviceOfferingRepository.findByProviderIdAndActiveTrue(id);
+        offerings.forEach(offering -> offering.setActive(false));
+        serviceOfferingRepository.saveAll(offerings);
+        user.setActive(false);
+        userRepository.save(user);
     }
 
     private String normalizeEmail(String email) {
-        return email.trim().toLowerCase(Locale.ROOT);
+        return InputNormalizer.email(email);
+    }
+
+    private User findForUpdate(Long id) {
+        return userRepository.findLockedById(id).filter(User::isActive)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado: " + id));
     }
 
     private void requireDto(UserDTO dto) {
@@ -114,6 +157,9 @@ public class UserService {
     }
 
     private void validateFullName(String fullName) {
+        if (!fullName.matches("^[^<>\\p{Cntrl}]*$")) {
+            throw new IllegalArgumentException("O nome completo contém caracteres não permitidos.");
+        }
         if (fullName.length() > 100) {
             throw new IllegalArgumentException("O nome completo deve ter no máximo 100 caracteres.");
         }

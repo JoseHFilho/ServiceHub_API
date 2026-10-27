@@ -6,7 +6,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class ServicehubApiApplicationTests {
+class ServicehubApiApplicationTests extends com.servicehub.JwtTestSupport {
 
     @Test
     void contextLoads() {

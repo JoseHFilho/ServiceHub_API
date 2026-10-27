@@ -11,17 +11,60 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDateTime;
+import jakarta.validation.ConstraintViolationException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(org.springframework.dao.ConcurrencyFailureException.class)
+    public ResponseEntity<ApiError> handleConcurrentChange(HttpServletRequest request) {
+        return buildError(HttpStatus.CONFLICT, "O registro está sendo alterado. Tente novamente.", request.getRequestURI());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiError> handleValidation(MethodArgumentNotValidException exception, HttpServletRequest request) {
+        String message = exception.getBindingResult().getAllErrors().stream()
+                .map(error -> error.getDefaultMessage()).sorted().findFirst().orElse("A requisição contém dados inválidos.");
+        return buildError(HttpStatus.BAD_REQUEST, message, request.getRequestURI());
+    }
+
+    @ExceptionHandler(HandlerMethodValidationException.class)
+    public ResponseEntity<ApiError> handleMethodValidation(HandlerMethodValidationException exception, HttpServletRequest request) {
+        String message = exception.getParameterValidationResults().stream()
+                .flatMap(result -> result.getResolvableErrors().stream())
+                .map(error -> error.getDefaultMessage()).filter(java.util.Objects::nonNull)
+                .sorted().findFirst().orElse("A requisição contém dados inválidos.");
+        return buildError(HttpStatus.BAD_REQUEST, message, request.getRequestURI());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ApiError> handleConstraintValidation(ConstraintViolationException exception, HttpServletRequest request) {
+        String message = exception.getConstraintViolations().stream().map(violation -> violation.getMessage())
+                .sorted().findFirst().orElse("A requisição contém dados inválidos.");
+        return buildError(HttpStatus.BAD_REQUEST, message, request.getRequestURI());
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiError> handleForbidden(HttpServletRequest request) {
+        return buildError(HttpStatus.FORBIDDEN, "Acesso negado.", request.getRequestURI());
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ApiError> handleUnauthenticated(HttpServletRequest request) {
+        return buildError(HttpStatus.UNAUTHORIZED, "Autenticação necessária ou credenciais inválidas.", request.getRequestURI());
+    }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiError> handleNotFound(ResourceNotFoundException exception, HttpServletRequest request) {
         return buildError(HttpStatus.NOT_FOUND, exception.getMessage(), request.getRequestURI());
     }
 
-    @ExceptionHandler(EmailAlreadyExistsException.class)
-    public ResponseEntity<ApiError> handleConflict(EmailAlreadyExistsException exception, HttpServletRequest request) {
+    @ExceptionHandler({EmailAlreadyExistsException.class, BusinessConflictException.class})
+    public ResponseEntity<ApiError> handleConflict(RuntimeException exception, HttpServletRequest request) {
         return buildError(HttpStatus.CONFLICT, exception.getMessage(), request.getRequestURI());
     }
 
@@ -49,6 +92,8 @@ public class GlobalExceptionHandler {
 
     private ResponseEntity<ApiError> buildError(HttpStatus status, String message, String path) {
         ApiError error = new ApiError(LocalDateTime.now(), status.value(), status.getReasonPhrase(), message, path);
-        return ResponseEntity.status(status).body(error);
+        var response = ResponseEntity.status(status);
+        if (status == HttpStatus.UNAUTHORIZED) response.header("WWW-Authenticate", "Bearer realm=\"ServiceHub\"");
+        return response.body(error);
     }
 }

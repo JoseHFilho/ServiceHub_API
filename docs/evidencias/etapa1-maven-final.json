@@ -1,0 +1,98 @@
+{
+  "database": "H2 2.4.240",
+  "command": ".\\mvnw.cmd -o clean verify",
+  "result": "BUILD SUCCESS",
+  "finishedAt": "2026-10-27T09:52:34-03:00",
+  "javaRuntime": "26.0.2.1",
+  "javaRelease": 25,
+  "springBoot": "4.1.1",
+  "tests": 44,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "flywayInitialized": true,
+  "hibernateInitialized": true,
+  "jarGenerated": true,
+  "suites": [
+    {
+      "name": "com.servicehub.controller.HelloControllerTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.21
+    },
+    {
+      "name": "com.servicehub.DeactivationIntegrationTests",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 10.981
+    },
+    {
+      "name": "com.servicehub.MigrationIntegrationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.031
+    },
+    {
+      "name": "com.servicehub.OpenApiIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.64
+    },
+    {
+      "name": "com.servicehub.RepositoryIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.094
+    },
+    {
+      "name": "com.servicehub.SchemaUpgradeTests",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.062
+    },
+    {
+      "name": "com.servicehub.security.PasswordHashServiceTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.127
+    },
+    {
+      "name": "com.servicehub.service.UserServiceTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.66
+    },
+    {
+      "name": "com.servicehub.ServicehubApiApplicationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.028
+    },
+    {
+      "name": "com.servicehub.UserControllerIntegrationTests",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.26
+    }
+  ]
+}

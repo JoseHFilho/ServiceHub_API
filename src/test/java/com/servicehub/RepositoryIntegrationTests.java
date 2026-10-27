@@ -6,6 +6,7 @@ import com.servicehub.model.ServiceOffering;
 import com.servicehub.model.ServiceRequest;
 import com.servicehub.model.ServiceRequestStatus;
 import com.servicehub.model.User;
+import com.servicehub.model.UserRole;
 import com.servicehub.repository.ReviewRepository;
 import com.servicehub.repository.ServiceOfferingRepository;
 import com.servicehub.repository.ServiceRequestRepository;
@@ -24,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("test")
 @Transactional
-class RepositoryIntegrationTests {
+class RepositoryIntegrationTests extends com.servicehub.JwtTestSupport {
 
     @Autowired
     private UserRepository userRepository;
@@ -52,21 +53,22 @@ class RepositoryIntegrationTests {
     @Test
     void executesServiceQueriesAndPersistsAllRelationships() {
         User provider = saveUser("Carlos Profissional", "carlos@servicehub.com");
+        provider.setRole(UserRole.PROVIDER);
         User client = saveUser("Joana Cliente", "joana@servicehub.com");
 
         ServiceOffering service = new ServiceOffering();
         service.setTitle("Limpeza residencial");
         service.setDescription("Limpeza completa do imóvel");
         service.setPrice(new BigDecimal("150.00"));
-        service.setCategory(ServiceCategory.CLEANING);
+        service.setCategory(ServiceCategory.LIMPEZA);
         service.setProvider(provider);
         service = serviceOfferingRepository.saveAndFlush(service);
 
-        assertThat(serviceOfferingRepository.findByCategory(ServiceCategory.CLEANING)).contains(service);
+        assertThat(serviceOfferingRepository.findByCategory(ServiceCategory.LIMPEZA)).contains(service);
         assertThat(serviceOfferingRepository.findByPriceBetween(
                 new BigDecimal("100.00"), new BigDecimal("200.00"))).contains(service);
         assertThat(serviceOfferingRepository.findByProviderIdAndActiveTrue(provider.getId())).contains(service);
-        assertThat(serviceOfferingRepository.countByCategory(ServiceCategory.CLEANING)).isEqualTo(1);
+        assertThat(serviceOfferingRepository.countByCategory(ServiceCategory.LIMPEZA)).isEqualTo(1);
 
         ServiceRequest request = new ServiceRequest();
         request.setService(service);

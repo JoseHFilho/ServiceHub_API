@@ -1,0 +1,36 @@
+{
+  "stage": 4,
+  "newMigrations": 0,
+  "checks": [
+    {
+      "file": "V1__Create_users_table.sql",
+      "before": "C023C398460689C5C60FADF9F69684588E7243078891F88C1AE1F93536508F99",
+      "after": "C023C398460689C5C60FADF9F69684588E7243078891F88C1AE1F93536508F99",
+      "unchanged": true
+    },
+    {
+      "file": "V2__Create_services_table.sql",
+      "before": "6660775A1B9D6972205C15A1E45AA3E1305F707EB182CCCF6AA8541F733670D6",
+      "after": "6660775A1B9D6972205C15A1E45AA3E1305F707EB182CCCF6AA8541F733670D6",
+      "unchanged": true
+    },
+    {
+      "file": "V3__Create_service_requests_table.sql",
+      "before": "F44A304B7C35ED609C6ABEF30E6A26715F5F1A1C7DED13DE1D03BF40234B3731",
+      "after": "F44A304B7C35ED609C6ABEF30E6A26715F5F1A1C7DED13DE1D03BF40234B3731",
+      "unchanged": true
+    },
+    {
+      "file": "V4__Create_reviews_table.sql",
+      "before": "64C140B4B38143D6C648B8581DDB0F0B3FC2A11018ABDB0893AF8C04444F0C70",
+      "after": "64C140B4B38143D6C648B8581DDB0F0B3FC2A11018ABDB0893AF8C04444F0C70",
+      "unchanged": true
+    },
+    {
+      "file": "V5__Align_reference_schema.java",
+      "before": "CFD5197524AEFF45101F541536BFC791103B9945B93E13C5146336167CF97F79",
+      "after": "CFD5197524AEFF45101F541536BFC791103B9945B93E13C5146336167CF97F79",
+      "unchanged": true
+    }
+  ]
+}

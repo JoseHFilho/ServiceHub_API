@@ -1,11 +1,16 @@
 param(
     [string]$BaseUrl = 'http://localhost:8080',
-    [string]$ReportPath
+    [string]$ReportPath,
+    [pscredential]$Credential
 )
 
 $ErrorActionPreference = 'Stop'
+if (-not $Credential) { throw 'Informe -Credential com uma conta ADMIN para obter um JWT pelo login.' }
 Add-Type -AssemblyName System.Net.Http
-$client = [System.Net.Http.HttpClient]::new()
+$handler = [System.Net.Http.HttpClientHandler]::new()
+$handler.UseCookies = $false
+$handler.AllowAutoRedirect = $false
+$client = [System.Net.Http.HttpClient]::new($handler)
 $client.Timeout = [TimeSpan]::FromSeconds(20)
 $results = [System.Collections.Generic.List[object]]::new()
 $createdIds = [System.Collections.Generic.List[long]]::new()
@@ -18,9 +23,22 @@ function Check-Request([string]$Name, [string]$Method, [string]$Path, [int]$Expe
     }
     $response = $client.SendAsync($request).GetAwaiter().GetResult()
     try {
+        for ($redirectCount = 0; $redirectCount -lt 5 -and [int]$response.StatusCode -in @(301,302,303,307,308); $redirectCount++) {
+            if ($Method -ne 'GET' -or -not $response.Headers.Location) { throw 'Redirecionamento inesperado na verificação.' }
+            $redirectUri = [uri]::new($request.RequestUri, $response.Headers.Location)
+            $origin = [uri]$BaseUrl
+            if ($redirectUri.Scheme -ne $origin.Scheme -or $redirectUri.Host -ne $origin.Host -or
+                $redirectUri.Port -ne $origin.Port -or $redirectUri.UserInfo) {
+                throw 'Redirecionamento para outra origem recusado; o JWT não foi encaminhado.'
+            }
+            $response.Dispose()
+            $request.Dispose()
+            $request = [System.Net.Http.HttpRequestMessage]::new([System.Net.Http.HttpMethod]::Get, $redirectUri)
+            $response = $client.SendAsync($request).GetAwaiter().GetResult()
+        }
         $text = $response.Content.ReadAsStringAsync().GetAwaiter().GetResult()
         $status = [int]$response.StatusCode
-        if ($status -ne $Expected) { throw "$Name`: esperado HTTP $Expected, recebido $status. $text" }
+        if ($status -ne $Expected) { throw "$Name`: esperado HTTP $Expected, recebido $status." }
         $results.Add([pscustomobject]@{test=$Name;method=$Method;path=$Path;status=$status;passed=$true})
         return [pscustomobject]@{Status=$status;Text=$text;ContentType=[string]$response.Content.Headers.ContentType}
     } finally {
@@ -30,6 +48,13 @@ function Check-Request([string]$Name, [string]$Method, [string]$Path, [int]$Expe
 }
 
 try {
+    $loginBody = @{email=$Credential.UserName;password=$Credential.GetNetworkCredential().Password}
+    $login = Check-Request 'Autenticação JWT' POST '/api/auth/login' 200 $loginBody
+    $authentication = $login.Text | ConvertFrom-Json
+    $client.DefaultRequestHeaders.Authorization = [System.Net.Http.Headers.AuthenticationHeaderValue]::new('Bearer', $authentication.accessToken)
+    $loginBody = $null
+    $login = $null
+    $authentication = $null
     $health = Check-Request 'Saúde com banco' GET '/actuator/health' 200
     if (($health.Text | ConvertFrom-Json).status -ne 'UP') { throw 'Banco ou API indisponível.' }
     $hello = Check-Request 'Mensagem em JSON' GET '/api/hello' 200
@@ -91,7 +116,7 @@ try {
         $report | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ReportPath -Encoding UTF8
     }
     $results | Format-Table -AutoSize
-    Write-Output "APROVADO: $($results.Count) verificações HTTP. Dados de teste removidos."
+    Write-Output "APROVADO: $($results.Count) verificações HTTP. Usuários de teste desativados logicamente."
 } finally {
     foreach ($remainingId in $createdIds) {
         try { $null = Check-Request 'Limpeza de dado temporário' DELETE "/api/users/$remainingId" 204 }

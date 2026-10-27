@@ -1,0 +1,99 @@
+{
+  "database": "PostgreSQL 16.14",
+  "command": ".\\scripts\\verify-schema-postgres.ps1 -PostgresVersion 16 -KeepTestContainer",
+  "result": "BUILD SUCCESS",
+  "finishedAt": "2026-10-27T09:51:21-03:00",
+  "javaRuntime": "26.0.2.1",
+  "javaRelease": 25,
+  "springBoot": "4.1.1",
+  "tests": 44,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "flywayInitialized": true,
+  "hibernateInitialized": true,
+  "expectedMigrationRollbacks": 5,
+  "containerRetained": "servicehub-v5-test-015f7b3a88d64ee99abe35abda6a1221",
+  "suites": [
+    {
+      "name": "com.servicehub.controller.HelloControllerTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.121
+    },
+    {
+      "name": "com.servicehub.DeactivationIntegrationTests",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 9.366
+    },
+    {
+      "name": "com.servicehub.MigrationIntegrationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.027
+    },
+    {
+      "name": "com.servicehub.OpenApiIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.646
+    },
+    {
+      "name": "com.servicehub.RepositoryIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.123
+    },
+    {
+      "name": "com.servicehub.SchemaUpgradeTests",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.427
+    },
+    {
+      "name": "com.servicehub.security.PasswordHashServiceTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.079
+    },
+    {
+      "name": "com.servicehub.service.UserServiceTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.63
+    },
+    {
+      "name": "com.servicehub.ServicehubApiApplicationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.022
+    },
+    {
+      "name": "com.servicehub.UserControllerIntegrationTests",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.317
+    }
+  ]
+}

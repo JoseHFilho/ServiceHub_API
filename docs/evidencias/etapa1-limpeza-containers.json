@@ -1,0 +1,12 @@
+{
+  "removedContainers": [
+    "servicehub-v5-test-5f8591ba9b9b43c1959957a7700d8cc2",
+    "servicehub-v5-test-015f7b3a88d64ee99abe35abda6a1221"
+  ],
+  "remainingOriginalContainers": 8,
+  "missingOtherContainers": 0,
+  "volumesBefore": 6,
+  "volumesAfter": 6,
+  "volumeNameChanges": 0,
+  "evidencePreserved": true
+}

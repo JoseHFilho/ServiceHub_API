@@ -1,0 +1,173 @@
+{
+  "stage": 4,
+  "database": "PostgreSQL 16.14",
+  "result": "BUILD SUCCESS",
+  "capturedAt": "2026-10-27T12:00:37.7765594-03:00",
+  "javaRuntime": "26.0.2.1",
+  "javaRelease": 25,
+  "springBoot": "4.1.1",
+  "previousTestsPreserved": 127,
+  "newTests": 139,
+  "tests": 266.0,
+  "failures": 0.0,
+  "errors": 0.0,
+  "skipped": 0.0,
+  "hibernateInitialized": true,
+  "flywayInitialized": true,
+  "containerRetained": "servicehub-v5-test-56dfbbaebb8a4e8f8467f1a97cb3eb58",
+  "originalDatabaseAccessed": false,
+  "suites": [
+    {
+      "name": "com.servicehub.BusinessConcurrencyIntegrationTests",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 13.173
+    },
+    {
+      "name": "com.servicehub.BusinessRestIntegrationTests",
+      "tests": 110,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 7.059
+    },
+    {
+      "name": "com.servicehub.controller.HelloControllerTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.008
+    },
+    {
+      "name": "com.servicehub.DeactivationIntegrationTests",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.976
+    },
+    {
+      "name": "com.servicehub.MigrationIntegrationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.023
+    },
+    {
+      "name": "com.servicehub.OpenApiIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.099
+    },
+    {
+      "name": "com.servicehub.RepositoryIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.228
+    },
+    {
+      "name": "com.servicehub.SchemaUpgradeTests",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 3.714
+    },
+    {
+      "name": "com.servicehub.security.CsrfAndSessionIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 3.057
+    },
+    {
+      "name": "com.servicehub.security.DatabaseUserDetailsServiceTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.342
+    },
+    {
+      "name": "com.servicehub.security.JwtAuthenticationIntegrationTests",
+      "tests": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.66
+    },
+    {
+      "name": "com.servicehub.security.JwtServiceTest",
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.064
+    },
+    {
+      "name": "com.servicehub.security.PasswordHashServiceTest",
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.459
+    },
+    {
+      "name": "com.servicehub.security.ProductionSecurityIntegrationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.247
+    },
+    {
+      "name": "com.servicehub.security.SecurityIntegrationTests",
+      "tests": 32,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 9.263
+    },
+    {
+      "name": "com.servicehub.service.RequestTransitionsTest",
+      "tests": 25,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.049
+    },
+    {
+      "name": "com.servicehub.service.UserServiceTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.685
+    },
+    {
+      "name": "com.servicehub.ServicehubApiApplicationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.031
+    },
+    {
+      "name": "com.servicehub.UserControllerIntegrationTests",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.408
+    }
+  ]
+}
