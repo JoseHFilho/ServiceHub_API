@@ -28,12 +28,7 @@ public class JwtService implements JwtDecoder {
     public JwtService(JwtProperties properties) { this(properties, Clock.systemUTC()); }
 
     public JwtService(JwtProperties properties, Clock clock) {
-        byte[] key;
-        try { key = Base64.getDecoder().decode(properties.getSecret() == null ? "" : properties.getSecret()); }
-        catch (IllegalArgumentException exception) { throw new IllegalStateException("JWT_SECRET deve ser Base64 válido."); }
-        if (key.length < 32 || key.length > 128) {
-            throw new IllegalStateException("JWT_SECRET deve conter de 32 a 128 bytes aleatórios codificados em Base64.");
-        }
+        byte[] key = properties.secretBytes();
         ttl = properties.getTtl();
         if (ttl == null || ttl.compareTo(Duration.ofMinutes(1)) < 0 || ttl.compareTo(Duration.ofHours(1)) > 0) {
             throw new IllegalStateException("JWT_TTL deve estar entre 1 minuto e 1 hora.");
@@ -57,7 +52,7 @@ public class JwtService implements JwtDecoder {
         Instant now = clock.instant();
         var roles = principal.getAuthorities().stream().map(authority -> authority.getAuthority().substring(5)).toList();
         var claims = JwtClaimsSet.builder().issuer(issuer).subject(principal.id().toString())
-                .issuedAt(now).expiresAt(now.plus(ttl)).claim("roles", roles).build();
+                .issuedAt(now).expiresAt(now.plus(ttl)).claim("roles", roles).claim("cv", principal.credentialVersion()).build();
         return encoder.encode(JwtEncoderParameters.from(JwsHeader.with(MacAlgorithm.HS256).type("JWT").build(), claims));
     }
 
@@ -71,9 +66,16 @@ public class JwtService implements JwtDecoder {
         try { return Long.parseLong(jwt.getSubject()); }
         catch (RuntimeException exception) { throw new BadJwtException("Token inválido."); }
     }
+    public long credentialVersion(Jwt jwt) {
+        if(!jwt.getClaims().containsKey("cv")) return 0;
+        Object value=jwt.getClaims().get("cv");
+        if((value instanceof Long || value instanceof Integer) && ((Number)value).longValue()>=0) return ((Number)value).longValue();
+        throw new BadJwtException("Token inválido.");
+    }
 
     private OAuth2TokenValidatorResult validateClaims(Jwt jwt) {
         try {
+            credentialVersion(jwt);
             Instant issued = jwt.getIssuedAt();
             Instant expires = jwt.getExpiresAt();
             Object roles = jwt.getClaims().get("roles");

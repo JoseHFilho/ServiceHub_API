@@ -5,6 +5,15 @@ target/
 .env.*
 !.env.example
 delivery/
+backups/
+*.log
+*.dump
+*.backup
+*.sql.gz
+*.key
+*.pfx
+*.p12
+*.jks
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

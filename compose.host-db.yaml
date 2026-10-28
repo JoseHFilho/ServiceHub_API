@@ -1,0 +1,5 @@
+# Optional local JDBC access. Use explicitly; the default Compose publishes only the API.
+services:
+  postgres:
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-55433}:5432"

@@ -1,0 +1,43 @@
+{
+  "stage": 5,
+  "originalDatabaseAccessed": false,
+  "users": [
+    {
+      "id": 938,
+      "role": "CLIENT",
+      "active": false
+    },
+    {
+      "id": 937,
+      "role": "PROVIDER",
+      "active": false
+    },
+    {
+      "id": 939,
+      "role": "CLIENT",
+      "active": false
+    },
+    {
+      "id": 940,
+      "role": "ADMIN",
+      "active": false
+    }
+  ],
+  "service": {
+    "id": 221,
+    "active": false,
+    "price": 250.0
+  },
+  "request": {
+    "id": 56,
+    "status": "COMPLETED",
+    "totalPrice": 150.0,
+    "clientId": 938
+  },
+  "review": {
+    "id": 12,
+    "requestId": 56,
+    "reviewerId": 938,
+    "rating": 5
+  }
+}

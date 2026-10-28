@@ -95,7 +95,7 @@ public class ServiceOfferingService {
     @Transactional(readOnly = true)
     @PreAuthorize("isAuthenticated()")
     public ServiceOffering findById(Long id) {
-        return repository.findById(id).filter(s -> s.isActive() && s.getProvider().isActive())
+        return repository.findById(id).filter(s -> s.isActive() && s.getProvider().isActive() && s.getProvider().getRole() == UserRole.PROVIDER)
                 .orElseThrow(() -> new ResourceNotFoundException("Serviço não encontrado: " + id));
     }
 
@@ -110,6 +110,7 @@ public class ServiceOfferingService {
             var predicates = new java.util.ArrayList<jakarta.persistence.criteria.Predicate>();
             predicates.add(cb.isTrue(root.get("active")));
             predicates.add(cb.isTrue(root.get("provider").get("active")));
+            predicates.add(cb.equal(root.get("provider").get("role"), UserRole.PROVIDER));
             if (category != null) predicates.add(cb.equal(root.get("category"), category));
             if (providerId != null) predicates.add(cb.equal(root.get("provider").get("id"), providerId));
             return cb.and(predicates.toArray(jakarta.persistence.criteria.Predicate[]::new));
@@ -120,7 +121,7 @@ public class ServiceOfferingService {
     @Transactional(readOnly = true)
     @PreAuthorize("isAuthenticated()")
     public List<ServiceOffering> findAll() {
-        return repository.findAllByActiveTrue().stream().filter(s -> s.getProvider().isActive()).toList();
+        return repository.findAllByActiveTrue().stream().filter(s -> s.getProvider().isActive() && s.getProvider().getRole() == UserRole.PROVIDER).toList();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'PROVIDER')")

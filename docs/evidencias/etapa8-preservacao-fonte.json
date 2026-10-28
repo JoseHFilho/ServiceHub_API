@@ -1,0 +1,25 @@
+{
+  "stage": 8,
+  "capturedAt": "2026-10-27T17:46:07.3419649-03:00",
+  "initialFiles": 211,
+  "changedExistingFiles": [
+    "C:\\Users\\jhjos\\OneDrive\\Documentos\\servicehub-api\\src\\main\\resources\\application.properties",
+    "C:\\Users\\jhjos\\OneDrive\\Documentos\\servicehub-api\\docs\\TESTES.md",
+    "C:\\Users\\jhjos\\OneDrive\\Documentos\\servicehub-api\\README.md",
+    "C:\\Users\\jhjos\\OneDrive\\Documentos\\servicehub-api\\compose.yaml",
+    "C:\\Users\\jhjos\\OneDrive\\Documentos\\servicehub-api\\.env.example",
+    "C:\\Users\\jhjos\\OneDrive\\Documentos\\servicehub-api\\.gitignore",
+    "C:\\Users\\jhjos\\OneDrive\\Documentos\\servicehub-api\\.gitattributes"
+  ],
+  "unexpectedChanges": [
+    null
+  ],
+  "previousTestsUnchanged": true,
+  "businessJavaSourcesUnchanged": true,
+  "pomUnchanged": true,
+  "historicalReportsAndEvidenceUnchanged": true,
+  "headBefore": "33797874b5fe7eac75dae23b3e16ff6abc048e53",
+  "headAfter": "33797874b5fe7eac75dae23b3e16ff6abc048e53",
+  "headUnchanged": true,
+  "commitOrPush": false
+}

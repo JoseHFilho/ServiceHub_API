@@ -1,0 +1,16 @@
+{
+  "stage": 7,
+  "command": ".\\mvnw.cmd -o -Ptestcontainers -Dpostgres.version=15 clean verify -Dspring.jpa.show-sql=true",
+  "postgresMajor": 15,
+  "result": "BUILD SUCCESS",
+  "tests": 461,
+  "standardTests": 370,
+  "postgresTests": 91,
+  "previousStandardTests": 363,
+  "previousPostgresTests": 84,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "benchmarkIncluded": false,
+  "capturedAt": "2026-10-27T16:41:20.3378256-03:00"
+}

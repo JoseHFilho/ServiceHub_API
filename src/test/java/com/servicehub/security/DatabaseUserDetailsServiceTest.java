@@ -14,6 +14,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
+@org.junit.jupiter.api.Tag("unit")
 class DatabaseUserDetailsServiceTest {
     @Mock private UserRepository users;
 
@@ -22,7 +23,7 @@ class DatabaseUserDetailsServiceTest {
         User user = new User(); ReflectionTestUtils.setField(user, "id", 1L);
         user.setEmail("legacy@example.com"); user.setPasswordHash(PasswordHashServiceTest.LEGACY);
         var service = new DatabaseUserDetailsService(users);
-        when(users.upgradePassword(eq(1L), eq(PasswordHashServiceTest.LEGACY), eq("new-hash"), any())).thenReturn(0);
+        when(users.upgradePassword(eq(1L), eq(PasswordHashServiceTest.LEGACY), eq("new-hash"), any(), eq(0L))).thenReturn(0);
         assertThatThrownBy(() -> service.updatePassword(new ServiceHubPrincipal(user), "new-hash"))
                 .isInstanceOf(BadCredentialsException.class);
     }

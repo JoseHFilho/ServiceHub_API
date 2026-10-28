@@ -30,6 +30,9 @@ public class User {
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
+    @Column(name = "credential_version", nullable = false)
+    private long credentialVersion;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private UserRole role = UserRole.CLIENT;
@@ -90,6 +93,12 @@ public class User {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    public long getCredentialVersion() { return credentialVersion; }
+    public void setCredentialVersion(long value) {
+        if(value<0) throw new IllegalArgumentException("Versão de credencial inválida.");
+        credentialVersion=value;
     }
 
     public LocalDateTime getCreatedAt() {

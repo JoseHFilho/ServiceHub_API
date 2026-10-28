@@ -1,0 +1,63 @@
+{
+  "stage": 8,
+  "audits": [
+    {
+      "postgres": "15",
+      "project": "servicehub-etapa8-6c8f0fedebaa",
+      "readOnlyAudit": true,
+      "originalDatabaseAccessed": false,
+      "allFixturesInactive": true,
+      "flywayHistoryUnchanged": true,
+      "records": {
+        "users": 8,
+        "activeUsers": 0,
+        "nonSyntheticUsers": 0,
+        "services": 4,
+        "activeServices": 0,
+        "requests": 4,
+        "notCompletedRequests": 0,
+        "reviews": 4,
+        "invalidReviewRating": 0,
+        "historicalPrices": [
+          {
+            "total_price": 150.0,
+            "count": 2
+          },
+          {
+            "total_price": 250.0,
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "postgres": "16",
+      "project": "servicehub-etapa8-fd96db7fc168",
+      "readOnlyAudit": true,
+      "originalDatabaseAccessed": false,
+      "allFixturesInactive": true,
+      "flywayHistoryUnchanged": true,
+      "records": {
+        "users": 4,
+        "activeUsers": 0,
+        "nonSyntheticUsers": 0,
+        "services": 2,
+        "activeServices": 0,
+        "requests": 2,
+        "notCompletedRequests": 0,
+        "reviews": 2,
+        "invalidReviewRating": 0,
+        "historicalPrices": [
+          {
+            "total_price": 150.0,
+            "count": 1
+          },
+          {
+            "total_price": 250.0,
+            "count": 1
+          }
+        ]
+      }
+    }
+  ]
+}

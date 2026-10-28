@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@org.junit.jupiter.api.Tag("integration")
 class BusinessConcurrencyIntegrationTests extends JwtTestSupport {
     @Autowired TransactionTemplate tx;
     @Autowired UserRepository users;
@@ -99,6 +100,23 @@ class BusinessConcurrencyIntegrationTests extends JwtTestSupport {
             if (stored.isActive()) assertThat(created).hasSize(1);
             else assertThat(created).isEmpty();
         });
+    }
+
+    @Test
+    void concurrentCatalogPriceChangeNeverRewritesTheBookingSnapshot() throws Exception {
+        var result = race(() -> as(client, () -> booking.create(new RequestCreateDTO(offering.getId(), null, null), null)),
+                () -> as(provider, () -> service.patch(offering.getId(), new ServicePatchDTO(null, null, new BigDecimal("250.00"), null))));
+        assertThat(result).containsExactly("OK", "OK");
+        var price = tx.execute(status -> {
+            var created = requests.findByClientId(client.getId());
+            assertThat(created).hasSize(1);
+            var snapshot = created.getFirst().getTotalPrice();
+            assertThat(snapshot).isIn(new BigDecimal("150.00"), new BigDecimal("250.00"));
+            assertThat(offerings.findById(offering.getId()).orElseThrow().getPrice()).isEqualByComparingTo("250.00");
+            return snapshot;
+        });
+        as(provider, () -> service.patch(offering.getId(), new ServicePatchDTO(null, null, new BigDecimal("300.00"), null)));
+        tx.executeWithoutResult(status -> assertThat(requests.findByClientId(client.getId()).getFirst().getTotalPrice()).isEqualByComparingTo(price));
     }
 
     private Long request(ServiceRequestStatus state) {

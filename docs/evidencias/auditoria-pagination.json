@@ -1,0 +1,15 @@
+{
+  "container": "servicehub-audit-568ada5b0e-api",
+  "httpStatus": 401,
+  "request": "GET /api/{services,requests,reviews}?page=2147483647&size=100",
+  "exceptionCount": 6,
+  "exceptions": [
+    "org.springframework.dao.InvalidDataAccessApiUsageException: Page offset exceeds Integer.MAX_VALUE (2147483647)",
+    "org.springframework.dao.InvalidDataAccessApiUsageException: Page offset exceeds Integer.MAX_VALUE (2147483647)",
+    "org.springframework.dao.InvalidDataAccessApiUsageException: Page offset exceeds Integer.MAX_VALUE (2147483647)",
+    "org.springframework.dao.InvalidDataAccessApiUsageException: Page offset exceeds Integer.MAX_VALUE (2147483647)",
+    "org.springframework.dao.InvalidDataAccessApiUsageException: Page offset exceeds Integer.MAX_VALUE (2147483647)",
+    "org.springframework.dao.InvalidDataAccessApiUsageException: Page offset exceeds Integer.MAX_VALUE (2147483647)"
+  ],
+  "explanation": "Unhandled pagination exception followed by authenticated /error dispatch without persisted security context. GraphQL rejects as BAD_REQUEST before repository access."
+}

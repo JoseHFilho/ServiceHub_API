@@ -1,0 +1,78 @@
+{
+  "stage": 7,
+  "command": ".\\mvnw.cmd -o -Ptestcontainers -Dpostgres.version=16 clean verify",
+  "runner": "postgres",
+  "postgresMajor": 16,
+  "result": "BUILD SUCCESS",
+  "capturedAt": "2026-10-27T16:43:29.3820334-03:00",
+  "tests": 91,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "previousSuiteCountsPreserved": true,
+  "javaRuntime": "26.0.2.1",
+  "javaRelease": 25,
+  "springBoot": "4.1.1",
+  "latestMigration": 6,
+  "hibernateInitialized": true,
+  "flywayInitialized": true,
+  "originalDatabaseAccessed": false,
+  "suites": [
+    {
+      "name": "com.servicehub.PostgresConcurrencyIT",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 24.664
+    },
+    {
+      "name": "com.servicehub.PostgresDeactivationIT",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.528
+    },
+    {
+      "name": "com.servicehub.PostgresEnvironmentIT",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.281
+    },
+    {
+      "name": "com.servicehub.PostgresGraphQlIT",
+      "tests": 60,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 4.705
+    },
+    {
+      "name": "com.servicehub.PostgresIndexUpgradeIT",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.32
+    },
+    {
+      "name": "com.servicehub.PostgresQueryOptimizationIT",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.295
+    },
+    {
+      "name": "com.servicehub.PostgresSchemaUpgradeIT",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 4.882
+    }
+  ]
+}

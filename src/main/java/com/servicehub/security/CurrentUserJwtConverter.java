@@ -17,6 +17,9 @@ public class CurrentUserJwtConverter implements Converter<Jwt, AbstractAuthentic
     @Override
     public AbstractAuthenticationToken convert(Jwt jwt) {
         var principal = users.loadActiveUserById(jwtService.userId(jwt));
+        if(principal.credentialVersion()!=jwtService.credentialVersion(jwt)) {
+            throw new org.springframework.security.authentication.BadCredentialsException("Credenciais inválidas.");
+        }
         return UsernamePasswordAuthenticationToken.authenticated(principal, null, principal.getAuthorities());
     }
 }

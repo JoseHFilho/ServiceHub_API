@@ -42,7 +42,7 @@ public class ServiceRequestService {
         var client = users.get(clientId);
         var offering = locks.service(dto.serviceId());
         if (!client.isActive() || client.getRole() != UserRole.CLIENT) throw new ResourceNotFoundException("Cliente indisponível.");
-        if (!offering.isActive() || !users.get(providerId).isActive()) throw new ResourceNotFoundException("Serviço indisponível.");
+        if (!offering.isActive() || !users.get(providerId).isActive() || users.get(providerId).getRole() != UserRole.PROVIDER) throw new ResourceNotFoundException("Serviço indisponível.");
         var request = new ServiceRequest();
         request.setClient(client); request.setService(offering);
         request.setTotalPrice(offering.getPrice()); request.setStatus(ServiceRequestStatus.PENDING);

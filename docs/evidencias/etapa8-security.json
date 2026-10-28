@@ -1,0 +1,11 @@
+{
+  "stage": 8,
+  "intendedGitFilesScanned": 239,
+  "actualSecretsFound": 0,
+  "runtimeLogSecretMatches": 0,
+  "envAndBackupsIgnored": true,
+  "dockerContextUsesAllowlist": true,
+  "imageContainsRuntimeCredentials": false,
+  "secretValuesOmitted": true,
+  "hostPowerShell": "7.6.5"
+}

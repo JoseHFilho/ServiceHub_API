@@ -1,0 +1,248 @@
+[
+  {
+    "backend": "h2",
+    "total": [
+      {
+        "type": "BRANCH",
+        "missed": 158,
+        "covered": 416,
+        "percent": 72.47
+      },
+      {
+        "type": "LINE",
+        "missed": 79,
+        "covered": 956,
+        "percent": 92.37
+      }
+    ],
+    "packages": [
+      {
+        "package": "com/servicehub/validation",
+        "type": "BRANCH",
+        "missed": 8,
+        "covered": 18,
+        "percent": 69.23
+      },
+      {
+        "package": "com/servicehub/validation",
+        "type": "LINE",
+        "missed": 0,
+        "covered": 9,
+        "percent": 100.0
+      },
+      {
+        "package": "com/servicehub/security",
+        "type": "BRANCH",
+        "missed": 38,
+        "covered": 122,
+        "percent": 76.25
+      },
+      {
+        "package": "com/servicehub/security",
+        "type": "LINE",
+        "missed": 8,
+        "covered": 161,
+        "percent": 95.27
+      },
+      {
+        "package": "com/servicehub/graphql",
+        "type": "BRANCH",
+        "missed": 30,
+        "covered": 84,
+        "percent": 73.68
+      },
+      {
+        "package": "com/servicehub/graphql",
+        "type": "LINE",
+        "missed": 21,
+        "covered": 125,
+        "percent": 85.62
+      },
+      {
+        "package": "com/servicehub/service",
+        "type": "BRANCH",
+        "missed": 64,
+        "covered": 144,
+        "percent": 69.23
+      },
+      {
+        "package": "com/servicehub/service",
+        "type": "LINE",
+        "missed": 32,
+        "covered": 278,
+        "percent": 89.68
+      },
+      {
+        "package": "com/servicehub/controller",
+        "type": "LINE",
+        "missed": 0,
+        "covered": 37,
+        "percent": 100.0
+      }
+    ]
+  },
+  {
+    "backend": "15",
+    "total": [
+      {
+        "type": "BRANCH",
+        "missed": 160,
+        "covered": 414,
+        "percent": 72.13
+      },
+      {
+        "type": "LINE",
+        "missed": 76,
+        "covered": 959,
+        "percent": 92.66
+      }
+    ],
+    "packages": [
+      {
+        "package": "com/servicehub/validation",
+        "type": "BRANCH",
+        "missed": 8,
+        "covered": 18,
+        "percent": 69.23
+      },
+      {
+        "package": "com/servicehub/validation",
+        "type": "LINE",
+        "missed": 0,
+        "covered": 9,
+        "percent": 100.0
+      },
+      {
+        "package": "com/servicehub/security",
+        "type": "BRANCH",
+        "missed": 38,
+        "covered": 122,
+        "percent": 76.25
+      },
+      {
+        "package": "com/servicehub/security",
+        "type": "LINE",
+        "missed": 8,
+        "covered": 161,
+        "percent": 95.27
+      },
+      {
+        "package": "com/servicehub/graphql",
+        "type": "BRANCH",
+        "missed": 30,
+        "covered": 84,
+        "percent": 73.68
+      },
+      {
+        "package": "com/servicehub/graphql",
+        "type": "LINE",
+        "missed": 21,
+        "covered": 125,
+        "percent": 85.62
+      },
+      {
+        "package": "com/servicehub/service",
+        "type": "BRANCH",
+        "missed": 64,
+        "covered": 144,
+        "percent": 69.23
+      },
+      {
+        "package": "com/servicehub/service",
+        "type": "LINE",
+        "missed": 32,
+        "covered": 278,
+        "percent": 89.68
+      },
+      {
+        "package": "com/servicehub/controller",
+        "type": "LINE",
+        "missed": 0,
+        "covered": 37,
+        "percent": 100.0
+      }
+    ]
+  },
+  {
+    "backend": "16",
+    "total": [
+      {
+        "type": "BRANCH",
+        "missed": 160,
+        "covered": 414,
+        "percent": 72.13
+      },
+      {
+        "type": "LINE",
+        "missed": 76,
+        "covered": 959,
+        "percent": 92.66
+      }
+    ],
+    "packages": [
+      {
+        "package": "com/servicehub/validation",
+        "type": "BRANCH",
+        "missed": 8,
+        "covered": 18,
+        "percent": 69.23
+      },
+      {
+        "package": "com/servicehub/validation",
+        "type": "LINE",
+        "missed": 0,
+        "covered": 9,
+        "percent": 100.0
+      },
+      {
+        "package": "com/servicehub/security",
+        "type": "BRANCH",
+        "missed": 38,
+        "covered": 122,
+        "percent": 76.25
+      },
+      {
+        "package": "com/servicehub/security",
+        "type": "LINE",
+        "missed": 8,
+        "covered": 161,
+        "percent": 95.27
+      },
+      {
+        "package": "com/servicehub/graphql",
+        "type": "BRANCH",
+        "missed": 30,
+        "covered": 84,
+        "percent": 73.68
+      },
+      {
+        "package": "com/servicehub/graphql",
+        "type": "LINE",
+        "missed": 21,
+        "covered": 125,
+        "percent": 85.62
+      },
+      {
+        "package": "com/servicehub/service",
+        "type": "BRANCH",
+        "missed": 64,
+        "covered": 144,
+        "percent": 69.23
+      },
+      {
+        "package": "com/servicehub/service",
+        "type": "LINE",
+        "missed": 32,
+        "covered": 278,
+        "percent": 89.68
+      },
+      {
+        "package": "com/servicehub/controller",
+        "type": "LINE",
+        "missed": 0,
+        "covered": 37,
+        "percent": 100.0
+      }
+    ]
+  }
+]

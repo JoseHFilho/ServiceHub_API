@@ -1,0 +1,745 @@
+{
+  "stage": 8,
+  "project": "servicehub-etapa8-6c8f0fedebaa",
+  "postgresMajor": "15",
+  "image": "servicehub-api:etapa8-6c8f0fedebaa",
+  "profile": "prod",
+  "result": "passed",
+  "failure": "",
+  "capturedAt": "2026-10-27T17:14:25.2344111-03:00",
+  "baseUrl": "http://127.0.0.1:32783",
+  "apiContainer": "8cbce6ab17821abe01687fdb3babb88ef1ef784761366092b5ac71e9b15861ce",
+  "databaseContainer": "199b1080ff7b0327772647dfadf94a1f634ee1a5f1f83e50f71bad6fe51f4ff6",
+  "volume": "servicehub-etapa8-6c8f0fedebaa-postgres-15-data",
+  "originalDatabaseAccessed": false,
+  "manualResourceDeletion": false,
+  "testContainersAndVolumeRetained": true,
+  "total": 121,
+  "passed": 121,
+  "failed": 0,
+  "fixtureUsers": [
+    5,
+    6,
+    7,
+    8
+  ],
+  "serviceIds": [
+    3,
+    4
+  ],
+  "requestIds": [
+    3,
+    4
+  ],
+  "reviewIds": [
+    3,
+    4
+  ],
+  "lifecycle": {
+    "beforeRestart": {
+      "latestMigration": 6,
+      "successfulMigrations": 6,
+      "historyDigest": "1af3ca920269d252940ed60697e95ea5",
+      "indexDefinition": "CREATE INDEX idx_services_category ON public.services USING btree (category, id) WHERE is_active",
+      "domainDigest": "3c679d49ee55e0ee84e0be856b286f02",
+      "users": 8,
+      "services": 4,
+      "requests": 4,
+      "reviews": 4
+    },
+    "afterApiRestart": {
+      "latestMigration": 6,
+      "successfulMigrations": 6,
+      "historyDigest": "1af3ca920269d252940ed60697e95ea5",
+      "indexDefinition": "CREATE INDEX idx_services_category ON public.services USING btree (category, id) WHERE is_active",
+      "domainDigest": "3c679d49ee55e0ee84e0be856b286f02",
+      "users": 8,
+      "services": 4,
+      "requests": 4,
+      "reviews": 4
+    },
+    "apiRestartPreserved": true,
+    "afterDatabaseRestart": {
+      "latestMigration": 6,
+      "successfulMigrations": 6,
+      "historyDigest": "1af3ca920269d252940ed60697e95ea5",
+      "indexDefinition": "CREATE INDEX idx_services_category ON public.services USING btree (category, id) WHERE is_active",
+      "domainDigest": "3c679d49ee55e0ee84e0be856b286f02",
+      "users": 8,
+      "services": 4,
+      "requests": 4,
+      "reviews": 4
+    },
+    "databaseRestartPreserved": true,
+    "databaseOutageDetected": true,
+    "recoveredWithoutApiRestart": true,
+    "afterRecovery": {
+      "latestMigration": 6,
+      "successfulMigrations": 6,
+      "historyDigest": "1af3ca920269d252940ed60697e95ea5",
+      "indexDefinition": "CREATE INDEX idx_services_category ON public.services USING btree (category, id) WHERE is_active",
+      "domainDigest": "3c679d49ee55e0ee84e0be856b286f02",
+      "users": 8,
+      "services": 4,
+      "requests": 4,
+      "reviews": 4
+    }
+  },
+  "negativeJwtConfigurations": [
+    {
+      "exitCode": 1,
+      "case": "missing-secret",
+      "rejected": true
+    },
+    {
+      "exitCode": 1,
+      "case": "short-secret",
+      "rejected": true
+    },
+    {
+      "exitCode": 1,
+      "case": "unsafe-ttl",
+      "rejected": true
+    }
+  ],
+  "finalSnapshot": {
+    "latestMigration": 6,
+    "successfulMigrations": 6,
+    "historyDigest": "1af3ca920269d252940ed60697e95ea5",
+    "indexDefinition": "CREATE INDEX idx_services_category ON public.services USING btree (category, id) WHERE is_active",
+    "domainDigest": "1e48582d6e6202813072e9eb4dfe96fb",
+    "users": 8,
+    "services": 4,
+    "requests": 4,
+    "reviews": 4
+  },
+  "javaRuntime": "openjdk version \"25.0.4.1\" 2026-08-18 LTS\r\nOpenJDK Runtime Environment Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS)\r\nOpenJDK 64-Bit Server VM Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS, mixed mode, sharing)",
+  "checks": [
+    {
+      "name": "Compose config válido e banco sem porta publicada",
+      "passed": true
+    },
+    {
+      "name": "API pertence ao projeto isolado",
+      "passed": true
+    },
+    {
+      "name": "API publicada somente em loopback",
+      "passed": true
+    },
+    {
+      "name": "Runtime Java 25 real",
+      "passed": true
+    },
+    {
+      "name": "Processo da API não-root",
+      "passed": true
+    },
+    {
+      "name": "Saúde inicial",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Flyway V1–V6 no banco novo",
+      "passed": true
+    },
+    {
+      "name": "Índice composto parcial da V6",
+      "passed": true
+    },
+    {
+      "name": "REST sem JWT",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "GraphQL sem JWT",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "Swagger sem JWT em prod",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "Bearer inválido",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "Cadastro provider",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "ID provider válido",
+      "passed": true
+    },
+    {
+      "name": "Cadastro client",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "ID client válido",
+      "passed": true
+    },
+    {
+      "name": "Cadastro stranger",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "ID stranger válido",
+      "passed": true
+    },
+    {
+      "name": "Cadastro admin",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "ID admin válido",
+      "passed": true
+    },
+    {
+      "name": "Login provider",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Login provider retorna Bearer",
+      "passed": true
+    },
+    {
+      "name": "Login client",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Login client retorna Bearer",
+      "passed": true
+    },
+    {
+      "name": "Login stranger",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Login stranger retorna Bearer",
+      "passed": true
+    },
+    {
+      "name": "Login admin",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Login admin retorna Bearer",
+      "passed": true
+    },
+    {
+      "name": "CLIENT não lista usuários",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "ADMIN lista usuários",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Usuário consulta a própria conta",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Terceiro não consulta perfil privado",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "Atualiza usuário sem atribuir papel/ativação",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Mass assignment não altera papel ou ativação",
+      "passed": true
+    },
+    {
+      "name": "CLIENT não cria serviço",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "REST cria serviço",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "Prestador vem da identidade autenticada",
+      "passed": true
+    },
+    {
+      "name": "Lista serviços por categoria e prestador",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Filtro e paginação REST",
+      "passed": true
+    },
+    {
+      "name": "Terceiro não atualiza serviço",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "REST cria solicitação com preço do catálogo",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "Solicitação inicia PENDING e guarda 150",
+      "passed": true
+    },
+    {
+      "name": "Solicitação aberta impede desativar serviço",
+      "expected": 409,
+      "actual": 409,
+      "passed": true
+    },
+    {
+      "name": "Solicitação aberta impede desativar cliente",
+      "expected": 409,
+      "actual": 409,
+      "passed": true
+    },
+    {
+      "name": "CLIENT não aceita solicitação",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "Terceiro não lê solicitação",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "GraphQL recusa terceiro",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL recusa terceiro : erro FORBIDDEN",
+      "passed": true
+    },
+    {
+      "name": "Não avalia antes da conclusão",
+      "expected": 409,
+      "actual": 409,
+      "passed": true
+    },
+    {
+      "name": "GraphQL atualiza preço do catálogo",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL atualiza preço do catálogo : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Preço histórico permanece 150",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Snapshot preservado após edição do catálogo",
+      "passed": true
+    },
+    {
+      "name": "Proprietário atualiza serviço por REST",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL aceita solicitação",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL aceita solicitação : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "REST inicia execução",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL conclui solicitação",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL conclui solicitação : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Estado final não reabre",
+      "expected": 409,
+      "actual": 409,
+      "passed": true
+    },
+    {
+      "name": "Nota fracionária inválida",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "REST cria avaliação após conclusão",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "REST impede avaliação duplicada",
+      "expected": 409,
+      "actual": 409,
+      "passed": true
+    },
+    {
+      "name": "GraphQL impede avaliação duplicada",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL impede avaliação duplicada : erro CONFLICT",
+      "passed": true
+    },
+    {
+      "name": "Terceiro não lê avaliação",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "GraphQL cria serviço",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL cria serviço : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "GraphQL cria solicitação",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL cria solicitação : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Scalar Decimal e estado inicial GraphQL",
+      "passed": true
+    },
+    {
+      "name": "REST edita catálogo GraphQL",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "REST avança segunda solicitação para ACCEPTED",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "REST avança segunda solicitação para IN_PROGRESS",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "REST avança segunda solicitação para COMPLETED",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL cria avaliação",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL cria avaliação : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Oito queries GraphQL com filtros e relações",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Oito queries GraphQL com filtros e relações : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Resultados REST e GraphQL correspondem",
+      "passed": true
+    },
+    {
+      "name": "Projeção de prestador sem dados sensíveis",
+      "passed": true
+    },
+    {
+      "name": "Introspecção fechada em prod",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Produção recusa introspecção",
+      "passed": true
+    },
+    {
+      "name": "CLIENT não acessa OpenAPI em prod",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "ADMIN acessa OpenAPI em prod",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "ADMIN acessa Swagger UI em prod",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Reinício da API preserva dados e histórico Flyway",
+      "passed": true
+    },
+    {
+      "name": "JWT continua válido após reinício da API",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Reinício do PostgreSQL preserva volume, dados e migrations",
+      "passed": true
+    },
+    {
+      "name": "Health detecta falha real do banco",
+      "expected": 503,
+      "actual": 503,
+      "passed": true
+    },
+    {
+      "name": "Health agregado informa DOWN",
+      "passed": true
+    },
+    {
+      "name": "Healthcheck Docker marca API unhealthy sem banco",
+      "passed": true
+    },
+    {
+      "name": "Pool recupera conexão sem reiniciar API",
+      "passed": true
+    },
+    {
+      "name": "Falha e recuperação preservam registros e migrations",
+      "passed": true
+    },
+    {
+      "name": "REST funciona após recuperação do banco",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL funciona após recuperação do banco",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL funciona após recuperação do banco : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Imagem rejeita JWT missing-secret",
+      "passed": true
+    },
+    {
+      "name": "Imagem rejeita JWT short-secret",
+      "passed": true
+    },
+    {
+      "name": "Imagem rejeita JWT unsafe-ttl",
+      "passed": true
+    },
+    {
+      "name": "GraphQL desativa segundo serviço",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL desativa segundo serviço : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "REST desativa primeiro serviço",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    },
+    {
+      "name": "Serviço desativado não aparece no catálogo",
+      "expected": 404,
+      "actual": 404,
+      "passed": true
+    },
+    {
+      "name": "Histórico de solicitação preservado",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Histórico de avaliação preservado",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Exclusão lógica PROVIDER",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    },
+    {
+      "name": "JWT inativo PROVIDER rejeitado",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "Exclusão lógica CLIENT",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    },
+    {
+      "name": "JWT inativo CLIENT rejeitado",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "Exclusão lógica terceiro",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    },
+    {
+      "name": "JWT inativo terceiro rejeitado",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "Exclusão lógica ADMIN",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    },
+    {
+      "name": "JWT inativo ADMIN rejeitado",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "Quatro contas sintéticas preservadas e inativas",
+      "passed": true
+    },
+    {
+      "name": "Históricos e avaliações continuam registrados",
+      "passed": true
+    },
+    {
+      "name": "Imagem e logs sem valores de senhas ou JWTs",
+      "passed": true
+    },
+    {
+      "name": "Imagem não define credenciais de execução",
+      "passed": true
+    },
+    {
+      "name": "Logs confirmam Flyway V6 e Hibernate validate",
+      "passed": true
+    },
+    {
+      "name": "Saúde final",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Health final UP",
+      "passed": true
+    }
+  ]
+}

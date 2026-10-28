@@ -1,0 +1,60 @@
+# Opt-in TLS. Requires Compose >= 2.24.4 for !reset. No API or database port is published.
+services:
+  api:
+    ports: !reset []
+    environment:
+      SERVER_FORWARD_HEADERS_STRATEGY: native
+      SERVER_TOMCAT_REMOTEIP_INTERNAL_PROXIES: ${TRUSTED_PROXY_PATTERN:-172[.]30[.]240[.]14}
+      SERVER_TOMCAT_REMOTEIP_REMOTE_IP_HEADER: X-Forwarded-For
+      SERVER_TOMCAT_REMOTEIP_PROTOCOL_HEADER: X-Forwarded-Proto
+      SERVER_TOMCAT_REMOTEIP_HOST_HEADER: X-Forwarded-Host
+      SERVER_TOMCAT_REMOTEIP_PORT_HEADER: X-Forwarded-Port
+  proxy:
+    image: ${SERVICEHUB_PROXY_IMAGE:-servicehub-proxy:tls}
+    build:
+      context: ./docker/proxy
+    environment:
+      PUBLIC_DOMAIN: ${PUBLIC_DOMAIN:?Defina PUBLIC_DOMAIN para usar TLS}
+      HTTPS_PORT: ${HTTPS_PORT:-443}
+      REST_BODY_BYTES: ${REST_BODY_BYTES:-65536}
+      API_UPSTREAM_PORT: ${SERVER_PORT:-8080}
+    ports:
+      - "${TLS_BIND_ADDRESS:-127.0.0.1}:${HTTP_PORT:-80}:8080"
+      - "${TLS_BIND_ADDRESS:-127.0.0.1}:${HTTPS_PORT:-443}:8443"
+    depends_on:
+      api:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m,uid=10001,gid=10001
+      - /config:rw,noexec,nosuid,size=16m,uid=10001,gid=10001
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 256m
+    restart: unless-stopped
+    volumes:
+      - ${CADDY_CONFIG:-./docker/proxy/Caddyfile}:/etc/caddy/Caddyfile:ro
+      - ./docker/proxy/common.caddy:/etc/caddy/common.caddy:ro
+      - servicehub-caddy-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO /dev/null http://127.0.0.1:8080/proxy-health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    networks:
+      edge:
+        ipv4_address: ${PROXY_IP:-172.30.240.14}
+      ingress:
+volumes:
+  servicehub-caddy-data:
+    name: ${COMPOSE_PROJECT_NAME:-servicehub-stack}-caddy-data
+networks:
+  edge:
+    internal: true
+    ipam:
+      config:
+        - subnet: ${PROXY_SUBNET:-172.30.240.0/28}
+  ingress:

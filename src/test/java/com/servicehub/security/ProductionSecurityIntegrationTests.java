@@ -22,6 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest
 @ActiveProfiles({"test", "prod"})
 @Transactional
+@org.junit.jupiter.api.Tag("web")
 class ProductionSecurityIntegrationTests extends com.servicehub.JwtTestSupport {
     @Autowired private WebApplicationContext context;
     @Autowired private FilterChainProxy springSecurityFilterChain;

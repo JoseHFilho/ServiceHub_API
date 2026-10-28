@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+@org.junit.jupiter.api.Tag("unit")
 class PasswordHashServiceTest {
 
     public static final String LEGACY = "pbkdf2$65536$AAECAwQFBgcICQoLDA0ODw==$gIYFOSdDklXup7oLrChlKs0O9tHxVEgAgHhNVXtNd+0=";

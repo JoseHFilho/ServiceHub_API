@@ -28,8 +28,12 @@ import org.springframework.security.web.savedrequest.NullRequestCache;
 
 @Configuration
 @EnableMethodSecurity
+@org.springframework.scheduling.annotation.EnableScheduling
 @EnableConfigurationProperties(JwtProperties.class)
 public class SecurityConfig {
+    @Bean("admissionClock")
+    public java.time.Clock admissionClock() { return java.time.Clock.systemUTC(); }
+
     @Bean
     public AuthenticationManager authenticationManager(DatabaseUserDetailsService users, PasswordHashService encoder) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider(users);
@@ -65,10 +69,13 @@ public class SecurityConfig {
                         .jwt(config -> config.decoder(jwt).jwtAuthenticationConverter(converter))
                         .authenticationEntryPoint(errors).accessDeniedHandler(errors))
                 .authorizeHttpRequests(authorize -> {
+                    authorize.dispatcherTypeMatchers(jakarta.servlet.DispatcherType.ERROR).permitAll();
                     authorize.requestMatchers(HttpMethod.GET, "/api/hello", "/api/status", "/api/csrf", "/actuator/health").permitAll()
                             .requestMatchers(HttpMethod.POST, "/api/users", "/api/auth/login").permitAll();
-                    if (developmentDocs) authorize.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
+                    authorize.requestMatchers("/graphql/schema", "/graphql/schema/**").denyAll();
+                    if (developmentDocs) authorize.requestMatchers("/graphiql", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
                     else authorize.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").hasRole("ADMIN");
+                    if (!developmentDocs) authorize.requestMatchers("/graphiql", "/graphiql/**").denyAll();
                     authorize.anyRequest().authenticated();
                 });
         return http.build();

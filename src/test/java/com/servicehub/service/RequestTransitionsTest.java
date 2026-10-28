@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.*;
 
+@org.junit.jupiter.api.Tag("unit")
 class RequestTransitionsTest {
     static Stream<Arguments> edges() {
         return Stream.of(ServiceRequestStatus.values()).flatMap(from -> Stream.of(ServiceRequestStatus.values()).map(to -> Arguments.of(from, to)));

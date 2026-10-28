@@ -1,0 +1,468 @@
+{
+  "audit": "final",
+  "databases": [
+    {
+      "postgresMajor": "15",
+      "container": "servicehub-audit-568ada5b0e-pg15",
+      "database": "auditdb",
+      "metadata": {
+        "version": "PostgreSQL 15.19 (Debian 15.19-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "currentUser": "audit_owner",
+        "superuser": true,
+        "statementTimeout": "0",
+        "lockTimeout": "0",
+        "migrations": [
+          {
+            "version": "1",
+            "type": "SQL",
+            "checksum": -1953161921,
+            "success": true
+          },
+          {
+            "version": "2",
+            "type": "SQL",
+            "checksum": 362401011,
+            "success": true
+          },
+          {
+            "version": "3",
+            "type": "SQL",
+            "checksum": 294009928,
+            "success": true
+          },
+          {
+            "version": "4",
+            "type": "SQL",
+            "checksum": 1804532285,
+            "success": true
+          },
+          {
+            "version": "5",
+            "type": "JDBC",
+            "checksum": null,
+            "success": true
+          },
+          {
+            "version": "6",
+            "type": "JDBC",
+            "checksum": null,
+            "success": true
+          }
+        ],
+        "constraints": [
+          {
+            "table": "service_requests",
+            "name": "chk_requests_price",
+            "type": "c",
+            "definition": "CHECK ((total_price > (0)::numeric))"
+          },
+          {
+            "table": "service_requests",
+            "name": "chk_service_requests_status",
+            "type": "c",
+            "definition": "CHECK (((status)::text = ANY ((ARRAY['PENDING'::character varying, 'ACCEPTED'::character varying, 'IN_PROGRESS'::character varying, 'COMPLETED'::character varying, 'CANCELLED'::character varying])::text[])))"
+          },
+          {
+            "table": "service_requests",
+            "name": "fk_requests_client",
+            "type": "f",
+            "definition": "FOREIGN KEY (client_id) REFERENCES users(id) ON DELETE RESTRICT"
+          },
+          {
+            "table": "service_requests",
+            "name": "fk_requests_service",
+            "type": "f",
+            "definition": "FOREIGN KEY (service_id) REFERENCES services(id) ON DELETE RESTRICT"
+          },
+          {
+            "table": "service_requests",
+            "name": "service_requests_pkey",
+            "type": "p",
+            "definition": "PRIMARY KEY (id)"
+          },
+          {
+            "table": "reviews",
+            "name": "fk_reviews_request",
+            "type": "f",
+            "definition": "FOREIGN KEY (request_id) REFERENCES service_requests(id) ON DELETE RESTRICT"
+          },
+          {
+            "table": "reviews",
+            "name": "fk_reviews_reviewer",
+            "type": "f",
+            "definition": "FOREIGN KEY (reviewer_id) REFERENCES users(id) ON DELETE RESTRICT"
+          },
+          {
+            "table": "reviews",
+            "name": "reviews_pkey",
+            "type": "p",
+            "definition": "PRIMARY KEY (id)"
+          },
+          {
+            "table": "reviews",
+            "name": "reviews_rating_check",
+            "type": "c",
+            "definition": "CHECK (((rating >= 1) AND (rating <= 5)))"
+          },
+          {
+            "table": "reviews",
+            "name": "reviews_request_id_key",
+            "type": "u",
+            "definition": "UNIQUE (request_id)"
+          },
+          {
+            "table": "users",
+            "name": "chk_users_email_low",
+            "type": "c",
+            "definition": "CHECK (((email)::text = lower((email)::text)))"
+          },
+          {
+            "table": "users",
+            "name": "chk_users_role",
+            "type": "c",
+            "definition": "CHECK (((role)::text = ANY ((ARRAY['ADMIN'::character varying, 'PROVIDER'::character varying, 'CLIENT'::character varying])::text[])))"
+          },
+          {
+            "table": "users",
+            "name": "users_email_key",
+            "type": "u",
+            "definition": "UNIQUE (email)"
+          },
+          {
+            "table": "users",
+            "name": "users_pkey",
+            "type": "p",
+            "definition": "PRIMARY KEY (id)"
+          },
+          {
+            "table": "services",
+            "name": "chk_services_category",
+            "type": "c",
+            "definition": "CHECK (((category)::text = ANY ((ARRAY['LIMPEZA'::character varying, 'DIARISTA'::character varying, 'ENCANAMENTO'::character varying, 'ELETRICA'::character varying, 'JARDINAGEM'::character varying, 'PINTURA'::character varying, 'MARCENARIA'::character varying, 'PEDREIRO'::character varying, 'DEDETIZACAO'::character varying, 'AR_CONDICIONADO'::character varying, 'CHAVEIRO'::character varying, 'MONTAGEM_MOVEIS'::character varying, 'MUDANCA'::character varying, 'SUPORTE_TECNICO'::character varying, 'MANUTENCAO_COMPUTADORES'::character varying, 'DESENVOLVIMENTO_SOFTWARE'::character varying, 'REDES_E_INFRAESTRUTURA'::character varying, 'SEGURANCA_DIGITAL'::character varying, 'RECUPERACAO_DE_DADOS'::character varying, 'CONSULTORIA_TI'::character varying, 'OUTROS'::character varying])::text[])))"
+          },
+          {
+            "table": "services",
+            "name": "chk_services_price",
+            "type": "c",
+            "definition": "CHECK ((price > (0)::numeric))"
+          },
+          {
+            "table": "services",
+            "name": "fk_services_provider",
+            "type": "f",
+            "definition": "FOREIGN KEY (provider_id) REFERENCES users(id) ON DELETE RESTRICT"
+          },
+          {
+            "table": "services",
+            "name": "services_pkey",
+            "type": "p",
+            "definition": "PRIMARY KEY (id)"
+          }
+        ],
+        "indexes": [
+          {
+            "table": "service_requests",
+            "name": "idx_requests_service",
+            "definition": "CREATE INDEX idx_requests_service ON public.service_requests USING btree (service_id)"
+          },
+          {
+            "table": "service_requests",
+            "name": "service_requests_pkey",
+            "definition": "CREATE UNIQUE INDEX service_requests_pkey ON public.service_requests USING btree (id)"
+          },
+          {
+            "table": "service_requests",
+            "name": "idx_requests_client",
+            "definition": "CREATE INDEX idx_requests_client ON public.service_requests USING btree (client_id)"
+          },
+          {
+            "table": "service_requests",
+            "name": "idx_requests_status",
+            "definition": "CREATE INDEX idx_requests_status ON public.service_requests USING btree (status)"
+          },
+          {
+            "table": "reviews",
+            "name": "reviews_pkey",
+            "definition": "CREATE UNIQUE INDEX reviews_pkey ON public.reviews USING btree (id)"
+          },
+          {
+            "table": "reviews",
+            "name": "reviews_request_id_key",
+            "definition": "CREATE UNIQUE INDEX reviews_request_id_key ON public.reviews USING btree (request_id)"
+          },
+          {
+            "table": "reviews",
+            "name": "idx_reviews_reviewer",
+            "definition": "CREATE INDEX idx_reviews_reviewer ON public.reviews USING btree (reviewer_id)"
+          },
+          {
+            "table": "users",
+            "name": "users_pkey",
+            "definition": "CREATE UNIQUE INDEX users_pkey ON public.users USING btree (id)"
+          },
+          {
+            "table": "users",
+            "name": "users_email_key",
+            "definition": "CREATE UNIQUE INDEX users_email_key ON public.users USING btree (email)"
+          },
+          {
+            "table": "services",
+            "name": "services_pkey",
+            "definition": "CREATE UNIQUE INDEX services_pkey ON public.services USING btree (id)"
+          },
+          {
+            "table": "services",
+            "name": "idx_services_provider",
+            "definition": "CREATE INDEX idx_services_provider ON public.services USING btree (provider_id)"
+          },
+          {
+            "table": "services",
+            "name": "idx_services_category",
+            "definition": "CREATE INDEX idx_services_category ON public.services USING btree (category, id) WHERE is_active"
+          }
+        ]
+      }
+    },
+    {
+      "postgresMajor": "16",
+      "container": "servicehub-audit-568ada5b0e-pg16",
+      "database": "auditdb",
+      "metadata": {
+        "version": "PostgreSQL 16.14 (Debian 16.14-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+        "currentUser": "audit_owner",
+        "superuser": true,
+        "statementTimeout": "0",
+        "lockTimeout": "0",
+        "migrations": [
+          {
+            "version": "1",
+            "type": "SQL",
+            "checksum": -1953161921,
+            "success": true
+          },
+          {
+            "version": "2",
+            "type": "SQL",
+            "checksum": 362401011,
+            "success": true
+          },
+          {
+            "version": "3",
+            "type": "SQL",
+            "checksum": 294009928,
+            "success": true
+          },
+          {
+            "version": "4",
+            "type": "SQL",
+            "checksum": 1804532285,
+            "success": true
+          },
+          {
+            "version": "5",
+            "type": "JDBC",
+            "checksum": null,
+            "success": true
+          },
+          {
+            "version": "6",
+            "type": "JDBC",
+            "checksum": null,
+            "success": true
+          }
+        ],
+        "constraints": [
+          {
+            "table": "service_requests",
+            "name": "chk_requests_price",
+            "type": "c",
+            "definition": "CHECK ((total_price > (0)::numeric))"
+          },
+          {
+            "table": "service_requests",
+            "name": "chk_service_requests_status",
+            "type": "c",
+            "definition": "CHECK (((status)::text = ANY ((ARRAY['PENDING'::character varying, 'ACCEPTED'::character varying, 'IN_PROGRESS'::character varying, 'COMPLETED'::character varying, 'CANCELLED'::character varying])::text[])))"
+          },
+          {
+            "table": "service_requests",
+            "name": "fk_requests_client",
+            "type": "f",
+            "definition": "FOREIGN KEY (client_id) REFERENCES users(id) ON DELETE RESTRICT"
+          },
+          {
+            "table": "service_requests",
+            "name": "fk_requests_service",
+            "type": "f",
+            "definition": "FOREIGN KEY (service_id) REFERENCES services(id) ON DELETE RESTRICT"
+          },
+          {
+            "table": "service_requests",
+            "name": "service_requests_pkey",
+            "type": "p",
+            "definition": "PRIMARY KEY (id)"
+          },
+          {
+            "table": "reviews",
+            "name": "fk_reviews_request",
+            "type": "f",
+            "definition": "FOREIGN KEY (request_id) REFERENCES service_requests(id) ON DELETE RESTRICT"
+          },
+          {
+            "table": "reviews",
+            "name": "fk_reviews_reviewer",
+            "type": "f",
+            "definition": "FOREIGN KEY (reviewer_id) REFERENCES users(id) ON DELETE RESTRICT"
+          },
+          {
+            "table": "reviews",
+            "name": "reviews_pkey",
+            "type": "p",
+            "definition": "PRIMARY KEY (id)"
+          },
+          {
+            "table": "reviews",
+            "name": "reviews_rating_check",
+            "type": "c",
+            "definition": "CHECK (((rating >= 1) AND (rating <= 5)))"
+          },
+          {
+            "table": "reviews",
+            "name": "reviews_request_id_key",
+            "type": "u",
+            "definition": "UNIQUE (request_id)"
+          },
+          {
+            "table": "users",
+            "name": "chk_users_email_low",
+            "type": "c",
+            "definition": "CHECK (((email)::text = lower((email)::text)))"
+          },
+          {
+            "table": "users",
+            "name": "chk_users_role",
+            "type": "c",
+            "definition": "CHECK (((role)::text = ANY ((ARRAY['ADMIN'::character varying, 'PROVIDER'::character varying, 'CLIENT'::character varying])::text[])))"
+          },
+          {
+            "table": "users",
+            "name": "users_email_key",
+            "type": "u",
+            "definition": "UNIQUE (email)"
+          },
+          {
+            "table": "users",
+            "name": "users_pkey",
+            "type": "p",
+            "definition": "PRIMARY KEY (id)"
+          },
+          {
+            "table": "services",
+            "name": "chk_services_category",
+            "type": "c",
+            "definition": "CHECK (((category)::text = ANY ((ARRAY['LIMPEZA'::character varying, 'DIARISTA'::character varying, 'ENCANAMENTO'::character varying, 'ELETRICA'::character varying, 'JARDINAGEM'::character varying, 'PINTURA'::character varying, 'MARCENARIA'::character varying, 'PEDREIRO'::character varying, 'DEDETIZACAO'::character varying, 'AR_CONDICIONADO'::character varying, 'CHAVEIRO'::character varying, 'MONTAGEM_MOVEIS'::character varying, 'MUDANCA'::character varying, 'SUPORTE_TECNICO'::character varying, 'MANUTENCAO_COMPUTADORES'::character varying, 'DESENVOLVIMENTO_SOFTWARE'::character varying, 'REDES_E_INFRAESTRUTURA'::character varying, 'SEGURANCA_DIGITAL'::character varying, 'RECUPERACAO_DE_DADOS'::character varying, 'CONSULTORIA_TI'::character varying, 'OUTROS'::character varying])::text[])))"
+          },
+          {
+            "table": "services",
+            "name": "chk_services_price",
+            "type": "c",
+            "definition": "CHECK ((price > (0)::numeric))"
+          },
+          {
+            "table": "services",
+            "name": "fk_services_provider",
+            "type": "f",
+            "definition": "FOREIGN KEY (provider_id) REFERENCES users(id) ON DELETE RESTRICT"
+          },
+          {
+            "table": "services",
+            "name": "services_pkey",
+            "type": "p",
+            "definition": "PRIMARY KEY (id)"
+          }
+        ],
+        "indexes": [
+          {
+            "table": "service_requests",
+            "name": "service_requests_pkey",
+            "definition": "CREATE UNIQUE INDEX service_requests_pkey ON public.service_requests USING btree (id)"
+          },
+          {
+            "table": "service_requests",
+            "name": "idx_requests_service",
+            "definition": "CREATE INDEX idx_requests_service ON public.service_requests USING btree (service_id)"
+          },
+          {
+            "table": "service_requests",
+            "name": "idx_requests_client",
+            "definition": "CREATE INDEX idx_requests_client ON public.service_requests USING btree (client_id)"
+          },
+          {
+            "table": "service_requests",
+            "name": "idx_requests_status",
+            "definition": "CREATE INDEX idx_requests_status ON public.service_requests USING btree (status)"
+          },
+          {
+            "table": "reviews",
+            "name": "reviews_request_id_key",
+            "definition": "CREATE UNIQUE INDEX reviews_request_id_key ON public.reviews USING btree (request_id)"
+          },
+          {
+            "table": "reviews",
+            "name": "reviews_pkey",
+            "definition": "CREATE UNIQUE INDEX reviews_pkey ON public.reviews USING btree (id)"
+          },
+          {
+            "table": "reviews",
+            "name": "idx_reviews_reviewer",
+            "definition": "CREATE INDEX idx_reviews_reviewer ON public.reviews USING btree (reviewer_id)"
+          },
+          {
+            "table": "users",
+            "name": "users_pkey",
+            "definition": "CREATE UNIQUE INDEX users_pkey ON public.users USING btree (id)"
+          },
+          {
+            "table": "users",
+            "name": "users_email_key",
+            "definition": "CREATE UNIQUE INDEX users_email_key ON public.users USING btree (email)"
+          },
+          {
+            "table": "services",
+            "name": "services_pkey",
+            "definition": "CREATE UNIQUE INDEX services_pkey ON public.services USING btree (id)"
+          },
+          {
+            "table": "services",
+            "name": "idx_services_provider",
+            "definition": "CREATE INDEX idx_services_provider ON public.services USING btree (provider_id)"
+          },
+          {
+            "table": "services",
+            "name": "idx_services_category",
+            "definition": "CREATE INDEX idx_services_category ON public.services USING btree (category, id) WHERE is_active"
+          }
+        ]
+      }
+    }
+  ],
+  "restore": {
+    "source": "Isolated Stage 8 PostgreSQL 16 synthetic fixture dump",
+    "sourceOriginalDatabase": false,
+    "dumpSha256": "E5AC33A9A2C0DBE6331B3CD81CEAFD6F4BBBA943AE374DF87314ACE48DF70F2E",
+    "destinationContainer": "servicehub-audit-568ada5b0e-pg16",
+    "destinationDatabase": "audit_restore",
+    "command": "pg_restore --exit-on-error --no-owner --no-privileges",
+    "exitCode": 0,
+    "counts": {
+      "users": 4,
+      "inactiveUsers": 4,
+      "services": 2,
+      "requests": 2,
+      "reviews": 2,
+      "latestFlyway": "6",
+      "foreignKeys": 5
+    },
+    "productionRtoRpoValidated": false
+  }
+}

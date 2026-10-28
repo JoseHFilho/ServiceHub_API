@@ -34,7 +34,7 @@ public class DatabaseUserDetailsService implements UserDetailsService, UserDetai
     @Transactional
     public UserDetails updatePassword(UserDetails user, String newPassword) {
         if (!(user instanceof ServiceHubPrincipal principal)
-                || users.upgradePassword(principal.id(), principal.getPassword(), newPassword, LocalDateTime.now()) != 1) {
+                || users.upgradePassword(principal.id(), principal.getPassword(), newPassword, LocalDateTime.now(), principal.credentialVersion()) != 1) {
             throw new BadCredentialsException("Credenciais inválidas.");
         }
         return principal.withPassword(newPassword);

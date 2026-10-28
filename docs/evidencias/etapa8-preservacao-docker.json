@@ -1,0 +1,160 @@
+{
+  "stage": 8,
+  "capturedAt": "2026-10-27T17:36:23.9724113-03:00",
+  "dockerEngine": "29.7.2",
+  "compose": "5.3.1",
+  "previousContainerCount": 18,
+  "previousContainersModified": [],
+  "previousVolumes": [
+    "bookify_bookify_postgres_data",
+    "nfc-facil_mailpit_data",
+    "nfc-facil_minio_data",
+    "nfc-facil_postgres_data",
+    "nfc-facil_redis_data",
+    "servicehub-api_servicehub-postgres-data"
+  ],
+  "previousVolumesMissing": [],
+  "previousNetworks": [
+    {
+      "ID": "5b33edcbaee6",
+      "Name": "bookify_default",
+      "Driver": "bridge",
+      "Scope": "local"
+    },
+    {
+      "ID": "f47879944224",
+      "Name": "bridge",
+      "Driver": "bridge",
+      "Scope": "local"
+    },
+    {
+      "ID": "ec27bbc3b750",
+      "Name": "host",
+      "Driver": "host",
+      "Scope": "local"
+    },
+    {
+      "ID": "72e48bed9523",
+      "Name": "nfc-facil_edge",
+      "Driver": "bridge",
+      "Scope": "local"
+    },
+    {
+      "ID": "2217ba4f7dee",
+      "Name": "nfc-facil_internal",
+      "Driver": "bridge",
+      "Scope": "local"
+    },
+    {
+      "ID": "7e52f3dc89cb",
+      "Name": "none",
+      "Driver": "null",
+      "Scope": "local"
+    },
+    {
+      "ID": "d881179520c6",
+      "Name": "servicehub-api_default",
+      "Driver": "bridge",
+      "Scope": "local"
+    }
+  ],
+  "previousNetworksModified": [],
+  "newContainers": [
+    {
+      "ID": "ea53b381691f",
+      "Names": "servicehub-etapa8-fd96db7fc168-api-1",
+      "Image": "servicehub-api:etapa8-6c8f0fedebaa",
+      "State": "running"
+    },
+    {
+      "ID": "9880cdd03760",
+      "Names": "servicehub-etapa8-fd96db7fc168-postgres-1",
+      "Image": "postgres:16",
+      "State": "running"
+    },
+    {
+      "ID": "8cbce6ab1782",
+      "Names": "servicehub-etapa8-6c8f0fedebaa-api-1",
+      "Image": "servicehub-api:etapa8-6c8f0fedebaa",
+      "State": "running"
+    },
+    {
+      "ID": "199b1080ff7b",
+      "Names": "servicehub-etapa8-6c8f0fedebaa-postgres-1",
+      "Image": "postgres:15",
+      "State": "running"
+    }
+  ],
+  "newVolumes": [
+    "servicehub-etapa8-6c8f0fedebaa-postgres-15-data",
+    "servicehub-etapa8-fd96db7fc168-postgres-16-data"
+  ],
+  "newNetworks": [
+    {
+      "ID": "da7ac912bc2a",
+      "Name": "servicehub-etapa8-6c8f0fedebaa_database",
+      "Driver": "bridge",
+      "Scope": "local"
+    },
+    {
+      "ID": "9ebb0bc423a1",
+      "Name": "servicehub-etapa8-6c8f0fedebaa_edge",
+      "Driver": "bridge",
+      "Scope": "local"
+    },
+    {
+      "ID": "735d7b0dc9c3",
+      "Name": "servicehub-etapa8-fd96db7fc168_database",
+      "Driver": "bridge",
+      "Scope": "local"
+    },
+    {
+      "ID": "c0413176a8c0",
+      "Name": "servicehub-etapa8-fd96db7fc168_edge",
+      "Driver": "bridge",
+      "Scope": "local"
+    }
+  ],
+  "projects": [
+    {
+      "project": "servicehub-etapa8-6c8f0fedebaa",
+      "postgresMajor": "15",
+      "apiContainer": "servicehub-etapa8-6c8f0fedebaa-api-1",
+      "postgresContainer": "servicehub-etapa8-6c8f0fedebaa-postgres-1",
+      "apiHealthy": true,
+      "postgresHealthy": true,
+      "databaseNetworkInternal": true,
+      "volume": "servicehub-etapa8-6c8f0fedebaa-postgres-15-data",
+      "apiUrl": "http://127.0.0.1:32783",
+      "databasePortPublished": false,
+      "syntheticEnvValuesUsed": true,
+      "postgresVersion": "15.19 (Debian 15.19-1.pgdg13+2)"
+    },
+    {
+      "project": "servicehub-etapa8-fd96db7fc168",
+      "postgresMajor": "16",
+      "apiContainer": "servicehub-etapa8-fd96db7fc168-api-1",
+      "postgresContainer": "servicehub-etapa8-fd96db7fc168-postgres-1",
+      "apiHealthy": true,
+      "postgresHealthy": true,
+      "databaseNetworkInternal": true,
+      "volume": "servicehub-etapa8-fd96db7fc168-postgres-16-data",
+      "apiUrl": "http://127.0.0.1:32786",
+      "databasePortPublished": false,
+      "syntheticEnvValuesUsed": true,
+      "postgresVersion": "16.14 (Debian 16.14-1.pgdg13+1)"
+    }
+  ],
+  "originalDatabaseContainer": {
+    "ID": "71fb5634975e",
+    "Names": "servicehub-db",
+    "Image": "postgres:15",
+    "State": "exited"
+  },
+  "originalDatabaseAccessed": false,
+  "factoryResetOrPrune": false,
+  "originalResourceRemoval": false,
+  "headBefore": "33797874b5fe7eac75dae23b3e16ff6abc048e53",
+  "headAfter": "33797874b5fe7eac75dae23b3e16ff6abc048e53",
+  "headUnchanged": true
+}

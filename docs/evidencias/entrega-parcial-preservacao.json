@@ -1,0 +1,157 @@
+{
+  "capturedAt": "2026-10-27T23:59:38.3624559Z",
+  "branch": "codex/atualizacao-etapas-1-a-4",
+  "head": "33797874b5fe7eac75dae23b3e16ff6abc048e53",
+  "headUnchanged": true,
+  "stagedFiles": 0,
+  "gitStatus": {
+    "modified": 50,
+    "untracked": 166,
+    "deleted": 0,
+    "candidateFiles": 298
+  },
+  "gitDiffCheckPassed": true,
+  "preexistingFiles": {
+    "baseline": 256,
+    "unchanged": 219,
+    "modifiedIntentionally": [
+      ".env.example",
+      "compose.yaml",
+      "Dockerfile",
+      "README.md",
+      "src/test/resources/application-test.properties",
+      ".gitignore",
+      ".dockerignore",
+      "scripts/verify-tests-java25.ps1",
+      "scripts/verify-compose.ps1",
+      "scripts/prepare-env.ps1",
+      "src/main/resources/application.properties",
+      "src/main/resources/application-prod.properties",
+      "src/test/java/com/servicehub/MigrationIntegrationTests.java",
+      "src/test/java/com/servicehub/JwtTestSupport.java",
+      "src/test/java/com/servicehub/IndexUpgradeTests.java",
+      "src/test/java/com/servicehub/PostgresQueryBenchmark.java",
+      "src/test/java/com/servicehub/PostgresEnvironmentIT.java",
+      "src/main/java/com/servicehub/config/SecurityConfig.java",
+      "src/test/java/com/servicehub/security/DatabaseUserDetailsServiceTest.java",
+      "src/test/java/com/servicehub/security/JwtServiceTest.java",
+      "src/main/java/com/servicehub/model/User.java",
+      "src/main/java/com/servicehub/service/BusinessLocks.java",
+      "src/main/java/com/servicehub/service/AuthService.java",
+      "src/main/java/com/servicehub/service/ServiceOfferingService.java",
+      "src/main/java/com/servicehub/service/UserService.java",
+      "src/main/java/com/servicehub/service/ServiceRequestService.java",
+      "src/main/java/com/servicehub/controller/ServiceRequestController.java",
+      "src/main/java/com/servicehub/controller/ServiceOfferingController.java",
+      "src/main/java/com/servicehub/controller/ReviewController.java",
+      "src/main/java/com/servicehub/security/CurrentUserJwtConverter.java",
+      "src/main/java/com/servicehub/security/AccessPolicy.java",
+      "src/main/java/com/servicehub/security/DatabaseUserDetailsService.java",
+      "src/main/java/com/servicehub/security/JwtProperties.java",
+      "src/main/java/com/servicehub/repository/UserRepository.java",
+      "src/main/java/com/servicehub/security/ServiceHubPrincipal.java",
+      "src/main/java/com/servicehub/graphql/PageInput.java",
+      "src/main/java/com/servicehub/security/JwtService.java"
+    ],
+    "missing": []
+  },
+  "migrationsV1ThroughV6": [
+    {
+      "path": "src/main/java/db/migration/V6__Order_active_services_by_category.java",
+      "sha256": "C409F9BB4317D326E5E4B331B801B14C0EFF1E827D7F72745CAC524B82626812",
+      "unchanged": true
+    },
+    {
+      "path": "src/main/java/db/migration/V5__Align_reference_schema.java",
+      "sha256": "CFD5197524AEFF45101F541536BFC791103B9945B93E13C5146336167CF97F79",
+      "unchanged": true
+    },
+    {
+      "path": "src/main/resources/db/migration/V4__Create_reviews_table.sql",
+      "sha256": "64C140B4B38143D6C648B8581DDB0F0B3FC2A11018ABDB0893AF8C04444F0C70",
+      "unchanged": true
+    },
+    {
+      "path": "src/main/resources/db/migration/V3__Create_service_requests_table.sql",
+      "sha256": "F44A304B7C35ED609C6ABEF30E6A26715F5F1A1C7DED13DE1D03BF40234B3731",
+      "unchanged": true
+    },
+    {
+      "path": "src/main/resources/db/migration/V2__Create_services_table.sql",
+      "sha256": "6660775A1B9D6972205C15A1E45AA3E1305F707EB182CCCF6AA8541F733670D6",
+      "unchanged": true
+    },
+    {
+      "path": "src/main/resources/db/migration/V1__Create_users_table.sql",
+      "sha256": "C023C398460689C5C60FADF9F69684588E7243078891F88C1AE1F93536508F99",
+      "unchanged": true
+    }
+  ],
+  "finalTestedSource": {
+    "reference": "entrega-pg16",
+    "filesCompared": 148,
+    "differences": []
+  },
+  "testPreservation": [
+    {
+      "postgres": "15",
+      "runner": "standard",
+      "previousTests": 370.0,
+      "currentTests": 403.0,
+      "missingOrReducedClasses": []
+    },
+    {
+      "postgres": "15",
+      "runner": "postgres",
+      "previousTests": 91.0,
+      "currentTests": 117.0,
+      "missingOrReducedClasses": []
+    },
+    {
+      "postgres": "16",
+      "runner": "standard",
+      "previousTests": 370.0,
+      "currentTests": 403.0,
+      "missingOrReducedClasses": []
+    },
+    {
+      "postgres": "16",
+      "runner": "postgres",
+      "previousTests": 91.0,
+      "currentTests": 117.0,
+      "missingOrReducedClasses": []
+    }
+  ],
+  "docker": {
+    "engine": "29.7.2",
+    "baselineContainers": 28,
+    "missingContainers": [],
+    "changedPreexistingStates": [],
+    "baselineVolumes": 8,
+    "missingVolumes": [],
+    "baselineNetworks": 12,
+    "missingNetworks": [],
+    "missingCorrectionResources": [],
+    "originalContainer": {
+      "ID": "71fb5634975e",
+      "Names": "servicehub-db",
+      "State": "exited"
+    },
+    "originalDatabaseAccessed": false,
+    "currentContainers": 48,
+    "currentVolumes": 10,
+    "currentNetworks": 15,
+    "manualDeletionOrPrunePerformed": false,
+    "testcontainersLifecycle": "Only new disposable resources created by these tests were managed automatically"
+  },
+  "publicationScan": {
+    "candidateFilesScanned": 298,
+    "archiveXmlEntriesScanned": 49,
+    "privateEnvironmentFilesChecked": 8,
+    "distinctPrivateValuesCompared": 11,
+    "secretMatches": [],
+    "prohibitedCandidates": [],
+    "importantIgnoredFiles": [],
+    "limitations": "Pattern and known-private-value review; not a guarantee or external SCA service"
+  }
+}

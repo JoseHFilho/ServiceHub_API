@@ -1,0 +1,13 @@
+# Allowlist: private env files, Git, target, docs, backups and temporary files stay outside the build.
+**
+!pom.xml
+!mvnw
+!.mvn/
+!.mvn/wrapper/
+!.mvn/wrapper/maven-wrapper.properties
+!src/
+!src/**
+!docker/
+!docker/Healthcheck.java
+!docker/postgres/
+!docker/postgres/*.sh

@@ -1,0 +1,75 @@
+{
+  "stage": 8,
+  "runner": "postgres",
+  "postgresMajor": "16",
+  "result": "BUILD SUCCESS",
+  "command": "./mvnw -B -ntp -o -Ptestcontainers -Dpostgres.version=16 clean verify (JDK 25 container)",
+  "javaRuntime": [
+    "25.0.4.1"
+  ],
+  "javaRelease": 25,
+  "tests": 91,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "previousSuiteCountsPreserved": true,
+  "originalDatabaseAccessed": false,
+  "suites": [
+    {
+      "name": "com.servicehub.PostgresConcurrencyIT",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "name": "com.servicehub.PostgresDeactivationIT",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "name": "com.servicehub.PostgresEnvironmentIT",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "name": "com.servicehub.PostgresGraphQlIT",
+      "tests": 60,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "name": "com.servicehub.PostgresIndexUpgradeIT",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "name": "com.servicehub.PostgresQueryOptimizationIT",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "name": "com.servicehub.PostgresSchemaUpgradeIT",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    }
+  ]
+}

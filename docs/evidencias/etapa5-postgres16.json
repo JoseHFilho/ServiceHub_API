@@ -1,0 +1,217 @@
+{
+  "stage": 5,
+  "database": "PostgreSQL 16.14",
+  "result": "BUILD SUCCESS",
+  "capturedAt": "2026-10-27T12:54:56.1416474-03:00",
+  "javaRuntime": "26.0.2.1",
+  "javaRelease": 25,
+  "springBoot": "4.1.1",
+  "springGraphQl": "2.0.5",
+  "graphqlJava": "25.0",
+  "previousTestsPreserved": 266,
+  "newTests": 94,
+  "tests": 360.0,
+  "failures": 0.0,
+  "errors": 0.0,
+  "skipped": 0.0,
+  "hibernateInitialized": true,
+  "flywayInitialized": true,
+  "graphQlSchemaLoaded": true,
+  "graphQlMappingsComplete": true,
+  "containerRetained": "servicehub-v5-test-b755b1ba613c4d4bbc9c121a9b300927",
+  "originalDatabaseAccessed": false,
+  "suites": [
+    {
+      "name": "com.servicehub.BusinessConcurrencyIntegrationTests",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 12.796
+    },
+    {
+      "name": "com.servicehub.BusinessRestIntegrationTests",
+      "tests": 110,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 5.266
+    },
+    {
+      "name": "com.servicehub.controller.HelloControllerTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.003
+    },
+    {
+      "name": "com.servicehub.DeactivationIntegrationTests",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.844
+    },
+    {
+      "name": "com.servicehub.graphql.GraphQlBodyLimitFilterTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.019
+    },
+    {
+      "name": "com.servicehub.graphql.GraphQlErrorResolverTest",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.306
+    },
+    {
+      "name": "com.servicehub.graphql.GraphQlLimitsAndScalarsTest",
+      "tests": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.228
+    },
+    {
+      "name": "com.servicehub.GraphQlIntegrationTests",
+      "tests": 60,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.832
+    },
+    {
+      "name": "com.servicehub.GraphQlProductionSecurityIntegrationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.579
+    },
+    {
+      "name": "com.servicehub.MigrationIntegrationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.023
+    },
+    {
+      "name": "com.servicehub.OpenApiIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.052
+    },
+    {
+      "name": "com.servicehub.RepositoryIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.097
+    },
+    {
+      "name": "com.servicehub.SchemaUpgradeTests",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.386
+    },
+    {
+      "name": "com.servicehub.security.CsrfAndSessionIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.471
+    },
+    {
+      "name": "com.servicehub.security.DatabaseUserDetailsServiceTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.14
+    },
+    {
+      "name": "com.servicehub.security.JwtAuthenticationIntegrationTests",
+      "tests": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.355
+    },
+    {
+      "name": "com.servicehub.security.JwtServiceTest",
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.025
+    },
+    {
+      "name": "com.servicehub.security.PasswordHashServiceTest",
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.223
+    },
+    {
+      "name": "com.servicehub.security.ProductionSecurityIntegrationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.725
+    },
+    {
+      "name": "com.servicehub.security.SecurityIntegrationTests",
+      "tests": 32,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 8.436
+    },
+    {
+      "name": "com.servicehub.service.RequestTransitionsTest",
+      "tests": 25,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.018
+    },
+    {
+      "name": "com.servicehub.service.UserServiceTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.553
+    },
+    {
+      "name": "com.servicehub.ServicehubApiApplicationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.021
+    },
+    {
+      "name": "com.servicehub.UserControllerIntegrationTests",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.166
+    }
+  ]
+}

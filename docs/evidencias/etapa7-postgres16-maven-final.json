@@ -1,0 +1,16 @@
+{
+  "stage": 7,
+  "command": ".\\mvnw.cmd -o -Ptestcontainers -Dpostgres.version=16 clean verify",
+  "postgresMajor": 16,
+  "result": "BUILD SUCCESS",
+  "tests": 461,
+  "standardTests": 370,
+  "postgresTests": 91,
+  "previousStandardTests": 363,
+  "previousPostgresTests": 84,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "benchmarkIncluded": false,
+  "capturedAt": "2026-10-27T16:43:29.3848800-03:00"
+}

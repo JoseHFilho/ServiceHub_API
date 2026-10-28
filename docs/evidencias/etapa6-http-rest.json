@@ -1,0 +1,277 @@
+{
+  "stage": 6,
+  "profile": "prod",
+  "packagedJar": true,
+  "container": "servicehub-v5-test-51e3b2ab083b4e1caa665e25ec2f2df6",
+  "image": "postgres:15",
+  "originalDatabaseAccessed": false,
+  "total": 45,
+  "passed": 45,
+  "failed": 0,
+  "fixturesLogicallyDeactivated": true,
+  "serviceId": 223,
+  "requestId": 59,
+  "reviewId": 13,
+  "checks": [
+    {
+      "name": "Cadastro provider",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "Cadastro client",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "Cadastro stranger",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "Cadastro admin",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "Login provider",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Login client",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Login stranger",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Login admin",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Catálogo sem JWT",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "CLIENT não cria serviço",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "PROVIDER cria serviço",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "Prestador e ativação vêm do servidor",
+      "passed": true
+    },
+    {
+      "name": "Catálogo paginado",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "CLIENT contrata serviço",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "Identidade, preço e estado de contratação protegidos",
+      "passed": true
+    },
+    {
+      "name": "Atualiza preço de catálogo",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Consulta preço histórico",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Preço histórico preservado",
+      "passed": true
+    },
+    {
+      "name": "Solicitação aberta bloqueia desativação",
+      "expected": 409,
+      "actual": 409,
+      "passed": true
+    },
+    {
+      "name": "CLIENT não avança estado",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "Terceiro não consulta solicitação",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "Transição para ACCEPTED",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Transição para IN_PROGRESS",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Transição para COMPLETED",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Estado final não reabre",
+      "expected": 409,
+      "actual": 409,
+      "passed": true
+    },
+    {
+      "name": "Nota fracionária inválida",
+      "expected": 400,
+      "actual": 400,
+      "passed": true
+    },
+    {
+      "name": "Avalia solicitação concluída",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "Avaliador vem da solicitação",
+      "passed": true
+    },
+    {
+      "name": "Avaliação duplicada bloqueada",
+      "expected": 409,
+      "actual": 409,
+      "passed": true
+    },
+    {
+      "name": "Prestador consulta avaliação",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Terceiro não consulta avaliação",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "Desativação lógica do serviço",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    },
+    {
+      "name": "Serviço desativado indisponível",
+      "expected": 404,
+      "actual": 404,
+      "passed": true
+    },
+    {
+      "name": "Histórico da solicitação preservado",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Histórico da avaliação preservado",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Lista solicitações com filtro",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Lista avaliações com filtro",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "OpenAPI autenticado em prod",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "OpenAPI contém exemplo JSON e Bearer",
+      "passed": true
+    },
+    {
+      "name": "Desativa CLIENT após conclusão",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    },
+    {
+      "name": "JWT de CLIENT inativo rejeitado",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "Desativa PROVIDER após conclusão",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    },
+    {
+      "name": "Desativa terceiro temporário",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    },
+    {
+      "name": "Desativa ADMIN temporário",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    },
+    {
+      "name": "JWT de ADMIN inativo rejeitado",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    }
+  ]
+}

@@ -25,6 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("test")
 @Transactional
+@org.junit.jupiter.api.Tag("integration")
 class RepositoryIntegrationTests extends com.servicehub.JwtTestSupport {
 
     @Autowired

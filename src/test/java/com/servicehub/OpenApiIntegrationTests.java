@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @ActiveProfiles("test")
+@org.junit.jupiter.api.Tag("web")
 class OpenApiIntegrationTests extends com.servicehub.JwtTestSupport {
     @Autowired
     private WebApplicationContext context;

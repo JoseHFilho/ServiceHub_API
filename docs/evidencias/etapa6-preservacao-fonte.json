@@ -1,0 +1,14 @@
+{
+  "stage": 6,
+  "capturedAt": "2026-10-27T16:00:01.7074394-03:00",
+  "mainFileCount": 76,
+  "mainFilesChanged": [],
+  "mainFilesAdded": [],
+  "historicalEvidenceCount": 31,
+  "historicalEvidenceChanged": [],
+  "headBefore": "33797874b5fe7eac75dae23b3e16ff6abc048e53",
+  "headAfter": "33797874b5fe7eac75dae23b3e16ff6abc048e53",
+  "headUnchanged": true,
+  "remainingTestJavaProcesses": [],
+  "newApplicationFeatures": false
+}

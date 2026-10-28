@@ -23,6 +23,7 @@ import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest(properties = "servicehub.test.real-csrf=true")
 @ActiveProfiles("test")
 @Transactional
+@org.junit.jupiter.api.Tag("web")
 class CsrfAndSessionIntegrationTests extends com.servicehub.JwtTestSupport {
     @Autowired private WebApplicationContext context;
     @Autowired private UserRepository users;

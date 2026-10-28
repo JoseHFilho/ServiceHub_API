@@ -1,0 +1,309 @@
+{
+  "audit": "final",
+  "timestamp": "2026-10-27T21:32:54.5574270Z",
+  "baseUrl": "http://127.0.0.1:56229",
+  "database": "audit_http",
+  "container": "servicehub-audit-568ada5b0e-api",
+  "syntheticDataOnly": true,
+  "checks": [
+    {
+      "check": "registration-mass-assignment",
+      "observed": {
+        "status": 201,
+        "passwordExposed": false,
+        "active": true,
+        "role": "CLIENT"
+      }
+    },
+    {
+      "check": "service-owner-from-token",
+      "observed": {
+        "status": 201,
+        "providerId": 4,
+        "expectedProviderId": 4
+      }
+    },
+    {
+      "check": "bola-other-user",
+      "observed": {
+        "status": 403
+      }
+    },
+    {
+      "check": "bola-service-update",
+      "observed": {
+        "status": 403
+      }
+    },
+    {
+      "check": "rest-without-token",
+      "observed": {
+        "status": 401
+      }
+    },
+    {
+      "check": "graphql-without-token",
+      "observed": {
+        "status": 401
+      }
+    },
+    {
+      "check": "rest-page-overflow-services",
+      "observed": {
+        "status": 401,
+        "message": "Autenticação necessária ou credenciais inválidas.",
+        "error": "Unauthorized"
+      }
+    },
+    {
+      "check": "rest-page-overflow-requests",
+      "observed": {
+        "status": 401,
+        "message": "Autenticação necessária ou credenciais inválidas.",
+        "error": "Unauthorized"
+      }
+    },
+    {
+      "check": "rest-page-overflow-reviews",
+      "observed": {
+        "status": 401,
+        "message": "Autenticação necessária ou credenciais inválidas.",
+        "error": "Unauthorized"
+      }
+    },
+    {
+      "check": "graphql-page-overflow",
+      "observed": {
+        "http": 200,
+        "errors": [
+          "BAD_REQUEST"
+        ]
+      }
+    },
+    {
+      "check": "rest-body-96k",
+      "observed": {
+        "status": 200,
+        "paddingBytes": 98304,
+        "tokenIssued": true
+      }
+    },
+    {
+      "check": "graphql-body-96k",
+      "observed": {
+        "paddingBytes": 98304,
+        "status": 413
+      }
+    },
+    {
+      "check": "five-sequential-invalid-logins",
+      "observed": {
+        "boundedProbeOnly": true,
+        "statuses": [
+          401,
+          401,
+          401,
+          401,
+          401
+        ]
+      }
+    },
+    {
+      "check": "password-change",
+      "observed": {
+        "status": 200
+      }
+    },
+    {
+      "check": "old-jwt-after-password-change",
+      "observed": {
+        "status": 200
+      }
+    },
+    {
+      "check": "old-password-after-change",
+      "observed": {
+        "status": 401
+      }
+    },
+    {
+      "check": "request-mass-assignment",
+      "observed": {
+        "status": 201,
+        "requestStatus": "PENDING",
+        "totalPrice": 125.5,
+        "clientId": 5
+      }
+    },
+    {
+      "check": "bola-other-request",
+      "observed": {
+        "status": 403
+      }
+    },
+    {
+      "check": "deactivation-blocked-open-request",
+      "observed": {
+        "status": 409
+      }
+    },
+    {
+      "check": "client-cannot-complete-request",
+      "observed": {
+        "status": 403
+      }
+    },
+    {
+      "check": "provider-transition-ACCEPTED",
+      "observed": {
+        "status": 200,
+        "requestStatus": "ACCEPTED"
+      }
+    },
+    {
+      "check": "provider-transition-IN_PROGRESS",
+      "observed": {
+        "status": 200,
+        "requestStatus": "IN_PROGRESS"
+      }
+    },
+    {
+      "check": "provider-transition-COMPLETED",
+      "observed": {
+        "status": 200,
+        "requestStatus": "COMPLETED"
+      }
+    },
+    {
+      "check": "completed-request-review",
+      "observed": {
+        "status": 201
+      }
+    },
+    {
+      "check": "duplicate-review",
+      "observed": {
+        "status": 409
+      }
+    },
+    {
+      "check": "current-role-overrides-jwt",
+      "observed": {
+        "status": 403
+      }
+    },
+    {
+      "check": "catalog-after-provider-role-change",
+      "observed": {
+        "providerId": 4,
+        "status": 200
+      }
+    },
+    {
+      "check": "graphql-provider-after-role-change",
+      "observed": {
+        "service": {
+          "id": "2",
+          "providerId": "4",
+          "provider": null
+        },
+        "http": 200,
+        "provider": null,
+        "errors": [
+          "NOT_FOUND"
+        ]
+      }
+    },
+    {
+      "check": "booking-after-provider-role-change",
+      "observed": {
+        "status": 201,
+        "requestStatus": "PENDING"
+      }
+    },
+    {
+      "check": "client-cancel-open-request",
+      "observed": {
+        "status": 200,
+        "requestStatus": "CANCELLED"
+      }
+    },
+    {
+      "check": "deactivate-closed-service",
+      "observed": {
+        "status": 204
+      }
+    },
+    {
+      "check": "inactive-service-hidden",
+      "observed": {
+        "status": 404
+      }
+    },
+    {
+      "check": "closed-request-history-retained",
+      "observed": {
+        "status": 200,
+        "requestStatus": "COMPLETED",
+        "totalPrice": 125.5
+      }
+    },
+    {
+      "check": "review-history-retained",
+      "observed": {
+        "status": 200,
+        "totalElements": 1
+      }
+    },
+    {
+      "check": "deactivate-provider-after-closed-requests",
+      "observed": {
+        "status": 204
+      }
+    },
+    {
+      "check": "inactive-account-old-jwt-rejected",
+      "observed": {
+        "status": 401
+      }
+    },
+    {
+      "check": "logical-delete-sql-preservation",
+      "observed": {
+        "userExists": true,
+        "userInactive": true,
+        "serviceExists": true,
+        "serviceInactive": true,
+        "requests": 2,
+        "reviews": 1
+      }
+    },
+    {
+      "check": "production-introspection",
+      "observed": {
+        "hasSchema": false,
+        "hasErrors": true,
+        "http": 200
+      }
+    },
+    {
+      "check": "client-openapi-production",
+      "observed": {
+        "status": 403
+      }
+    },
+    {
+      "check": "public-health",
+      "observed": {
+        "body": {
+          "groups": [
+            "liveness",
+            "readiness"
+          ],
+          "status": "UP"
+        },
+        "status": 200
+      }
+    }
+  ]
+}

@@ -50,9 +50,9 @@ public class ServiceRequestController {
     public PageResponse<RequestResponse> list(
             @Parameter(description = "Filtra pelo estado.", example = "PENDING") @RequestParam(required = false) ServiceRequestStatus status,
             @Parameter(description = "Filtra pelo serviço, sem ampliar a autorização.", example = "1") @RequestParam(required = false) @Positive Long serviceId,
-            @Parameter(description = "Página a partir de zero.", example = "0") @RequestParam(defaultValue = "0") @Min(0) int page,
-            @Parameter(description = "Itens por página, entre 1 e 100.", example = "20") @RequestParam(defaultValue = "20") @Min(1) @Max(100) int size) {
-        return service.list(status, serviceId, PageRequest.of(page, size, Sort.by("id")));
+            @Parameter(description = "Página a partir de zero.", example = "0") @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "Itens por página, entre 1 e 100.", example = "20") @RequestParam(defaultValue = "20") int size) {
+        return service.list(status, serviceId, com.servicehub.validation.Pagination.page(page, size));
     }
 
     @GetMapping("/{id}")

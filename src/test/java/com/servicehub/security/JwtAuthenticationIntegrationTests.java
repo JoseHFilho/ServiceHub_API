@@ -32,6 +32,7 @@ import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest
 @ActiveProfiles("test")
 @Transactional
+@org.junit.jupiter.api.Tag("web")
 class JwtAuthenticationIntegrationTests extends JwtTestSupport {
     private static final String PASSWORD = "senha123";
     private static final String HASH = new PasswordHashService().encode(PASSWORD);

@@ -1,0 +1,25 @@
+{
+  "engine": "29.7.2",
+  "compose": "5.3.1",
+  "container": "/servicehub-audit-568ada5b0e-api",
+  "user": "10001:10001",
+  "readOnly": true,
+  "capDrop": [
+    "ALL"
+  ],
+  "securityOpt": [
+    "no-new-privileges:true"
+  ],
+  "memory": 1073741824,
+  "health": "healthy",
+  "ports": {
+    "8080/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "56229"
+      }
+    ]
+  },
+  "restartCount": 0,
+  "runtimeImage": "servicehub-api:etapa8-6c8f0fedebaa"
+}

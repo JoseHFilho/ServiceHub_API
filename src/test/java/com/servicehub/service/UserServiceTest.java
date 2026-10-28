@@ -27,6 +27,7 @@ import com.servicehub.security.PasswordHashService;
 import com.servicehub.security.AccessPolicy;
 
 @ExtendWith(MockitoExtension.class)
+@org.junit.jupiter.api.Tag("unit")
 class UserServiceTest {
 
     @Mock

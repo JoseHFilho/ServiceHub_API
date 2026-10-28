@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Transactional
 @WithMockUser(roles = "ADMIN")
+@org.junit.jupiter.api.Tag("web")
 class UserControllerIntegrationTests extends com.servicehub.JwtTestSupport {
 
     @Autowired

@@ -10,13 +10,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@org.junit.jupiter.api.Tag("integration")
 class MigrationIntegrationTests extends com.servicehub.JwtTestSupport {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Test
-    void appliesAllFiveMigrationsAndCreatesTheExpectedTables() {
+    void appliesAllMigrationsAndCreatesTheExpectedTables() {
         Integer successfulMigrations = jdbcTemplate.queryForObject(
                 """
                 SELECT COUNT(*)
@@ -37,7 +38,7 @@ class MigrationIntegrationTests extends com.servicehub.JwtTestSupport {
                 Integer.class
         );
 
-        assertThat(successfulMigrations).isEqualTo(5);
+        assertThat(successfulMigrations).isEqualTo(9);
         assertThat(domainTables).isEqualTo(4);
     }
 }

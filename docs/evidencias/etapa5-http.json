@@ -1,0 +1,447 @@
+{
+  "stage": 5,
+  "profile": "prod",
+  "packagedJar": true,
+  "container": "servicehub-v5-test-30b26618986a42beb200133428fcc6cd",
+  "image": "postgres:15",
+  "originalDatabaseAccessed": false,
+  "total": 83,
+  "passed": 83,
+  "failed": 0,
+  "fixturesLogicallyDeactivated": true,
+  "fixtureUsers": [
+    937,
+    938,
+    939,
+    940
+  ],
+  "serviceId": "221",
+  "requestId": "56",
+  "reviewId": "12",
+  "checks": [
+    {
+      "name": "Cadastro provider",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "Cadastro client",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "Cadastro stranger",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "Cadastro admin",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "name": "Login provider",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Login client",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Login stranger",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Login admin",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "GraphQL sem JWT",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "Autenticação usa envelope GraphQL",
+      "passed": true
+    },
+    {
+      "name": "CLIENT não cadastra serviço",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "CLIENT não cadastra serviço : erro GraphQL FORBIDDEN",
+      "passed": true
+    },
+    {
+      "name": "PROVIDER cadastra serviço",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "PROVIDER cadastra serviço : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Prestador identificado pelo JWT",
+      "passed": true
+    },
+    {
+      "name": "Serviço GraphQL visível em REST",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Preço exato entre os transportes",
+      "passed": true
+    },
+    {
+      "name": "Catálogo com filtro, página e prestador em lote",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Catálogo com filtro, página e prestador em lote : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Catálogo traz prestador público",
+      "passed": true
+    },
+    {
+      "name": "Consulta prestador público",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Consulta prestador público : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "CLIENT contrata por GraphQL",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "CLIENT contrata por GraphQL : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Cliente, estado inicial e snapshot vêm do servidor",
+      "passed": true
+    },
+    {
+      "name": "Atualiza preço pelo GraphQL",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Atualiza preço pelo GraphQL : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Snapshot GraphQL preservado no REST",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Catálogo não muda preço contratado",
+      "passed": true
+    },
+    {
+      "name": "Pedido aberto bloqueia desativação",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Pedido aberto bloqueia desativação : erro GraphQL CONFLICT",
+      "passed": true
+    },
+    {
+      "name": "Terceiro não lê pedido",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Terceiro não lê pedido : erro GraphQL FORBIDDEN",
+      "passed": true
+    },
+    {
+      "name": "Filtro não amplia visibilidade",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Filtro não amplia visibilidade : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Lista de terceiro permanece vazia",
+      "passed": true
+    },
+    {
+      "name": "Pedido pendente não recebe avaliação",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Pedido pendente não recebe avaliação : erro GraphQL CONFLICT",
+      "passed": true
+    },
+    {
+      "name": "CLIENT não avança pedido",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "CLIENT não avança pedido : erro GraphQL FORBIDDEN",
+      "passed": true
+    },
+    {
+      "name": "Máquina de estados impede salto",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Máquina de estados impede salto : erro GraphQL CONFLICT",
+      "passed": true
+    },
+    {
+      "name": "Avança para ACCEPTED",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Avança para ACCEPTED : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Avança para IN_PROGRESS",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Avança para IN_PROGRESS : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Avança para COMPLETED",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Avança para COMPLETED : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Estado final não reabre",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Estado final não reabre : erro GraphQL CONFLICT",
+      "passed": true
+    },
+    {
+      "name": "Avalia pedido concluído",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Avalia pedido concluído : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Avaliador é o cliente real",
+      "passed": true
+    },
+    {
+      "name": "Avaliação duplicada bloqueada",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Avaliação duplicada bloqueada : erro GraphQL CONFLICT",
+      "passed": true
+    },
+    {
+      "name": "Prestador consulta avaliações autorizadas",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Prestador consulta avaliações autorizadas : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Campo sensível ausente no schema",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Campo sensível ausente no schema : erro GraphQL BAD_REQUEST",
+      "passed": true
+    },
+    {
+      "name": "Introspecção fechada em prod",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Introspecção fechada em prod : erro GraphQL BAD_REQUEST",
+      "passed": true
+    },
+    {
+      "name": "GraphiQL indisponível em prod",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "Schema printer indisponível em prod",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "name": "Limite de aliases",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Limite de aliases : erro GraphQL QUERY_LIMIT_EXCEEDED",
+      "passed": true
+    },
+    {
+      "name": "Limite de complexidade",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Limite de complexidade : erro GraphQL QUERY_LIMIT_EXCEEDED",
+      "passed": true
+    },
+    {
+      "name": "Mutations em lote recusadas antes de gravar",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Mutations em lote recusadas antes de gravar : erro GraphQL QUERY_LIMIT_EXCEEDED",
+      "passed": true
+    },
+    {
+      "name": "Variáveis acima do limite de corpo",
+      "expected": 413,
+      "actual": 413,
+      "passed": true
+    },
+    {
+      "name": "Desativação lógica pelo GraphQL",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Desativação lógica pelo GraphQL : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Resultado da desativação",
+      "passed": true
+    },
+    {
+      "name": "Serviço desativado oculto no REST",
+      "expected": 404,
+      "actual": 404,
+      "passed": true
+    },
+    {
+      "name": "Histórico preservado",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "name": "Histórico preservado : sem erros GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Pedido e avaliação preservados",
+      "passed": true
+    },
+    {
+      "name": "Desativa CLIENT temporário",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    },
+    {
+      "name": "JWT de CLIENT inativo recusado no GraphQL",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "name": "Bloqueio de inativo usa envelope GraphQL",
+      "passed": true
+    },
+    {
+      "name": "Desativa PROVIDER temporário",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    },
+    {
+      "name": "Desativa terceiro temporário",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    },
+    {
+      "name": "Desativa ADMIN temporário",
+      "expected": 204,
+      "actual": 204,
+      "passed": true
+    }
+  ]
+}

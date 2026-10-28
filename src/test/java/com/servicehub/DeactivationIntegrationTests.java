@@ -46,6 +46,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @ActiveProfiles("test")
 @Transactional
 @WithMockUser(roles = "ADMIN")
+@org.junit.jupiter.api.Tag("integration")
 class DeactivationIntegrationTests extends com.servicehub.JwtTestSupport {
     @Autowired private UserRepository users;
     @Autowired private ServiceOfferingRepository offerings;

@@ -14,5 +14,14 @@ public class JwtProperties {
     public void setTtl(Duration ttl) { this.ttl = ttl; }
     public String getIssuer() { return issuer; }
     public void setIssuer(String issuer) { this.issuer = issuer; }
+    public byte[] secretBytes() {
+        byte[] bytes;
+        try { bytes = java.util.Base64.getDecoder().decode(secret == null ? "" : secret); }
+        catch (IllegalArgumentException exception) { throw new IllegalStateException("JWT_SECRET deve ser Base64 válido."); }
+        if (bytes.length < 32 || bytes.length > 128) {
+            throw new IllegalStateException("JWT_SECRET deve conter de 32 a 128 bytes aleatórios codificados em Base64.");
+        }
+        return bytes;
+    }
     @Override public String toString() { return "JwtProperties[segredo protegido]"; }
 }

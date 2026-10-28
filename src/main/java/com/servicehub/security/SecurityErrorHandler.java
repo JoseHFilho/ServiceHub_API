@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -34,6 +36,12 @@ public class SecurityErrorHandler implements AuthenticationEntryPoint, AccessDen
         response.setStatus(status);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        if (request.getRequestURI().equals(request.getContextPath() + "/graphql")) {
+            String code = status == 401 ? "UNAUTHORIZED" : "FORBIDDEN";
+            mapper.writeValue(response.getOutputStream(), Map.of("errors", List.of(Map.of(
+                    "message", message, "extensions", Map.of("classification", code, "code", code)))));
+            return;
+        }
         mapper.writeValue(response.getOutputStream(), new ApiError(LocalDateTime.now(), status, error, message, request.getRequestURI()));
     }
 }

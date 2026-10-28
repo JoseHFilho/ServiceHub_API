@@ -1,0 +1,431 @@
+{
+  "delivery": "auditoria-parcial",
+  "environment": "pg16",
+  "result": "BUILD SUCCESS",
+  "java": [
+    "25.0.4.1"
+  ],
+  "tests": 520,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "command": "./mvnw -B -ntp -o -Ptestcontainers -Dpostgres.version=16 clean verify",
+  "source": "Current workspace snapshot compiled inside Java 25 container",
+  "originalDatabaseAccessed": false,
+  "suites": [
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.BusinessConcurrencyIntegrationTests",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.BusinessRestIntegrationTests",
+      "tests": 110,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.controller.HelloControllerTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.CredentialVersionIntegrationTests",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.DeactivationIntegrationTests",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.graphql.GraphQlBodyLimitFilterTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.graphql.GraphQlErrorResolverTest",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.graphql.GraphQlLimitsAndScalarsTest",
+      "tests": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.GraphQlIntegrationTests",
+      "tests": 60,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.GraphQlProductionSecurityIntegrationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.IndexUpgradeTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.MigrationIntegrationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.OpenApiIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.PaginationHttpIntegrationTests",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.QueryOptimizationIntegrationTests",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.RepositoryIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.RolePolicyIntegrationTests",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.SchemaUpgradeTests",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.security.AuthAdmissionWebTests",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.security.AuthCredentialRaceTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.security.CsrfAndSessionIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.security.DatabaseUserDetailsServiceTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.security.JwtAuthenticationIntegrationTests",
+      "tests": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.security.JwtServiceTest",
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.security.LocalAuthAdmissionStoreTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.security.PasswordHashServiceTest",
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.security.ProductionSecurityIntegrationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.security.RequestBudgetFilterTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.security.SecurityIntegrationTests",
+      "tests": 32,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.security.TransportSecurityIntegrationTests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.service.RequestTransitionsTest",
+      "tests": 25,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.service.UserServiceTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.ServicehubApiApplicationTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "surefire",
+      "name": "com.servicehub.UserControllerIntegrationTests",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "failsafe",
+      "name": "com.servicehub.PostgresConcurrencyIT",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "failsafe",
+      "name": "com.servicehub.PostgresCredentialVersionIT",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "failsafe",
+      "name": "com.servicehub.PostgresDeactivationIT",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "failsafe",
+      "name": "com.servicehub.PostgresEnvironmentIT",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "failsafe",
+      "name": "com.servicehub.PostgresGraphQlIT",
+      "tests": 60,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "failsafe",
+      "name": "com.servicehub.PostgresIndexUpgradeIT",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "failsafe",
+      "name": "com.servicehub.PostgresPaginationIT",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "failsafe",
+      "name": "com.servicehub.PostgresQueryOptimizationIT",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "failsafe",
+      "name": "com.servicehub.PostgresRestrictedRuntimeIT",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "failsafe",
+      "name": "com.servicehub.PostgresRoleGuardIT",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "failsafe",
+      "name": "com.servicehub.PostgresRolePolicyIT",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    },
+    {
+      "runner": "failsafe",
+      "name": "com.servicehub.PostgresSchemaUpgradeIT",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "java": "25.0.4.1"
+    }
+  ]
+}

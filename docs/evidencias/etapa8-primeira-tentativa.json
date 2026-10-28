@@ -1,0 +1,10 @@
+{
+  "stage": 8,
+  "result": "interrupted",
+  "project": "servicehub-etapa8-6c8f0fedebaa",
+  "initialEmptyDatabaseConfirmed": true,
+  "completedChecks": 88,
+  "failureReason": "API_PORT=0 recebeu outra porta do host após restart; o verificador foi corrigido para redescobri-la",
+  "syntheticRecordsPreserved": true,
+  "originalDatabaseAccessed": false
+}

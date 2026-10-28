@@ -1,0 +1,91 @@
+"""Decimal exato representado por string, por exemplo "150.00"; sem arredondamento binário."""
+scalar Decimal
+"""Data e hora ISO-8601 local, sem offset; por exemplo "2027-01-10T09:00:00"."""
+scalar LocalDateTime
+"""Inteiro de 64 bits para contagens."""
+scalar Long
+
+enum ServiceCategory {
+  LIMPEZA DIARISTA ENCANAMENTO ELETRICA JARDINAGEM PINTURA MARCENARIA PEDREIRO
+  DEDETIZACAO AR_CONDICIONADO CHAVEIRO MONTAGEM_MOVEIS MUDANCA SUPORTE_TECNICO
+  MANUTENCAO_COMPUTADORES DESENVOLVIMENTO_SOFTWARE REDES_E_INFRAESTRUTURA
+  SEGURANCA_DIGITAL RECUPERACAO_DE_DADOS CONSULTORIA_TI OUTROS
+}
+enum RequestStatus { PENDING ACCEPTED IN_PROGRESS COMPLETED CANCELLED }
+
+"""Página a partir de zero; tamanho entre 1 e 100. Ordenação por ID crescente."""
+input PageInput { page: Int! = 0, size: Int! = 20 }
+input ServiceCreateInput { title: String!, description: String, price: Decimal!, category: ServiceCategory! }
+"""PATCH: campos nulos/omitidos preservados; ao menos um campo editável."""
+input ServiceUpdateInput { title: String, description: String, price: Decimal, category: ServiceCategory }
+input RequestCreateInput { serviceId: ID!, scheduledAt: LocalDateTime, notes: String }
+input RequestStatusInput { status: RequestStatus! }
+input ReviewCreateInput { requestId: ID!, rating: Int!, comment: String }
+
+"""Projeção pública mínima, exclusiva de prestadores ativos; sem email, telefone ou credenciais."""
+type Provider { id: ID!, fullName: String!, avatarUrl: String }
+type Service {
+  id: ID!
+  title: String!
+  description: String
+  price: Decimal!
+  category: ServiceCategory!
+  providerId: ID!
+  providerName: String!
+  """Buscado em lote; pode ser nulo se o prestador for desativado durante a consulta."""
+  provider: Provider
+  active: Boolean!
+  createdAt: LocalDateTime!
+  updatedAt: LocalDateTime!
+}
+"""Histórico privado: somente cliente, prestador participante ou ADMIN."""
+type ServiceRequest {
+  id: ID!
+  serviceId: ID!
+  serviceTitle: String!
+  clientId: ID!
+  providerId: ID!
+  status: RequestStatus!
+  scheduledAt: LocalDateTime
+  notes: String
+  totalPrice: Decimal!
+  createdAt: LocalDateTime!
+  updatedAt: LocalDateTime!
+}
+type Review { id: ID!, requestId: ID!, serviceId: ID!, reviewerId: ID!, rating: Int!, comment: String, createdAt: LocalDateTime! }
+type DeactivationResult { id: ID!, active: Boolean! }
+type ServicePage { content: [Service!]!, page: Int!, size: Int!, totalElements: Long!, totalPages: Int! }
+type ProviderPage { content: [Provider!]!, page: Int!, size: Int!, totalElements: Long!, totalPages: Int! }
+type RequestPage { content: [ServiceRequest!]!, page: Int!, size: Int!, totalElements: Long!, totalPages: Int! }
+type ReviewPage { content: [Review!]!, page: Int!, size: Int!, totalElements: Long!, totalPages: Int! }
+
+"""Todas as consultas exigem Bearer JWT de conta ativa."""
+type Query {
+  """Catálogo ativo; filtros cumulativos e paginação limitada."""
+  services(category: ServiceCategory, providerId: ID, page: PageInput): ServicePage
+  service(id: ID!): Service
+  providers(page: PageInput): ProviderPage
+  provider(id: ID!): Provider
+  """Somente solicitações dos participantes; ADMIN pode consultar todas."""
+  requests(status: RequestStatus, serviceId: ID, page: PageInput): RequestPage
+  request(id: ID!): ServiceRequest
+  """Avaliações privadas dos participantes, inclusive histórico de serviço desativado."""
+  reviews(requestId: ID, serviceId: ID, page: PageInput): ReviewPage
+  review(id: ID!): Review
+}
+
+"""Uma operação de escrita por documento/requisição; nenhuma transação engloba mutations independentes."""
+type Mutation {
+  """PROVIDER vem do JWT. Somente ADMIN pode informar providerId para representar prestador ativo."""
+  createService(input: ServiceCreateInput!, providerId: ID): Service
+  """Atualização parcial; proprietário PROVIDER ou ADMIN. Não transfere propriedade."""
+  updateService(id: ID!, input: ServiceUpdateInput!): Service
+  """Exclusão lógica; solicitações abertas impedem a operação."""
+  deactivateService(id: ID!): DeactivationResult
+  """CLIENT vem do JWT; somente ADMIN pode delegar clientId. Preço e estado vêm do servidor."""
+  createRequest(input: RequestCreateInput!, clientId: ID): ServiceRequest
+  """Prestador/ADMIN avança a sequência; cliente só cancela PENDING/ACCEPTED."""
+  changeRequestStatus(id: ID!, input: RequestStatusInput!): ServiceRequest
+  """Somente cliente real ou ADMIN; solicitação COMPLETED e uma avaliação por solicitação."""
+  createReview(input: ReviewCreateInput!): Review
+}

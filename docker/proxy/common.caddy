@@ -1,0 +1,52 @@
+(servicehub_api) {
+    log {
+        output stdout
+        format filter {
+            wrap json
+            fields {
+                request>headers delete
+                request>uri delete
+                resp_headers delete
+            }
+        }
+    }
+    @foreign_origin expression `{http.request.header.Origin} != "" && {http.request.header.Origin} != "https://{$PUBLIC_DOMAIN}" && {http.request.header.Origin} != "https://{$PUBLIC_DOMAIN}:{$HTTPS_PORT}"`
+    respond @foreign_origin "Origem não permitida." 403
+    header {
+        Strict-Transport-Security "max-age=31536000"
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy no-referrer
+        Permissions-Policy "camera=(), microphone=(), geolocation=()"
+        Content-Security-Policy "frame-ancestors 'none'"
+        -Server
+    }
+    request_body {
+        max_size {$REST_BODY_BYTES}
+    }
+    reverse_proxy api:{$API_UPSTREAM_PORT} {
+        header_up -Forwarded
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto https
+        header_up X-Forwarded-Host {$PUBLIC_DOMAIN}
+        header_up X-Forwarded-Port {$HTTPS_PORT}
+        header_up Host {$PUBLIC_DOMAIN}
+        transport http {
+            dial_timeout 3s
+            response_header_timeout 20s
+        }
+    }
+}
+
+http://:8080 {
+    route {
+        @local_health {
+            path /proxy-health
+            remote_ip 127.0.0.1 ::1
+        }
+        respond @local_health "OK" 200
+        @wrong_host not host {$PUBLIC_DOMAIN}
+        respond @wrong_host "Host não permitido." 421
+        redir https://{$PUBLIC_DOMAIN}:{$HTTPS_PORT}{uri} 308
+    }
+}

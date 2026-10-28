@@ -1,0 +1,36 @@
+{
+  "audit": "final",
+  "javaRelease": 25,
+  "runtimeClassMajor": 69,
+  "runtimeJarSha256": "44634240D8A5CA22228291AC21F37A58A4A51E951F853067D129D6A222B1A99C",
+  "runtimeLibraries": [
+    "BOOT-INF/lib/graphql-java-25.0.jar",
+    "BOOT-INF/lib/spring-core-7.0.9.jar",
+    "BOOT-INF/lib/spring-security-core-7.1.1.jar",
+    "BOOT-INF/lib/hibernate-core-7.4.5.Final.jar",
+    "BOOT-INF/lib/tomcat-embed-core-11.0.24.jar",
+    "BOOT-INF/lib/spring-boot-4.1.1.jar",
+    "BOOT-INF/lib/postgresql-42.7.13.jar",
+    "BOOT-INF/lib/flyway-core-12.4.0.jar",
+    "BOOT-INF/lib/jackson-databind-3.1.5.jar",
+    "BOOT-INF/lib/jackson-databind-2.21.5.jar"
+  ],
+  "testLibrariesInRuntime": [],
+  "advisories": [
+    {
+      "url": "https://github.com/pgjdbc/pgjdbc/security/advisories/GHSA-rhp9-mr79-r74h",
+      "applicationExploitConfirmed": false,
+      "fixed": "42.7.14",
+      "id": "CVE-2026-107314",
+      "affected": "42.7.11 through 42.7.13"
+    },
+    {
+      "url": "https://github.com/pgjdbc/pgjdbc/security/advisories/GHSA-f64h-wr5q-3qf3",
+      "applicationExploitConfirmed": false,
+      "fixed": "42.7.14",
+      "id": "CVE-2026-107315",
+      "affected": "42.7.4 through 42.7.13"
+    }
+  ],
+  "completeDependencyAndOsScanPerformed": false
+}

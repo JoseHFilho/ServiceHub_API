@@ -50,9 +50,9 @@ public class ServiceOfferingController {
     public PageResponse<ServiceResponse> list(
             @Parameter(description = "Uma das 21 categorias do catálogo.", example = "ENCANAMENTO") @RequestParam(required = false) ServiceCategory category,
             @Parameter(description = "Filtra pelo prestador.", example = "2") @RequestParam(required = false) @Positive Long providerId,
-            @Parameter(description = "Página a partir de zero.", example = "0") @RequestParam(defaultValue = "0") @Min(0) int page,
-            @Parameter(description = "Itens por página, entre 1 e 100.", example = "20") @RequestParam(defaultValue = "20") @Min(1) @Max(100) int size) {
-        return service.list(category, providerId, PageRequest.of(page, size, Sort.by("id")));
+            @Parameter(description = "Página a partir de zero.", example = "0") @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "Itens por página, entre 1 e 100.", example = "20") @RequestParam(defaultValue = "20") int size) {
+        return service.list(category, providerId, com.servicehub.validation.Pagination.page(page, size));
     }
 
     @GetMapping("/{id}")

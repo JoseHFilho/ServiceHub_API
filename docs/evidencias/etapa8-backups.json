@@ -1,0 +1,29 @@
+{
+  "stage": 8,
+  "backups": [
+    {
+      "postgres": "15",
+      "project": "servicehub-etapa8-6c8f0fedebaa",
+      "backupCreated": true,
+      "customFormatVerified": true,
+      "archiveBytes": 19090,
+      "archiveSha256": "AFE7710235E0116042D55E54DA85110F41C6A65F3B5A81A8FCCC581BF149752F",
+      "flywayHistoryIncluded": true,
+      "domainTablesIncluded": 4,
+      "restorationExecuted": false,
+      "originalDatabaseAccessed": false
+    },
+    {
+      "postgres": "16",
+      "project": "servicehub-etapa8-fd96db7fc168",
+      "backupCreated": true,
+      "customFormatVerified": true,
+      "archiveBytes": 18654,
+      "archiveSha256": "E5AC33A9A2C0DBE6331B3CD81CEAFD6F4BBBA943AE374DF87314ACE48DF70F2E",
+      "flywayHistoryIncluded": true,
+      "domainTablesIncluded": 4,
+      "restorationExecuted": false,
+      "originalDatabaseAccessed": false
+    }
+  ]
+}

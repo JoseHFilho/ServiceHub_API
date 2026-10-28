@@ -2,70 +2,106 @@
 
 Projeto do checkpoint da disciplina de Desenvolvimento Backend com Java.
 Implementa usuários, catálogo de serviços, contratações e avaliações, com JWT,
-PostgreSQL, migrações Flyway, validações e documentação interativa OpenAPI.
+REST e GraphQL, PostgreSQL, migrações Flyway e documentação OpenAPI.
+
+## Estado desta entrega parcial
+
+As Etapas 1–8 foram implementadas. O planejamento posterior de correções da
+auditoria foi interrompido na **Fase 7 (revogação JWT por versão de credenciais)**;
+as fases seguintes permanecem pendentes. O código dessa fase está integrado.
+Esta versão é funcional com pendências e ainda exige preparação operacional
+para produção pública. Consulte o [relatório de entrega](docs/ENTREGA_PARCIAL_AUDITORIA.md)
+para resultados executados, arquivos, limitações e instruções de retomada.
+Os relatórios das etapas anteriores e da auditoria original são históricos.
 
 ## Executar após clonar ou descompactar
 
-Requisitos: JDK 25 ou superior, Docker Desktop em execução e acesso à
-internet na primeira compilação para baixar as dependências Maven.
-Não é necessário instalar Maven separadamente.
+Requisitos para o ambiente completo: Docker Desktop/Compose em execução,
+PowerShell 7.2+ e acesso à internet na primeira construção. A imagem compila com
+Maven Wrapper e JDK 25 e executa com JRE 25; não exige Java/Maven no host.
 
 No PowerShell, dentro da pasta do projeto:
 
 ```powershell
-java -version
-docker compose up -d --wait
-.\mvnw.cmd clean verify
-# Exemplo local: gere uma chave sem imprimi-la. Em produção, use uma chave estável gerenciada.
-$env:JWT_SECRET = [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(64))
-java -jar target\servicehub-api-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+.\scripts\prepare-env.ps1
+docker compose --env-file .env config --quiet
+docker compose --env-file .env build api
+docker compose --env-file .env up -d --no-build --wait
+docker compose --env-file .env ps
+Invoke-RestMethod http://127.0.0.1:8080/actuator/health
 ```
 
-Em Linux/macOS, use `sh ./mvnw clean verify` e barras `/` no caminho do JAR.
-Para desenvolvimento, também é possível usar
-`.\mvnw.cmd '-Dspring-boot.run.profiles=dev' spring-boot:run`.
-O build usa `release 25`; a verificação atual foi executada com JDK 26.0.2.1.
-JWT funciona em todos os perfis. O perfil `dev` torna Swagger/OpenAPI públicos;
-fora de `dev`/`test`, ou quando `prod` está ativo, a documentação exige ADMIN.
-HTTP Basic foi removido. Rotas privadas exigem `Authorization: Bearer <JWT>`.
+O preparador cria `.env` com senhas independentes de bootstrap, migrations e
+runtime, além da chave JWT aleatória, sem
+imprimi-las, e recusa sobrescrever um arquivo existente. `.env` e backups
+estão ignorados pelo Git e ficam fora do contexto Docker. `.env.example`
+contém os nomes e valores não secretos, com senhas/chaves vazias.
+O build executa os 403 testes padrão antes de gerar a imagem.
+PostgreSQL é provisionado com identidades separadas somente em volume vazio;
+a API usa DML restrito e o Flyway usa o dono das migrations. Um `.env` antigo
+precisa ser revisado: o novo Compose exige também `DB_ADMIN_*` e
+`DB_MIGRATION_*`. Não sobrescreva seu arquivo privado nem adote volumes antigos.
 
-`JWT_SECRET` é obrigatório: chave aleatória de 32–128 bytes codificada em Base64,
-sem fallback. `JWT_TTL` aceita de `1m` a `1h` e usa `15m` por padrão.
-`JWT_ISSUER` usa `servicehub-api` por padrão. Mantenha a chave estável entre
-reinícios quando quiser preservar tokens ainda válidos; sua troca invalida
-assinaturas anteriores. O Java não carrega `.env` automaticamente; exporte
-as variáveis. `.env.example` documenta os nomes sem fornecer um segredo pronto.
+O novo projeto padrão é **servicehub-stack**, separado do projeto antigo
+servicehub-api. O volume tem nome formado pelo projeto e major do PostgreSQL,
+como `servicehub-stack-postgres-15-data`. O volume original
+`servicehub-api_servicehub-postgres-data` não é adotado automaticamente.
+**Não execute a API nova contra o banco original sem backup, validação e
+autorização para aplicar as migrations.**
 
-- Swagger UI: <http://localhost:8080/swagger-ui.html>
-- OpenAPI JSON: <http://localhost:8080/v3/api-docs>
-- OpenAPI YAML: <http://localhost:8080/v3/api-docs.yaml>
-- Saúde da aplicação e do banco: <http://localhost:8080/actuator/health>
-- Mensagem inicial em JSON: <http://localhost:8080/api/hello>
+O padrão usa `prod`, publica somente a API em **127.0.0.1:8080**, e mantém
+PostgreSQL sem porta no host, em rede interna. A URL JDBC dentro do Compose usa
+`postgres:5432`. Altere `API_PORT` para a porta do host e `SERVER_PORT` para a
+porta interna. A API roda como usuário 10001, com filesystem somente leitura
+e healthcheck que usa o próprio Java. O health agregado também verifica o banco.
 
-O PostgreSQL 15 usa a porta **55433 no computador** (5432 dentro do container),
-banco `servicehub` e credenciais locais definidas no Compose.
-O volume Docker mantém os registros após reiniciar o container.
-O Flyway aplica V1–V5 e o Hibernate valida o schema sem recriá-lo.
-V5 é uma migration Java em `src/main/java/db/migration`, descoberta pelo Flyway
-na mesma localização lógica das migrations SQL. V1–V4 foram preservadas.
+JWT funciona em todos os perfis e HTTP Basic permanece removido. Rotas privadas
+exigem `Authorization: Bearer <accessToken>`. `JWT_SECRET` é obrigatório:
+32–128 bytes aleatórios em Base64; `JWT_TTL` aceita `1m` a `1h` (padrão `15m`)
+e `JWT_ISSUER` usa `servicehub-api`. A chave do servidor não é o token de acesso.
+Mantenha a chave estável entre reinícios. A documentação exige ADMIN em `prod`;
+não há administrador ou senha padrão criados na inicialização.
 
-Se precisar de outra porta, ajuste o banco e a API juntos:
+Cada JWT novo contém `cv`, a versão de credenciais do usuário. Alterar a senha
+revoga todos os tokens anteriores dessa conta em REST e GraphQL; faça login
+novamente após a alteração. Tokens antigos sem `cv` são aceitos como versão 0
+somente enquanto a conta continuar nessa versão. Upgrade automático de hash
+legado também incrementa a versão. Conta ativa e papel atual continuam sendo
+consultados no banco a cada requisição.
 
-```powershell
-$env:POSTGRES_PORT = '55434'
-$env:DB_URL = 'jdbc:postgresql://localhost:55434/servicehub'
-docker compose up -d --wait
-java -jar target\servicehub-api-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
-```
+Login e cadastro têm quotas por origem, conta e operação, além de concorrência
+limitada, compartilhadas no PostgreSQL. Excesso retorna 429 com Retry-After;
+falha do armazenamento retorna 503. Corpos JSON de login/cadastro têm limite
+de 8 KiB e escritas REST de 64 KiB. Os detalhes e as limitações estão no
+[guia de implantação](docs/PRODUCAO.md).
 
-A API também aceita `DB_USERNAME`, `DB_PASSWORD` e `SERVER_PORT`.
-Credenciais diferentes precisam corresponder às do banco escolhido.
-Para encerrar: `Ctrl+C` no terminal da API e `docker compose stop`.
+- Saúde: <http://127.0.0.1:8080/actuator/health>.
+- Login: `POST /api/auth/login`.
+- Swagger: <http://127.0.0.1:8080/swagger-ui.html>, autenticado como ADMIN em prod.
+- OpenAPI: <http://127.0.0.1:8080/v3/api-docs>, autenticado como ADMIN em prod.
+- GraphQL: `POST http://127.0.0.1:8080/graphql`, com Bearer JWT.
+
+Acesso externo de produção exige HTTPS. O override opt-in `compose.tls.yaml`
+prepara o Caddy, remove a porta direta da API e restringe proxies confiáveis.
+TLS local foi ensaiado; domínio, certificado público e renovação ainda dependem
+de validação no destino. Consulte [docs/PRODUCAO.md](docs/PRODUCAO.md).
+Flyway aplica V1–V9 e Hibernate valida o schema sem recriá-lo. V1–V6 foram
+preservadas; V7 adiciona contadores de admissão, V8 protege mudanças de papel e
+V9 adiciona a versão de credenciais. V6 reconstrói
+um índice e bloqueia escritas durante a construção; planeje a implantação.
+
+Consulte [docs/DOCKER.md](docs/DOCKER.md) para login sem exibir tokens,
+REST/GraphQL, logs, reinícios, parada preservando volume, backup/restauração,
+atualização, instalações novas PostgreSQL 15/16 e execução local do JAR.
+Os resultados reais estão em [docs/ETAPA_08.md](docs/ETAPA_08.md).
 
 ## Endpoints implementados
 
-Etapa 4: os 13 novos endpoints de serviços, solicitações e avaliações exigem JWT.
-O relatório completo está em [docs/ETAPA_04.md](docs/ETAPA_04.md).
+Os 13 endpoints REST de serviços, solicitações e avaliações exigem JWT.
+O relatório da Etapa 4 está em [docs/ETAPA_04.md](docs/ETAPA_04.md).
+Na Etapa 5, **POST /graphql** acrescenta oito queries e seis mutations com o
+mesmo JWT e os mesmos services. Exemplos, schema, erros e limites estão no
+[guia GraphQL](docs/GRAPHQL.md) e no [relatório da Etapa 5](docs/ETAPA_05.md).
 
 | Método | Caminho | Resultado esperado |
 | --- | --- | --- |
@@ -201,7 +237,13 @@ ou vínculos que impeçam uma operação, e 415 para conteúdo não suportado.
 Usuários, serviços, solicitações e avaliações possuem endpoints REST.
 A Etapa 4 acrescenta os três módulos de negócio, com DTOs, paginação,
 autorização por propriedade, máquina de estados e proteção contra gravações
-concorrentes. GraphQL, gRPC e Etapa 5 permanecem fora deste escopo.
+concorrentes. A Etapa 5 integra GraphQL reutilizando essas regras.
+REST continua disponível. A Etapa 6 organiza a suíte, integra Testcontainers
+e gera cobertura JaCoCo. A Etapa 7 mede os planos PostgreSQL, otimiza a
+verificação de solicitações abertas e a paginação por categoria. Resultados,
+trade-offs e reprodução estão em [docs/ETAPA_07.md](docs/ETAPA_07.md).
+A Etapa 8 acrescenta a imagem Java 25 e o Compose completo API/PostgreSQL,
+com validação em projetos isolados. gRPC e frontend permanecem fora do escopo.
 
 A adequação ao schema das Aulas 08–12 começou pela **Etapa 1**. Os papéis
 `ADMIN`, `PROVIDER` e `CLIENT` já existem no modelo e no banco. A **Etapa 2**
@@ -231,15 +273,49 @@ Para salvar o resultado:
 ```
 
 Testes automatizados usam **H2 em modo PostgreSQL**, apenas com escopo `test`.
-A suíte atual contém **266 testes**: os 127 das Etapas 1–3 e 139 da Etapa 4.
-Os novos cenários incluem 110 verificações REST com JWT, 25 pares da máquina
-de estados e quatro disputas reais entre transações independentes.
-Resultados e evidências de H2/PostgreSQL estão em [docs/ETAPA_04.md](docs/ETAPA_04.md).
+A suíte padrão contém **403 testes**, preservando as classes e contagens
+anteriores. O perfil Testcontainers acrescenta **117 cenários PostgreSQL** de
+migração, persistência, concorrência, GraphQL e correções da auditoria.
+Organização, requisitos e comandos estão em [docs/TESTES.md](docs/TESTES.md);
+os resultados da consolidação e a cobertura, em [docs/ETAPA_06.md](docs/ETAPA_06.md),
+e as medições históricas, em [docs/ETAPA_07.md](docs/ETAPA_07.md). As execuções
+desta entrega estão em [docs/ENTREGA_PARCIAL_AUDITORIA.md](docs/ENTREGA_PARCIAL_AUDITORIA.md).
+Para executar a matriz Java 25 sem instalar esse JDK no Windows, use
+`.\scripts\verify-tests-java25.ps1`; ela utiliza somente o estágio JDK do
+Dockerfile e bancos próprios do Testcontainers, sem o datasource do Compose.
+Ela cria relatórios em uma pasta única de `.tmp`, sem sobrescrever evidências
+antigas. Use `-NoHostCache` se o cache local não contiver as dependências Linux;
+`-SkipBuild` só pode reutilizar uma imagem construída dos fontes atuais.
 O agente Mockito é carregado explicitamente pelo Maven para os testes com JDKs
 recentes, sem depender de anexação dinâmica à JVM.
 
-Para executar a suíte completa em PostgreSQL real, com Docker Desktop
-disponível e PowerShell 7, use:
+```powershell
+# Grupos separados, sem Docker:
+.\mvnw.cmd -Punit clean verify
+.\mvnw.cmd -Pweb clean verify
+.\mvnw.cmd -Pintegration clean verify
+# Suíte padrão + PostgreSQL gerido automaticamente (Docker obrigatório):
+.\mvnw.cmd -Ptestcontainers clean verify
+# Mesma seleção PostgreSQL na versão 16:
+.\mvnw.cmd -Ptestcontainers '-Dpostgres.version=16' clean verify
+```
+
+`clean verify` sem perfil executa os 403 testes padrão, gera o JAR e a
+cobertura sem precisar de Docker. Com `-Ptestcontainers`, Surefire executa a
+suíte padrão e Failsafe executa os cenários em bancos temporários próprios.
+As rodadas finais PostgreSQL 15.19 e 16.14 passaram com **403 + 117 = 520
+execuções por versão**, sem falhas, erros ou ignorados.
+Docker indisponível causa falha; não há ignorados automáticos.
+Testcontainers cria e remove somente seus recursos descartáveis; não usa o
+banco nem os volumes da aplicação.
+Não combine os perfis seletivos unit/web/integration na verificação completa.
+
+JaCoCo e Mockito usam agentes compatíveis sem sobrescrever seus argumentos.
+O relatório HTML fica em `target/site/jacoco/index.html`, acompanhado de
+`jacoco.xml` e `jacoco.csv`. Nenhum limite mínimo de cobertura foi imposto.
+
+O verificador histórico da Etapa 1 pode ser repetido em ambiente de teste, com
+Java 25 no PATH, Docker Desktop disponível e PowerShell 7:
 
 ```powershell
 .\scripts\verify-schema-postgres.ps1 -PostgresVersion 15 -KeepTestContainer
@@ -253,18 +329,12 @@ interrompe a verificação; testes não são ignorados para produzir sucesso.
 Por padrão, mantém o container de teste ao terminar. A remoção automática
 somente é habilitada ao informar explicitamente `-KeepTestContainer:$false`.
 
-Após gerar o JAR, o fluxo HTTP de negócio pode ser repetido exclusivamente
-em um desses containers temporários:
-
-```powershell
-.\scripts\verify-rest-business.ps1 -ContainerName 'servicehub-v5-test-<identificador retornado pelo verificador>'
-```
-
-O script exige nome de teste, imagem PostgreSQL 15/16, armazenamento `tmpfs`,
-banco `schema_test` e porta em loopback. Inicia o JAR em `prod`, cria fixtures
-sintéticos, valida o JWT e os fluxos de negócio, desativa logicamente as contas
-ao concluir com sucesso e encerra sua própria instância da API. Os registros
-do teste são preservados. O resultado fica em `docs/evidencias/etapa4-http.json`.
+Os scripts `verify-rest-business.ps1` e `verify-graphql.ps1` são verificadores
+históricos de etapas anteriores. Ainda iniciam `prod` usando a mesma identidade
+administrativa para API e Flyway, agora recusada pelo controle de privilégios.
+Não desative esse controle para executá-los. Para a versão atual, prefira a
+matriz Testcontainers acima; `verify-compose.ps1` está ajustado a V9 e a
+credenciais separadas, mas seu fluxo completo não foi reexecutado nesta entrega.
 
 Validação da Etapa 1 concluída em 27/10/2026: **44 testes em PostgreSQL 15.19**,
 **44 testes em PostgreSQL 16.14** e **44 testes no `clean verify` com H2**,
@@ -277,13 +347,16 @@ A apresentação está em [ServiceHub_API-final.pptx](docs/ServiceHub_API-final.
 
 ## Entrega
 
-O pacote anterior `delivery/ServiceHub_API-entrega.zip` contém o código-fonte, Maven
+O pacote anterior `delivery/ServiceHub_API-entrega.zip` continha o código-fonte, Maven
 Wrapper, configuração Docker, testes, evidências e apresentação. `target/`,
 logs temporários e dados do banco não fazem parte do pacote.
-Esse pacote e a apresentação ainda não foram regenerados com a Etapa 1.
+Esse pacote e a apresentação são históricos e não foram regenerados com as
+Etapas 1–8. A imagem Docker é construída diretamente do código atual.
 
 O repositório configurado é <https://github.com/JoseHFilho/ServiceHub_API>.
-Para entregar por link, publique também estas alterações e a apresentação.
-Para entregar o estado local já preparado, use o ZIP.
+A entrega atual é o checkout revisado, não o ZIP anterior. Nenhum commit ou
+push foi realizado nesta preparação. Revise o inventário e os comandos da
+[entrega parcial](docs/ENTREGA_PARCIAL_AUDITORIA.md) antes de versionar na branch
+`codex/atualizacao-etapas-1-a-4`. Não publique `.env`, `.tmp`, `target` ou backups.
 
 Referência de compatibilidade: [SpringDoc para Spring Boot 4](https://springdoc.org/).

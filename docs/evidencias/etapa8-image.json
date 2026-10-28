@@ -1,0 +1,42 @@
+{
+  "stage": 8,
+  "image": "servicehub-api:etapa8-6c8f0fedebaa",
+  "imageId": "sha256:b336815ed3f78816dfefda1ccbac1178ad813127fe2bdda2d7be2ca2469e3189",
+  "sizeBytes": 170484598,
+  "baseJdk": "eclipse-temurin:25-jdk-noble@sha256:a9c5ddd386f629518bd500ecfabf7d1e5d32d7ffed735d5c3b1604ae92c830f4",
+  "baseJre": "eclipse-temurin:25-jre-noble@sha256:ce8543ddd3070ccbeaac2106a74c9387ddeb8d47a1c43348345715c1ef245c7f",
+  "javaRuntime": "25.0.4.1",
+  "user": "10001:10001",
+  "entrypoint": [
+    "java",
+    "-XX:MaxRAMPercentage=65.0",
+    "-jar",
+    "/opt/servicehub/app.jar"
+  ],
+  "healthcheck": [
+    "CMD",
+    "java",
+    "-Xms8m",
+    "-Xmx32m",
+    "-cp",
+    "/opt/servicehub/health",
+    "Healthcheck"
+  ],
+  "readOnlyRootfs": true,
+  "capabilitiesDropped": [
+    "ALL"
+  ],
+  "noNewPrivileges": [
+    "no-new-privileges:true"
+  ],
+  "classFileMajor": 69,
+  "release": 25,
+  "prodPropertiesIncluded": true,
+  "v6Included": true,
+  "testOrDevLibrariesInJar": 0,
+  "envFilesInJar": 0,
+  "jdkOrMavenExecutablesPresent": false,
+  "runtimeCredentialsBakedIntoImage": 0,
+  "runtimeJarSha256": "44634240D8A5CA22228291AC21F37A58A4A51E951F853067D129D6A222B1A99C",
+  "auditedAt": "2026-10-27T17:29:15.1695025-03:00"
+}

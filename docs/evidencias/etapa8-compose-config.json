@@ -1,0 +1,15 @@
+{
+  "stage": 8,
+  "project": "servicehub-etapa8-6c8f0fedebaa",
+  "configValid": true,
+  "services": [
+    "api",
+    "postgres"
+  ],
+  "databaseVolume": "servicehub-etapa8-6c8f0fedebaa-postgres-15-data",
+  "databasePortPublished": false,
+  "jdbcHost": "postgres",
+  "profile": "prod",
+  "apiHostBinding": "127.0.0.1",
+  "originalDatabaseAccessed": false
+}

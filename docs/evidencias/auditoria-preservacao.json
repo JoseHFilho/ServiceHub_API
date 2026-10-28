@@ -1,0 +1,74 @@
+{
+  "audit": "final",
+  "timestamp": "2026-10-27T21:42:36.3680655Z",
+  "baseline": {
+    "containers": 22,
+    "volumes": 8,
+    "networks": 11
+  },
+  "after": {
+    "containers": 28,
+    "volumes": 8,
+    "networks": 12
+  },
+  "missingContainers": [],
+  "changedExistingContainerStates": [],
+  "missingVolumes": [],
+  "missingNetworks": [],
+  "newContainers": [
+    {
+      "Names": "servicehub-audit-568ada5b0e-api",
+      "ID": "75d9ef7aead4",
+      "Image": "servicehub-api:etapa8-6c8f0fedebaa",
+      "State": "running"
+    },
+    {
+      "Names": "servicehub-audit-568ada5b0e-tests-16",
+      "ID": "6c7e8390528a",
+      "Image": "servicehub-api:etapa8-6c8f0fedebaa-test-runner",
+      "State": "exited"
+    },
+    {
+      "Names": "servicehub-audit-568ada5b0e-tests-15",
+      "ID": "54473a152932",
+      "Image": "servicehub-api:etapa8-6c8f0fedebaa-test-runner",
+      "State": "exited"
+    },
+    {
+      "Names": "servicehub-audit-568ada5b0e-tests-h2",
+      "ID": "80543c452642",
+      "Image": "servicehub-api:etapa8-6c8f0fedebaa-test-runner",
+      "State": "exited"
+    },
+    {
+      "Names": "servicehub-audit-568ada5b0e-pg16",
+      "ID": "d413031165c0",
+      "Image": "postgres:16",
+      "State": "running"
+    },
+    {
+      "Names": "servicehub-audit-568ada5b0e-pg15",
+      "ID": "135adf4c4623",
+      "Image": "postgres:15",
+      "State": "running"
+    }
+  ],
+  "newVolumes": [],
+  "newNetworks": [
+    {
+      "Name": "servicehub-audit-568ada5b0e",
+      "ID": "8b49f1f1994b"
+    }
+  ],
+  "comparedExistingFiles": 243,
+  "changedExistingFiles": [],
+  "head": "33797874b5fe7eac75dae23b3e16ff6abc048e53",
+  "headUnchanged": true,
+  "originalDatabaseContainer": {
+    "name": "servicehub-db",
+    "id": "71fb5634975e",
+    "state": "exited",
+    "databaseConnected": false
+  },
+  "noContainersOrVolumesDeleted": true
+}

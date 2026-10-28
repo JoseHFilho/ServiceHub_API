@@ -29,7 +29,8 @@ public class BusinessLocks {
         var result = new HashMap<Long, User>();
         for (Long id : sorted) result.put(id, lock(User.class, id, "Usuário indisponível."));
         User actor = result.get(access.currentUserId());
-        if (actor != null && (!actor.isActive() || !access.hasRole(actor.getRole().name()))) {
+        if (actor != null && (!actor.isActive() || !access.hasRole(actor.getRole().name())
+                || actor.getCredentialVersion()!=access.currentCredentialVersion())) {
             throw new BadCredentialsException("Conta indisponível ou permissões alteradas.");
         }
         return result;

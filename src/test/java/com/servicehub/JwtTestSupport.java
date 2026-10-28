@@ -2,13 +2,10 @@ package com.servicehub;
 
 import com.servicehub.model.dto.LoginRequest;
 import com.servicehub.security.JwtService;
-import com.servicehub.security.ServiceHubPrincipal;
 import java.security.SecureRandom;
 import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -23,7 +20,7 @@ public abstract class JwtTestSupport {
         byte[] bytes = new byte[64]; new SecureRandom().nextBytes(bytes);
         TEST_SECRET = Base64.getEncoder().encodeToString(bytes);
     }
-    @Autowired private AuthenticationManager testAuthenticationManager;
+    @Autowired private com.servicehub.service.AuthService testAuthService;
     @Autowired protected JwtService jwtService;
     @Autowired protected ObjectMapper json;
 
@@ -35,8 +32,7 @@ public abstract class JwtTestSupport {
     }
 
     protected String tokenFor(String email, String password) {
-        var auth = testAuthenticationManager.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(email, password));
-        return jwtService.generateToken((ServiceHubPrincipal) auth.getPrincipal()).getTokenValue();
+        return testAuthService.login(new LoginRequest(email,password)).accessToken();
     }
     protected RequestPostProcessor bearer(String email, String password) {
         String token = tokenFor(email, password);

@@ -7,6 +7,14 @@ import com.servicehub.model.ServiceRequestStatus;
 import com.servicehub.model.User;
 import com.servicehub.model.dto.UserDTO;
 import com.servicehub.model.dto.UserPatchDTO;
+import com.servicehub.model.dto.ProviderResponse;
+import com.servicehub.model.dto.PageResponse;
+import com.servicehub.model.UserRole;
+import org.springframework.data.domain.Pageable;
+import java.util.Collection;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import com.servicehub.repository.UserRepository;
 import com.servicehub.repository.ServiceOfferingRepository;
 import com.servicehub.repository.ServiceRequestRepository;
@@ -117,6 +125,7 @@ public class UserService {
         }
         if (passwordInput != null) {
             user.setPasswordHash(passwordHashService.hash(passwordInput));
+            user.setCredentialVersion(Math.incrementExact(user.getCredentialVersion()));
         }
 
         return userRepository.save(user);
@@ -141,8 +150,33 @@ public class UserService {
     }
 
     private User findForUpdate(Long id) {
-        return userRepository.findLockedById(id).filter(User::isActive)
+        User user = userRepository.findLockedById(id).filter(User::isActive)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado: " + id));
+        if(id.equals(access.currentUserId()) && user.getCredentialVersion()!=access.currentCredentialVersion()) {
+            throw new org.springframework.security.authentication.BadCredentialsException("Credenciais inválidas.");
+        }
+        return user;
+    }
+
+    @Transactional(readOnly = true)
+    @PreAuthorize("isAuthenticated()")
+    public PageResponse<ProviderResponse> publicProviders(Pageable page) {
+        return PageResponse.from(userRepository.findPublicProviders(UserRole.PROVIDER, page));
+    }
+
+    @Transactional(readOnly = true)
+    @PreAuthorize("isAuthenticated()")
+    public ProviderResponse publicProvider(Long id) {
+        return publicProvidersByIds(List.of(id)).values().stream().findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("Prestador indisponível."));
+    }
+
+    @Transactional(readOnly = true)
+    @PreAuthorize("isAuthenticated()")
+    public Map<Long, ProviderResponse> publicProvidersByIds(Collection<Long> ids) {
+        if (ids.isEmpty()) return Map.of();
+        return userRepository.findPublicProvidersByIds(ids, UserRole.PROVIDER).stream()
+                .collect(Collectors.toMap(ProviderResponse::id, Function.identity()));
     }
 
     private void requireDto(UserDTO dto) {

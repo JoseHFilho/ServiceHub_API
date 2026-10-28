@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ActiveProfiles("test")
 @Transactional
+@org.junit.jupiter.api.Tag("web")
 class BusinessRestIntegrationTests extends JwtTestSupport {
     private static final String HASH = new PasswordHashService().hash("senha123");
     @Autowired WebApplicationContext context;

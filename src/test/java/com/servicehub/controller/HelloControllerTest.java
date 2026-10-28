@@ -3,6 +3,7 @@ package com.servicehub.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
+@org.junit.jupiter.api.Tag("unit")
 class HelloControllerTest {
 
     private final HelloController controller = new HelloController();

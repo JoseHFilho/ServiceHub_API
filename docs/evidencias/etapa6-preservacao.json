@@ -1,0 +1,40 @@
+{
+  "stage": 6,
+  "capturedAt": "2026-10-27T15:59:23.7194028-03:00",
+  "engineVersion": "29.7.2",
+  "previousContainerCount": 16,
+  "previousContainersChanged": [],
+  "previousNamedVolumes": [
+    "bookify_bookify_postgres_data",
+    "nfc-facil_mailpit_data",
+    "nfc-facil_minio_data",
+    "nfc-facil_postgres_data",
+    "nfc-facil_redis_data",
+    "servicehub-api_servicehub-postgres-data"
+  ],
+  "namedVolumeChanges": [],
+  "newContainersRetained": [
+    {
+      "ID": "e07d7b0ad1c5",
+      "Names": "servicehub-v5-test-d4574cdd3046425f8dafc20b902000e4",
+      "Image": "postgres:16",
+      "State": "running"
+    },
+    {
+      "ID": "79041dd0d750",
+      "Names": "servicehub-v5-test-51e3b2ab083b4e1caa665e25ec2f2df6",
+      "Image": "postgres:15",
+      "State": "running"
+    }
+  ],
+  "testcontainersRemaining": [],
+  "originalDatabaseContainer": {
+    "ID": "71fb5634975e",
+    "Names": "servicehub-db",
+    "Image": "postgres:15",
+    "State": "exited"
+  },
+  "originalDatabaseAccessed": false,
+  "factoryResetOrPrune": false,
+  "manualDeletion": false
+}

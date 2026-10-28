@@ -1,0 +1,106 @@
+{
+  "phase": 4,
+  "project": "servicehub-fix-tls-a8c5c4fd2f",
+  "localDomain": "servicehub.localhost",
+  "publicHttpsOperational": false,
+  "testCaOnly": true,
+  "globalTrustModified": false,
+  "checks": [
+    {
+      "check": "verified-Tls12",
+      "observed": {
+        "chainAndHostVerified": true,
+        "http": 200
+      }
+    },
+    {
+      "check": "verified-Tls13",
+      "observed": {
+        "chainAndHostVerified": true,
+        "http": 200
+      }
+    },
+    {
+      "check": "untrusted-ca-rejected",
+      "observed": {
+        "rejected": true
+      }
+    },
+    {
+      "check": "http-redirect",
+      "observed": {
+        "http": 308,
+        "expectedAuthority": "servicehub.localhost:59314"
+      }
+    },
+    {
+      "check": "http-host-policy",
+      "observed": {
+        "http": 421
+      }
+    },
+    {
+      "check": "https-security-headers",
+      "observed": {
+        "nosniff": true,
+        "hsts": true
+      }
+    },
+    {
+      "check": "origin-policy",
+      "observed": {
+        "http": 403
+      }
+    },
+    {
+      "check": "https-oversize",
+      "observed": {
+        "http": 413
+      }
+    },
+    {
+      "check": "https-register",
+      "observed": {
+        "http": 201,
+        "role": "CLIENT"
+      }
+    },
+    {
+      "check": "https-login",
+      "observed": {
+        "http": 200
+      }
+    },
+    {
+      "check": "https-rest-jwt",
+      "observed": {
+        "http": 200
+      }
+    },
+    {
+      "check": "https-graphql-jwt",
+      "observed": {
+        "errors": false,
+        "http": 200
+      }
+    },
+    {
+      "check": "proxy-origin-limit-spoof",
+      "observed": {
+        "http": 429
+      }
+    },
+    {
+      "check": "proxy-logs-secret-check",
+      "observed": {
+        "passwordOrTokenFound": false
+      }
+    },
+    {
+      "check": "api-not-published",
+      "observed": {
+        "noHostBinding": true
+      }
+    }
+  ]
+}

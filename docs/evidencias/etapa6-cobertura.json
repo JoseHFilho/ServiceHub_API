@@ -1,0 +1,830 @@
+{
+  "stage": 6,
+  "tool": "JaCoCo",
+  "version": "0.8.15",
+  "scope": "Surefire + Failsafe",
+  "capturedAt": "2026-10-27T15:46:50.3118943-03:00",
+  "reports": [
+    "target/site/jacoco/index.html",
+    "target/site/jacoco/jacoco.xml",
+    "target/site/jacoco/jacoco.csv"
+  ],
+  "executionData": [
+    "target/jacoco-unit.exec",
+    "target/jacoco-it.exec"
+  ],
+  "minimumEnforced": false,
+  "overall": {
+    "line": {
+      "covered": 949,
+      "missed": 76,
+      "total": 1025,
+      "percent": 92.59
+    },
+    "branch": {
+      "covered": 415,
+      "missed": 153,
+      "total": 568,
+      "percent": 73.06
+    },
+    "instruction": {
+      "covered": 5683,
+      "missed": 537,
+      "total": 6220,
+      "percent": 91.37
+    },
+    "method": {
+      "covered": 385,
+      "missed": 29,
+      "total": 414,
+      "percent": 93.0
+    }
+  },
+  "packages": [
+    {
+      "name": "com.servicehub.validation",
+      "coverage": {
+        "line": {
+          "covered": 9,
+          "missed": 0,
+          "total": 9,
+          "percent": 100.0
+        },
+        "branch": {
+          "covered": 18,
+          "missed": 8,
+          "total": 26,
+          "percent": 69.23
+        },
+        "instruction": {
+          "covered": 72,
+          "missed": 9,
+          "total": 81,
+          "percent": 88.89
+        },
+        "method": {
+          "covered": 8,
+          "missed": 0,
+          "total": 8,
+          "percent": 100.0
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.security",
+      "coverage": {
+        "line": {
+          "covered": 161,
+          "missed": 8,
+          "total": 169,
+          "percent": 95.27
+        },
+        "branch": {
+          "covered": 122,
+          "missed": 38,
+          "total": 160,
+          "percent": 76.25
+        },
+        "instruction": {
+          "covered": 976,
+          "missed": 61,
+          "total": 1037,
+          "percent": 94.12
+        },
+        "method": {
+          "covered": 57,
+          "missed": 1,
+          "total": 58,
+          "percent": 98.28
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.model.dto",
+      "coverage": {
+        "line": {
+          "covered": 46,
+          "missed": 3,
+          "total": 49,
+          "percent": 93.88
+        },
+        "branch": {
+          "covered": 10,
+          "missed": 4,
+          "total": 14,
+          "percent": 71.43
+        },
+        "instruction": {
+          "covered": 443,
+          "missed": 10,
+          "total": 453,
+          "percent": 97.79
+        },
+        "method": {
+          "covered": 29,
+          "missed": 3,
+          "total": 32,
+          "percent": 90.62
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.repository",
+      "coverage": {
+        "line": {
+          "covered": 0,
+          "missed": 0,
+          "total": 0,
+          "percent": null
+        },
+        "branch": {
+          "covered": 0,
+          "missed": 0,
+          "total": 0,
+          "percent": null
+        },
+        "instruction": {
+          "covered": 0,
+          "missed": 0,
+          "total": 0,
+          "percent": null
+        },
+        "method": {
+          "covered": 0,
+          "missed": 0,
+          "total": 0,
+          "percent": null
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.config",
+      "coverage": {
+        "line": {
+          "covered": 70,
+          "missed": 0,
+          "total": 70,
+          "percent": 100.0
+        },
+        "branch": {
+          "covered": 19,
+          "missed": 3,
+          "total": 22,
+          "percent": 86.36
+        },
+        "instruction": {
+          "covered": 421,
+          "missed": 2,
+          "total": 423,
+          "percent": 99.53
+        },
+        "method": {
+          "covered": 23,
+          "missed": 0,
+          "total": 23,
+          "percent": 100.0
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.model",
+      "coverage": {
+        "line": {
+          "covered": 139,
+          "missed": 1,
+          "total": 140,
+          "percent": 99.29
+        },
+        "branch": {
+          "covered": 3,
+          "missed": 3,
+          "total": 6,
+          "percent": 50.0
+        },
+        "instruction": {
+          "covered": 460,
+          "missed": 3,
+          "total": 463,
+          "percent": 99.35
+        },
+        "method": {
+          "covered": 73,
+          "missed": 1,
+          "total": 74,
+          "percent": 98.65
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.graphql",
+      "coverage": {
+        "line": {
+          "covered": 125,
+          "missed": 21,
+          "total": 146,
+          "percent": 85.62
+        },
+        "branch": {
+          "covered": 84,
+          "missed": 30,
+          "total": 114,
+          "percent": 73.68
+        },
+        "instruction": {
+          "covered": 894,
+          "missed": 138,
+          "total": 1032,
+          "percent": 86.63
+        },
+        "method": {
+          "covered": 65,
+          "missed": 11,
+          "total": 76,
+          "percent": 85.53
+        }
+      }
+    },
+    {
+      "name": "com.servicehub",
+      "coverage": {
+        "line": {
+          "covered": 1,
+          "missed": 2,
+          "total": 3,
+          "percent": 33.33
+        },
+        "branch": {
+          "covered": 0,
+          "missed": 0,
+          "total": 0,
+          "percent": null
+        },
+        "instruction": {
+          "covered": 3,
+          "missed": 5,
+          "total": 8,
+          "percent": 37.5
+        },
+        "method": {
+          "covered": 1,
+          "missed": 1,
+          "total": 2,
+          "percent": 50.0
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.service",
+      "coverage": {
+        "line": {
+          "covered": 277,
+          "missed": 33,
+          "total": 310,
+          "percent": 89.35
+        },
+        "branch": {
+          "covered": 143,
+          "missed": 65,
+          "total": 208,
+          "percent": 68.75
+        },
+        "instruction": {
+          "covered": 1751,
+          "missed": 262,
+          "total": 2013,
+          "percent": 86.98
+        },
+        "method": {
+          "covered": 75,
+          "missed": 8,
+          "total": 83,
+          "percent": 90.36
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.controller",
+      "coverage": {
+        "line": {
+          "covered": 37,
+          "missed": 0,
+          "total": 37,
+          "percent": 100.0
+        },
+        "branch": {
+          "covered": 0,
+          "missed": 0,
+          "total": 0,
+          "percent": null
+        },
+        "instruction": {
+          "covered": 252,
+          "missed": 0,
+          "total": 252,
+          "percent": 100.0
+        },
+        "method": {
+          "covered": 31,
+          "missed": 0,
+          "total": 31,
+          "percent": 100.0
+        }
+      }
+    },
+    {
+      "name": "db.migration",
+      "coverage": {
+        "line": {
+          "covered": 56,
+          "missed": 2,
+          "total": 58,
+          "percent": 96.55
+        },
+        "branch": {
+          "covered": 14,
+          "missed": 2,
+          "total": 16,
+          "percent": 87.5
+        },
+        "instruction": {
+          "covered": 244,
+          "missed": 12,
+          "total": 256,
+          "percent": 95.31
+        },
+        "method": {
+          "covered": 5,
+          "missed": 0,
+          "total": 5,
+          "percent": 100.0
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.exception",
+      "coverage": {
+        "line": {
+          "covered": 28,
+          "missed": 6,
+          "total": 34,
+          "percent": 82.35
+        },
+        "branch": {
+          "covered": 2,
+          "missed": 0,
+          "total": 2,
+          "percent": 100.0
+        },
+        "instruction": {
+          "covered": 167,
+          "missed": 35,
+          "total": 202,
+          "percent": 82.67
+        },
+        "method": {
+          "covered": 18,
+          "missed": 4,
+          "total": 22,
+          "percent": 81.82
+        }
+      }
+    }
+  ],
+  "mostMissedClasses": [
+    {
+      "name": "com.servicehub.service.ServiceRequestService",
+      "coverage": {
+        "line": {
+          "covered": 60,
+          "missed": 12,
+          "total": 72,
+          "percent": 83.33
+        },
+        "branch": {
+          "covered": 37,
+          "missed": 19,
+          "total": 56,
+          "percent": 66.07
+        },
+        "instruction": {
+          "covered": 446,
+          "missed": 82,
+          "total": 528,
+          "percent": 84.47
+        },
+        "method": {
+          "covered": 14,
+          "missed": 3,
+          "total": 17,
+          "percent": 82.35
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.service.ReviewService",
+      "coverage": {
+        "line": {
+          "covered": 36,
+          "missed": 10,
+          "total": 46,
+          "percent": 78.26
+        },
+        "branch": {
+          "covered": 21,
+          "missed": 11,
+          "total": 32,
+          "percent": 65.62
+        },
+        "instruction": {
+          "covered": 304,
+          "missed": 63,
+          "total": 367,
+          "percent": 82.83
+        },
+        "method": {
+          "covered": 11,
+          "missed": 2,
+          "total": 13,
+          "percent": 84.62
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.graphql.GraphQlScalars$2",
+      "coverage": {
+        "line": {
+          "covered": 2,
+          "missed": 9,
+          "total": 11,
+          "percent": 18.18
+        },
+        "branch": {
+          "covered": 1,
+          "missed": 11,
+          "total": 12,
+          "percent": 8.33
+        },
+        "instruction": {
+          "covered": 11,
+          "missed": 61,
+          "total": 72,
+          "percent": 15.28
+        },
+        "method": {
+          "covered": 2,
+          "missed": 2,
+          "total": 4,
+          "percent": 50.0
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.graphql.GraphQlBodyLimitFilter$1$1",
+      "coverage": {
+        "line": {
+          "covered": 2,
+          "missed": 7,
+          "total": 9,
+          "percent": 22.22
+        },
+        "branch": {
+          "covered": 0,
+          "missed": 6,
+          "total": 6,
+          "percent": 0.0
+        },
+        "instruction": {
+          "covered": 18,
+          "missed": 30,
+          "total": 48,
+          "percent": 37.5
+        },
+        "method": {
+          "covered": 2,
+          "missed": 4,
+          "total": 6,
+          "percent": 33.33
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.exception.GlobalExceptionHandler",
+      "coverage": {
+        "line": {
+          "covered": 21,
+          "missed": 6,
+          "total": 27,
+          "percent": 77.78
+        },
+        "branch": {
+          "covered": 2,
+          "missed": 0,
+          "total": 2,
+          "percent": 100.0
+        },
+        "instruction": {
+          "covered": 137,
+          "missed": 35,
+          "total": 172,
+          "percent": 79.65
+        },
+        "method": {
+          "covered": 14,
+          "missed": 4,
+          "total": 18,
+          "percent": 77.78
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.service.ServiceOfferingService",
+      "coverage": {
+        "line": {
+          "covered": 55,
+          "missed": 6,
+          "total": 61,
+          "percent": 90.16
+        },
+        "branch": {
+          "covered": 25,
+          "missed": 13,
+          "total": 38,
+          "percent": 65.79
+        },
+        "instruction": {
+          "covered": 378,
+          "missed": 61,
+          "total": 439,
+          "percent": 86.1
+        },
+        "method": {
+          "covered": 17,
+          "missed": 2,
+          "total": 19,
+          "percent": 89.47
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.security.PasswordHashService",
+      "coverage": {
+        "line": {
+          "covered": 34,
+          "missed": 4,
+          "total": 38,
+          "percent": 89.47
+        },
+        "branch": {
+          "covered": 41,
+          "missed": 3,
+          "total": 44,
+          "percent": 93.18
+        },
+        "instruction": {
+          "covered": 220,
+          "missed": 15,
+          "total": 235,
+          "percent": 93.62
+        },
+        "method": {
+          "covered": 8,
+          "missed": 0,
+          "total": 8,
+          "percent": 100.0
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.graphql.GraphQlBodyLimitFilter$1",
+      "coverage": {
+        "line": {
+          "covered": 3,
+          "missed": 3,
+          "total": 6,
+          "percent": 50.0
+        },
+        "branch": {
+          "covered": 0,
+          "missed": 0,
+          "total": 0,
+          "percent": null
+        },
+        "instruction": {
+          "covered": 24,
+          "missed": 19,
+          "total": 43,
+          "percent": 55.81
+        },
+        "method": {
+          "covered": 2,
+          "missed": 3,
+          "total": 5,
+          "percent": 40.0
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.security.JwtService",
+      "coverage": {
+        "line": {
+          "covered": 42,
+          "missed": 2,
+          "total": 44,
+          "percent": 95.45
+        },
+        "branch": {
+          "covered": 36,
+          "missed": 18,
+          "total": 54,
+          "percent": 66.67
+        },
+        "instruction": {
+          "covered": 311,
+          "missed": 23,
+          "total": 334,
+          "percent": 93.11
+        },
+        "method": {
+          "covered": 8,
+          "missed": 0,
+          "total": 8,
+          "percent": 100.0
+        }
+      }
+    },
+    {
+      "name": "db.migration.V5__Align_reference_schema",
+      "coverage": {
+        "line": {
+          "covered": 56,
+          "missed": 2,
+          "total": 58,
+          "percent": 96.55
+        },
+        "branch": {
+          "covered": 14,
+          "missed": 2,
+          "total": 16,
+          "percent": 87.5
+        },
+        "instruction": {
+          "covered": 244,
+          "missed": 12,
+          "total": 256,
+          "percent": 95.31
+        },
+        "method": {
+          "covered": 5,
+          "missed": 0,
+          "total": 5,
+          "percent": 100.0
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.ServicehubApiApplication",
+      "coverage": {
+        "line": {
+          "covered": 1,
+          "missed": 2,
+          "total": 3,
+          "percent": 33.33
+        },
+        "branch": {
+          "covered": 0,
+          "missed": 0,
+          "total": 0,
+          "percent": null
+        },
+        "instruction": {
+          "covered": 3,
+          "missed": 5,
+          "total": 8,
+          "percent": 37.5
+        },
+        "method": {
+          "covered": 1,
+          "missed": 1,
+          "total": 2,
+          "percent": 50.0
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.service.UserService",
+      "coverage": {
+        "line": {
+          "covered": 87,
+          "missed": 2,
+          "total": 89,
+          "percent": 97.75
+        },
+        "branch": {
+          "covered": 27,
+          "missed": 11,
+          "total": 38,
+          "percent": 71.05
+        },
+        "instruction": {
+          "covered": 381,
+          "missed": 18,
+          "total": 399,
+          "percent": 95.49
+        },
+        "method": {
+          "covered": 22,
+          "missed": 0,
+          "total": 22,
+          "percent": 100.0
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.service.BusinessLocks",
+      "coverage": {
+        "line": {
+          "covered": 21,
+          "missed": 2,
+          "total": 23,
+          "percent": 91.3
+        },
+        "branch": {
+          "covered": 15,
+          "missed": 7,
+          "total": 22,
+          "percent": 68.18
+        },
+        "instruction": {
+          "covered": 139,
+          "missed": 32,
+          "total": 171,
+          "percent": 81.29
+        },
+        "method": {
+          "covered": 7,
+          "missed": 1,
+          "total": 8,
+          "percent": 87.5
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.graphql.GraphQlLimits",
+      "coverage": {
+        "line": {
+          "covered": 27,
+          "missed": 1,
+          "total": 28,
+          "percent": 96.43
+        },
+        "branch": {
+          "covered": 26,
+          "missed": 2,
+          "total": 28,
+          "percent": 92.86
+        },
+        "instruction": {
+          "covered": 166,
+          "missed": 12,
+          "total": 178,
+          "percent": 93.26
+        },
+        "method": {
+          "covered": 5,
+          "missed": 0,
+          "total": 5,
+          "percent": 100.0
+        }
+      }
+    },
+    {
+      "name": "com.servicehub.model.User",
+      "coverage": {
+        "line": {
+          "covered": 29,
+          "missed": 1,
+          "total": 30,
+          "percent": 96.67
+        },
+        "branch": {
+          "covered": 0,
+          "missed": 0,
+          "total": 0,
+          "percent": null
+        },
+        "instruction": {
+          "covered": 83,
+          "missed": 3,
+          "total": 86,
+          "percent": 96.51
+        },
+        "method": {
+          "covered": 21,
+          "missed": 1,
+          "total": 22,
+          "percent": 95.45
+        }
+      }
+    }
+  ]
+}

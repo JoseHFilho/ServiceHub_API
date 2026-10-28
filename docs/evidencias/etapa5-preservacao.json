@@ -1,0 +1,38 @@
+{
+  "stage": 5,
+  "dockerEngine": "29.7.2",
+  "previousContainers": 14,
+  "missingPreviousContainers": 0,
+  "changedPreviousContainers": 0,
+  "volumesBefore": 6,
+  "volumesAfter": 6,
+  "volumeNameChanges": 0,
+  "originalServiceHubState": "exited",
+  "newTestContainers": [
+    {
+      "name": "servicehub-v5-test-b755b1ba613c4d4bbc9c121a9b300927",
+      "image": "postgres:16",
+      "state": "running",
+      "mounts": [
+        {
+          "Type": "tmpfs",
+          "Destination": "/var/lib/postgresql/data"
+        }
+      ]
+    },
+    {
+      "name": "servicehub-v5-test-30b26618986a42beb200133428fcc6cd",
+      "image": "postgres:15",
+      "state": "running",
+      "mounts": [
+        {
+          "Type": "tmpfs",
+          "Destination": "/var/lib/postgresql/data"
+        }
+      ]
+    }
+  ],
+  "containerRemovalPerformed": false,
+  "originalDatabaseAccessed": false,
+  "capturedAt": "2026-10-27T12:56:27.8137055-03:00"
+}

@@ -1,0 +1,20 @@
+{
+  "stage": 6,
+  "command": ".\\mvnw.cmd -Ptestcontainers clean verify",
+  "result": "BUILD SUCCESS",
+  "standardTests": 363,
+  "postgresTests": 84,
+  "totalExecutions": 447,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "previousTestsPreserved": 360,
+  "newStandardScenarios": 3,
+  "newPostgresEnvironmentScenario": 1,
+  "javaRuntime": "26.0.2.1",
+  "javaRelease": 25,
+  "surefireEvidence": "etapa6-maven-standard.json",
+  "failsafeEvidence": "etapa6-maven-postgres.json",
+  "coverageReport": "target/site/jacoco/index.html",
+  "capturedAt": "2026-10-27T15:46:49.7761404-03:00"
+}

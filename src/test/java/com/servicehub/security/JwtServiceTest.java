@@ -20,9 +20,28 @@ import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.test.util.ReflectionTestUtils;
 
+@org.junit.jupiter.api.Tag("unit")
 class JwtServiceTest {
     private static final Instant NOW = Instant.parse("2026-10-27T15:00:00Z");
     private static final Clock CLOCK = Clock.fixed(NOW, ZoneOffset.UTC);
+
+    @Test void credentialVersionsRemainDistinctWhenBothTokensHaveTheSameIssuedSecond() {
+        var service=new JwtService(properties(),CLOCK);var user=new User();ReflectionTestUtils.setField(user,"id",7L);
+        var before=service.generateToken(new ServiceHubPrincipal(user));user.setCredentialVersion(1);
+        var after=service.generateToken(new ServiceHubPrincipal(user));
+        assertThat(before.getIssuedAt()).isEqualTo(after.getIssuedAt());
+        assertThat(service.credentialVersion(service.decode(before.getTokenValue()))).isZero();
+        assertThat(service.credentialVersion(service.decode(after.getTokenValue()))).isEqualTo(1);
+    }
+    @Test void rejectsNonIntegralNegativeOrTextCredentialVersions() {
+        var properties=properties();var service=new JwtService(properties,CLOCK);
+        var encoder=NimbusJwtEncoder.withSecretKey(new SecretKeySpec(properties.secretBytes(),"HmacSHA256")).algorithm(MacAlgorithm.HS256).build();
+        for(Object value:List.of(-1L,"0",0.5d,List.of(0L))) {
+            var claims=JwtClaimsSet.builder().issuer(properties.getIssuer()).subject("7").issuedAt(NOW).expiresAt(NOW.plusSeconds(300)).claim("roles",List.of("CLIENT")).claim("cv",value).build();
+            var encoded=encoder.encode(JwtEncoderParameters.from(JwsHeader.with(MacAlgorithm.HS256).type("JWT").build(),claims));
+            assertThatThrownBy(()->service.decode(encoded.getTokenValue())).isInstanceOf(JwtException.class);
+        }
+    }
 
     @Test
     void issuesMinimalSignedClaimsWithTheConfiguredLifetime() {
@@ -36,7 +55,8 @@ class JwtServiceTest {
         assertThat(verified.getIssuedAt()).isEqualTo(NOW);
         assertThat(verified.getExpiresAt()).isEqualTo(NOW.plusSeconds(300));
         assertThat(verified.getClaimAsStringList("roles")).containsExactly("CLIENT");
-        assertThat(verified.getClaims()).containsOnlyKeys("iss", "sub", "iat", "exp", "roles");
+        assertThat(verified.getClaims()).containsOnlyKeys("iss", "sub", "iat", "exp", "roles", "cv");
+        assertThat(service.credentialVersion(verified)).isZero();
     }
 
     @Test

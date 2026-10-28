@@ -1,0 +1,18 @@
+{
+  "stage": 8,
+  "postgresMajor": "16",
+  "result": "BUILD SUCCESS",
+  "javaRuntime": [
+    "25.0.4.1"
+  ],
+  "javaRelease": 25,
+  "tests": 461,
+  "standardTests": 370,
+  "postgresTests": 91,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "independentOfApplicationCompose": true,
+  "composeDatasourceUsed": false,
+  "capturedAt": "2026-10-27T17:24:18.9812102-03:00"
+}

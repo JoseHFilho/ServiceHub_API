@@ -19,6 +19,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
 /** Runs on H2 by default, and on an isolated PostgreSQL via migration.test.* properties. */
+@org.junit.jupiter.api.Tag("integration")
 class SchemaUpgradeTests {
     @Test
     void upgradesV4WithoutLosingProfilesHashesRelationshipsOrPriceSnapshots() throws Exception {
@@ -191,18 +192,26 @@ class SchemaUpgradeTests {
         }
     }
 
-    private static class Database implements AutoCloseable {
+    /** Extension point for the PostgreSQL Testcontainers subclass; no global property mutation. */
+    protected Connection migrationConnection(String schema) throws SQLException {
+        String url = System.getProperty("migration.test.url", "jdbc:h2:mem:" + schema + ";MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE");
+        return DriverManager.getConnection(url, System.getProperty("migration.test.username", "sa"),
+                System.getenv().getOrDefault("MIGRATION_TEST_PASSWORD", ""));
+    }
+
+    private class Database implements AutoCloseable {
         private final String schema = "upgrade_test_" + UUID.randomUUID().toString().replace("-", "");
-        private final String url = System.getProperty("migration.test.url",
-                "jdbc:h2:mem:" + schema + ";MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE");
-        private final String username = System.getProperty("migration.test.username", "sa");
-        private final String password = System.getenv().getOrDefault("MIGRATION_TEST_PASSWORD", "");
         private final Connection connection;
 
         Database() throws SQLException {
-            connection = DriverManager.getConnection(url, username, password);
-            flyway("4").migrate();
-            connection.setSchema(schema);
+            connection = migrationConnection(schema);
+            try {
+                flyway("4").migrate();
+                connection.setSchema(schema);
+            } catch (SQLException | RuntimeException failure) {
+                try { connection.close(); } catch (SQLException closeFailure) { failure.addSuppressed(closeFailure); }
+                throw failure;
+            }
         }
 
         Flyway flyway(String target) {

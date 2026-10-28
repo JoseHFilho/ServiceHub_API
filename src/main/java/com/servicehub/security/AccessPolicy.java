@@ -20,6 +20,10 @@ public class AccessPolicy {
         return auth != null && auth.isAuthenticated() && auth.getPrincipal() instanceof ServiceHubPrincipal principal
                 ? principal.id() : null;
     }
+    public long currentCredentialVersion() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth != null && auth.getPrincipal() instanceof ServiceHubPrincipal principal ? principal.credentialVersion() : 0;
+    }
     public boolean canAccessUser(Long id) {
         return isAdmin() || (id != null && id.equals(currentUserId()));
     }

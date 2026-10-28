@@ -1,0 +1,63 @@
+{
+  "stage": 6,
+  "command": ".\\mvnw.cmd -o -Ptestcontainers -Dpostgres.version=16 -Dtest=Postgres*IT clean test",
+  "database": "PostgreSQL 16.14 via Testcontainers",
+  "result": "BUILD SUCCESS",
+  "capturedAt": "2026-10-27T15:38:04.7155683-03:00",
+  "javaRuntime": "26.0.2.1",
+  "javaRelease": 25,
+  "springBoot": "4.1.1",
+  "testcontainers": "2.0.5",
+  "jacoco": "0.8.15",
+  "tests": 84,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "baseline360Checked": false,
+  "hibernateInitialized": true,
+  "flywayInitialized": true,
+  "containerRetained": "",
+  "originalDatabaseAccessed": false,
+  "suites": [
+    {
+      "name": "com.servicehub.PostgresConcurrencyIT",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 41.141
+    },
+    {
+      "name": "com.servicehub.PostgresDeactivationIT",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 2.876
+    },
+    {
+      "name": "com.servicehub.PostgresEnvironmentIT",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.693
+    },
+    {
+      "name": "com.servicehub.PostgresGraphQlIT",
+      "tests": 60,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 10.415
+    },
+    {
+      "name": "com.servicehub.PostgresSchemaUpgradeIT",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 8.249
+    }
+  ]
+}

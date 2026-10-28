@@ -1,20 +1,81 @@
+name: servicehub-stack
+
 services:
-  postgres:
-    image: postgres:15
-    container_name: servicehub-db
+  api:
+    image: ${SERVICEHUB_IMAGE:-servicehub-api:java25}
+    build:
+      context: .
+      target: runtime
     environment:
-      POSTGRES_USER: servicehub
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: servicehub
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-prod}
+      DB_URL: jdbc:postgresql://postgres:5432/${DB_NAME:-servicehub}
+      DB_USERNAME: ${DB_USERNAME:?Defina DB_USERNAME no arquivo .env}
+      DB_PASSWORD: ${DB_PASSWORD:?Defina DB_PASSWORD no arquivo .env}
+      SPRING_FLYWAY_USER: ${DB_MIGRATION_USERNAME:?Defina DB_MIGRATION_USERNAME}
+      SPRING_FLYWAY_PASSWORD: ${DB_MIGRATION_PASSWORD:?Defina DB_MIGRATION_PASSWORD}
+      DATABASE_MANAGE_RUNTIME_GRANTS: 'true'
+      JWT_SECRET: ${JWT_SECRET:?Gere JWT_SECRET em Base64 no arquivo .env}
+      JWT_TTL: ${JWT_TTL:-15m}
+      JWT_ISSUER: ${JWT_ISSUER:-servicehub-api}
+      AUTH_WINDOW_SECONDS: ${AUTH_WINDOW_SECONDS:-60}
+      AUTH_LOGIN_IP_LIMIT: ${AUTH_LOGIN_IP_LIMIT:-30}
+      AUTH_LOGIN_ACCOUNT_LIMIT: ${AUTH_LOGIN_ACCOUNT_LIMIT:-10}
+      AUTH_LOGIN_GLOBAL_LIMIT: ${AUTH_LOGIN_GLOBAL_LIMIT:-120}
+      AUTH_REGISTRATION_IP_LIMIT: ${AUTH_REGISTRATION_IP_LIMIT:-5}
+      AUTH_REGISTRATION_ACCOUNT_LIMIT: ${AUTH_REGISTRATION_ACCOUNT_LIMIT:-3}
+      AUTH_REGISTRATION_GLOBAL_LIMIT: ${AUTH_REGISTRATION_GLOBAL_LIMIT:-30}
+      AUTH_MAX_CONCURRENT: ${AUTH_MAX_CONCURRENT:-2}
+      AUTH_BODY_BYTES: ${AUTH_BODY_BYTES:-8192}
+      REST_BODY_BYTES: ${REST_BODY_BYTES:-65536}
+      SERVER_PORT: ${SERVER_PORT:-8080}
     ports:
-      - "127.0.0.1:${POSTGRES_PORT:-55433}:5432"
+      - "${API_BIND_ADDRESS:-127.0.0.1}:${API_PORT:-8080}:${SERVER_PORT:-8080}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+        restart: true
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=128m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 1g
+    networks:
+      - edge
+      - database
+
+  postgres:
+    image: postgres:${POSTGRES_MAJOR:-15}
+    environment:
+      POSTGRES_USER: ${DB_ADMIN_USERNAME:?Defina DB_ADMIN_USERNAME}
+      POSTGRES_PASSWORD: ${DB_ADMIN_PASSWORD:?Defina DB_ADMIN_PASSWORD}
+      POSTGRES_DB: ${DB_NAME:-servicehub}
+      DB_MIGRATION_USERNAME: ${DB_MIGRATION_USERNAME:?Defina DB_MIGRATION_USERNAME}
+      DB_MIGRATION_PASSWORD: ${DB_MIGRATION_PASSWORD:?Defina DB_MIGRATION_PASSWORD}
+      DB_RUNTIME_USERNAME: ${DB_USERNAME:?Defina DB_USERNAME}
+      DB_RUNTIME_PASSWORD: ${DB_PASSWORD:?Defina DB_PASSWORD}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U servicehub -d servicehub"]
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
       interval: 5s
       timeout: 5s
       retries: 10
+      start_period: 10s
     volumes:
       - servicehub-postgres-data:/var/lib/postgresql/data
+      - ./docker/postgres/10-provision.sh:/docker-entrypoint-initdb.d/10-provision.sh:ro
+    restart: unless-stopped
+    networks:
+      - database
 
 volumes:
   servicehub-postgres-data:
+    # Project and major version both form part of the name. Never adopt the old volume implicitly.
+    name: ${COMPOSE_PROJECT_NAME:-servicehub-stack}-postgres-${POSTGRES_MAJOR:-15}-data
+
+networks:
+  edge:
+  database:
+    internal: true

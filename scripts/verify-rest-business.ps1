@@ -1,5 +1,6 @@
 #Requires -Version 7.0
-param([Parameter(Mandatory)][ValidatePattern('^servicehub-v5-test-[a-f0-9]{32}$')][string]$ContainerName)
+param([Parameter(Mandatory)][ValidatePattern('^servicehub-v5-test-[a-f0-9]{32}$')][string]$ContainerName,
+      [string]$ReportPath, [ValidateRange(1,99)][int]$EvidenceStage=4)
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $docker = (Get-Command docker -ErrorAction Stop).Source
@@ -20,7 +21,7 @@ $handler.UseCookies = $false; $handler.AllowAutoRedirect = $false
 $http = [Net.Http.HttpClient]::new($handler); $http.Timeout = [TimeSpan]::FromSeconds(15)
 $checks = [Collections.Generic.List[object]]::new()
 $api = $null
-$reportPath = Join-Path $root 'docs/evidencias/etapa4-http.json'
+$reportPath = if ($ReportPath) { [IO.Path]::GetFullPath($ReportPath) } else { Join-Path $root 'docs/evidencias/etapa4-http.json' }
 
 function Test-Http([string]$Name, [string]$Method, [string]$Path, [int]$Expected, [string]$Token = '', $Body = $null) {
     $message = [Net.Http.HttpRequestMessage]::new([Net.Http.HttpMethod]::new($Method), "$baseUrl$Path")
@@ -129,7 +130,7 @@ try {
     $null = Test-Http 'Desativa terceiro temporário' DELETE "/api/users/$($stranger.id)" 204 $strangerToken
     $null = Test-Http 'Desativa ADMIN temporário' DELETE "/api/users/$($admin.id)" 204 $adminToken
     $null = Test-Http 'JWT de ADMIN inativo rejeitado' GET /api/reviews 401 $adminToken
-    [ordered]@{stage=4;profile='prod';packagedJar=$true;container=$ContainerName;image=$details.Config.Image;
+    [ordered]@{stage=$EvidenceStage;profile='prod';packagedJar=$true;container=$ContainerName;image=$details.Config.Image;
         originalDatabaseAccessed=$false;total=$checks.Count;passed=@($checks | Where-Object passed).Count;failed=@($checks | Where-Object { -not $_.passed }).Count;
         fixturesLogicallyDeactivated=$true;serviceId=$serviceId;requestId=$requestId;reviewId=$reviewId;checks=$checks
     } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $reportPath -Encoding utf8

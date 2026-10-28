@@ -1,0 +1,79 @@
+{
+  "stage": 6,
+  "container": "servicehub-v5-test-51e3b2ab083b4e1caa665e25ec2f2df6",
+  "originalDatabaseAccessed": false,
+  "readOnlyAudit": true,
+  "passed": true,
+  "records": {
+    "fixtureUsers": [
+      {
+        "id": 941,
+        "is_active": false
+      },
+      {
+        "id": 942,
+        "is_active": false
+      },
+      {
+        "id": 943,
+        "is_active": false
+      },
+      {
+        "id": 944,
+        "is_active": false
+      },
+      {
+        "id": 945,
+        "is_active": false
+      },
+      {
+        "id": 946,
+        "is_active": false
+      },
+      {
+        "id": 947,
+        "is_active": false
+      },
+      {
+        "id": 948,
+        "is_active": false
+      }
+    ],
+    "services": [
+      {
+        "id": 222,
+        "is_active": false
+      },
+      {
+        "id": 223,
+        "is_active": false
+      }
+    ],
+    "requests": [
+      {
+        "id": 58,
+        "service_id": 222,
+        "status": "COMPLETED",
+        "total_price": 150.0
+      },
+      {
+        "id": 59,
+        "service_id": 223,
+        "status": "COMPLETED",
+        "total_price": 150.0
+      }
+    ],
+    "reviews": [
+      {
+        "id": 12,
+        "request_id": 58,
+        "rating": 5
+      },
+      {
+        "id": 13,
+        "request_id": 59,
+        "rating": 5
+      }
+    ]
+  }
+}
